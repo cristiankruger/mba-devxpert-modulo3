@@ -1,0 +1,56 @@
+﻿using DevXpert.Modulo3.Conteudo.Domain;
+using DevXpert.Modulo3.Core.Data;
+using Microsoft.EntityFrameworkCore;
+
+namespace DevXpert.Modulo3.Conteudo.Data.Repository;
+
+public class CursoRepository(CursoContext context) : ICursoRepository
+{
+    public IUnitOfWork UnitOfWork => context;
+
+    public async Task<Curso> Obter(Guid id)
+    {
+        return await context.Cursos.FindAsync(id);
+    }
+
+    public async Task<Aula> ObterAula(Guid id)
+    {
+        return await context.Aulas.FindAsync(id);
+    }
+
+    public async Task<IEnumerable<Aula>> ObterAulas(Guid cursoId)
+    {
+        return await context.Aulas
+                            .Include(a => a.Curso)
+                            .AsNoTracking()
+                            .Where(a => a.CursoId == cursoId)
+                            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Curso>> ObterTodos()
+    {
+        return await context.Cursos
+                            .AsNoTracking()
+                            .ToListAsync();
+    }
+
+    public async Task Adicionar(Curso curso)
+    {
+       await context.Cursos.AddAsync(curso);
+    }
+
+    public async Task Adicionar(Aula aula)
+    {
+        await context.Aulas.AddAsync(aula);
+    }
+
+    public void Atualizar(Curso curso)
+    {
+        context.Cursos.Update(curso);
+    }
+
+    public void Atualizar(Aula aula)
+    {
+        context.Aulas.Update(aula);
+    }   
+}
