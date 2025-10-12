@@ -1,5 +1,4 @@
 ﻿using Bogus;
-using System.Linq;
 
 namespace DevXpert.Modulo3.Conteudo.Domain.Tests._Fixture;
 
@@ -13,6 +12,31 @@ public class CursoTestsFixture : IDisposable
     {
         return GerarFakeCursoValido(1).FirstOrDefault();
     }
+
+    public ConteudoProgramatico GerarConteudoProgramaticoValido()
+    {
+        return GerarFakeConteudoProgramaticoValido(1).FirstOrDefault();
+    }
+
+    public Aula GerarAulaValido(Guid cursoId)
+    {
+        return GerarFakeAulaValido(1, cursoId).FirstOrDefault();
+    }
+
+    private static IEnumerable<Aula> GerarFakeAulaValido(int quantidade, Guid cursoId)
+    {
+        var aula = new Faker<Aula>("pt_BR")
+                                .CustomInstantiator(f =>
+                                        new Aula(cursoId == Guid.Empty ? Guid.NewGuid() : cursoId,
+                                                 string.Join(" ", f.Lorem.Words(5)),
+                                                 f.Internet.Url(),
+                                                 TimeSpan.FromSeconds(f.Random.Int(1, 7200))));
+
+        var generated = aula.Generate(quantidade);
+
+        return generated;
+    }
+
 
     private static IEnumerable<Curso> GerarFakeCursoValido(int quantidade)
     {
@@ -28,10 +52,28 @@ public class CursoTestsFixture : IDisposable
         return generated;
     }
 
+    private static IEnumerable<ConteudoProgramatico> GerarFakeConteudoProgramaticoValido(int quantidade)
+    {
+        var curso = new Faker<ConteudoProgramatico>("pt_BR")
+                                .CustomInstantiator(f =>
+                                        new ConteudoProgramatico(f.Person.FullName,
+                                                                 string.Join(" ", f.Lorem.Words(10)),
+                                                                 string.Join(" ", f.Lorem.Words(5))));
+        var generated = curso.Generate(quantidade);
+
+        return generated;
+    }
+
     public Curso GerarFakeCursoInvalido(string nome, string ementa, string instrutor, string publicoAlvo)
     {
         return new Faker<Curso>("pt_BR")
            .CustomInstantiator(f => new Curso(nome, new(ementa, instrutor, publicoAlvo)));
+    }
+
+    public ConteudoProgramatico GerarFakeConteudoProgramaticoInvalido(string ementa, string instrutor, string publicoAlvo)
+    {
+        return new Faker<ConteudoProgramatico>("pt_BR")
+           .CustomInstantiator(f => new ConteudoProgramatico(ementa, instrutor, publicoAlvo));
     }
 
     public string GerarNomeValido()
@@ -45,7 +87,7 @@ public class CursoTestsFixture : IDisposable
         if (vazio) return string.Empty;
 
         var f = new Faker("pt_BR");
-        return string.Join (" ", f.Lorem.Words(50));
+        return string.Join (" ", f.Lorem.Words(500));
     }
 
     public string GerarEmentaValida()

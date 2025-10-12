@@ -102,6 +102,12 @@ public class Validacoes
             throw new DomainException(mensagem);
     }
 
+    public static void ValidarSeMaiorQue(long valor, long maximo, string mensagem)
+    {
+        if (valor > maximo)
+            throw new DomainException(mensagem);
+    }
+
     public static void ValidarSeMenorQue(double valor, double minimo, string mensagem)
     {
         if (valor < minimo)

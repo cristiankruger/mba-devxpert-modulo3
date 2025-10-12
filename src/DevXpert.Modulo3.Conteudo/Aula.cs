@@ -16,9 +16,10 @@ public class Aula : Entity
 
     protected Aula() { }
 
-    public Aula(Guid cursoId, string link, TimeSpan duracao)
+    public Aula(Guid cursoId, string titulo, string link, TimeSpan duracao)
     {
         CursoId = cursoId;
+        Titulo = titulo;
         Link =link;
         Duracao = duracao;
         Ativar();
@@ -29,6 +30,7 @@ public class Aula : Entity
     {
         Validacoes.ValidarSeIgual(CursoId, Guid.Empty, CursoIdMsgErro);
         Validacoes.ValidarSeMenorQue(Duracao.Ticks, 1, DuracaoMsgErro);
+        Validacoes.ValidarSeMaiorQue(Duracao.Ticks, 7200, DuracaoMsgErro);
         Validacoes.ValidarSeVazio(Titulo, TituloMsgErro);
         Validacoes.ValidarMinimoMaximo(Titulo, 10, 100, TituloLengthMsgErro);
         Validacoes.ValidarSeVazio(Link, LinkMsgErro);
@@ -37,7 +39,7 @@ public class Aula : Entity
 
     //MENSAGENS VALIDACAO
     public const string CursoIdMsgErro = "O campo CursoId da aula não pode estar vazio.";
-    public const string DuracaoMsgErro = "O campo Duração da aula deve ser superior a 0.";
+    public const string DuracaoMsgErro = "O campo Duração da aula deve ser entre 1 segundo e 2 horas.";
     public const string TituloMsgErro = "O campo Título da aula não pode estar vazio.";
     public const string TituloLengthMsgErro = "O campo Título da aula deve ter entre 10 e 100 caracteres.";
     public const string LinkMsgErro = "O campo Link da aula não pode estar vazio.";
