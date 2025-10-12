@@ -1,6 +1,7 @@
 ﻿using DevXpert.Modulo3.Conteudo.Domain;
 using DevXpert.Modulo3.Core.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace DevXpert.Modulo3.Conteudo.Data.Repository;
 
@@ -34,6 +35,15 @@ public class CursoRepository(CursoContext context) : ICursoRepository
                             .ToListAsync();
     }
 
+    public async Task<IEnumerable<Curso>> Buscar(Expression<Func<Curso, bool>> predicado)
+    {
+        return await context.Cursos
+                            .Include(a => a.Aulas)
+                            .AsNoTracking()
+                            .Where(predicado)
+                            .ToListAsync();
+    }
+   
     public async Task Adicionar(Curso curso)
     {
        await context.Cursos.AddAsync(curso);
@@ -52,5 +62,6 @@ public class CursoRepository(CursoContext context) : ICursoRepository
     public void Atualizar(Aula aula)
     {
         context.Aulas.Update(aula);
-    }   
+    }
+   
 }

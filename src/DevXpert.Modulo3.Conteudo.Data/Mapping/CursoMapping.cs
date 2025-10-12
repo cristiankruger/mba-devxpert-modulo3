@@ -32,15 +32,18 @@ public class CursoMapping : IEntityTypeConfiguration<Curso>
         {
             cp.Property(c => c.Instrutor)
               .IsRequired()
-              .HasColumnType("varchar(100)");
+              .HasColumnType("varchar(100)")
+              .HasColumnName("Instrutor");
 
             cp.Property(c => c.Ementa)
               .IsRequired()
-              .HasColumnType("varchar(1000)");
+              .HasColumnType("varchar(1000)")
+              .HasColumnName("Ementa");
 
             cp.Property(c => c.PublicoAlvo)
               .IsRequired()
-              .HasColumnType("varchar(250)");            
+              .HasColumnType("varchar(250)")
+              .HasColumnName("PublicoAlvo");
         });
 
         builder.HasIndex(c => c.Nome)

@@ -1,5 +1,6 @@
 ﻿using DevXpert.Modulo3.Conteudo.Domain;
 using DevXpert.Modulo3.Core.Data;
+using DevXpert.Modulo3.Core.Messages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -14,6 +15,8 @@ public class CursoContext(DbContextOptions<CursoContext> options) : DbContext(op
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.UseCollation("SQL_Latin1_General_CP1_CI_AI");
+
+        modelBuilder.Ignore<Event>();
 
         foreach (var property in modelBuilder.Model.GetEntityTypes()
                                                    .SelectMany(e => e.GetProperties()

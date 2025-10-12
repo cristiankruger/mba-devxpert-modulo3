@@ -11,11 +11,11 @@ public class Aluno : Entity, IAggregateRoot
     public DateTime DataNascimento { get; private set; }
     private readonly List<Matricula> _matriculas;
     public IReadOnlyCollection<Matricula> Matriculas => _matriculas;
-    
+
 
     protected Aluno()
-    {    
-        _matriculas= [];
+    {
+        _matriculas = [];
     }
 
     public Aluno(string nome, string email, string cpf, DateTime dataNascimento)
@@ -32,14 +32,14 @@ public class Aluno : Entity, IAggregateRoot
     public void Validar()
     {
         Validacoes.ValidarSeVazio(Nome, NomeVazioMsgErro);
-        Validacoes.ValidarMinimoMaximo(Nome, 10,100, NomeLenghtMsgErro);
-        Validacoes.ValidarSeDiferente(Nome, @"^[a-zà-ÿ]+(\\s?[a-zà-ÿ][-'.]?\\s?)*([a-zà-ÿ]|[jr.|I|II|III|IV]?)*$", NomeRegexMsgErro, RegexOptions.IgnoreCase);
+        Validacoes.ValidarMinimoMaximo(Nome, 10, 100, NomeLenghtMsgErro);
+        Validacoes.ValidarSeDiferente(Nome, @"^[a-zà-ÿ]+(?:[ '-][a-zà-ÿ]+)*$", NomeRegexMsgErro, RegexOptions.IgnoreCase);
         Validacoes.ValidarSeVazio(Cpf, CpfVazioMsgErro);
         Validacoes.ValidarMinimoMaximo(Cpf, 11, 11, CpfLenghtMsgErro);
         Validacoes.ValidarSeDiferente(Cpf, @"^\d{11}$", CpfRegexMsgErro);
         Validacoes.ValidarSeVazio(Email, EmailVazioMsgErro);
-        Validacoes.ValidarSeDiferente(Email, "^[a-z0-9-._]+@[a-z0-9_-]+?\\.[a-z.-]{5,50}$", EmailRegexMsgErro);
-        Validacoes.ValidarSeVerdadeiro(DataNascimento < DateTime.Now.AddYears(-18),DataNascimentoMsgErro);
+        Validacoes.ValidarSeDiferente(Email, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,})+)$", EmailRegexMsgErro, RegexOptions.IgnoreCase);
+        Validacoes.ValidarSeVerdadeiro(DataNascimento > DateTime.Now.AddYears(-18), DataNascimentoMsgErro);
     }
 
     //MENSAGENS VALIDACAO

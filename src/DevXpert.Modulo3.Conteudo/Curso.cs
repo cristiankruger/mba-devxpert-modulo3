@@ -18,24 +18,28 @@ public class Curso : Entity, IAggregateRoot
 
     public Curso(string nome, ConteudoProgramatico conteudoProgramatico)
     {
-        Nome = nome;
-        PermitirMatricula = false;
+        Nome = nome;        
         ConteudoProgramatico = conteudoProgramatico;
         CargaHoraria = TimeSpan.Zero;
         _aulas = [];
+        ProibirInscricao();
         Ativar();
         Validar();
     }
+
+    public void PermitirInscricao() => PermitirMatricula = true;
+
+    public void ProibirInscricao() => PermitirMatricula = false;
+
+    public void DesativarCurso() => Desativar();
+
+    public void AtivarCurso() => Ativar();
 
     public void AlterarNome(string nome)
     {
         Validacoes.ValidarSeVazio(Nome, NomeVazioMsgErro);
         Nome = nome;
     }
-
-    public void DesativarCurso() => Desativar();
-
-    public void AtivarCurso() => Ativar();
 
     public void AlterarConteudoProgramatico(ConteudoProgramatico conteudoProgramatico)
     {
@@ -51,10 +55,10 @@ public class Curso : Entity, IAggregateRoot
     public void Validar()
     {
         Validacoes.ValidarSeVazio(Nome, NomeVazioMsgErro);
-        Validacoes.ValidarSeMenorQue(CargaHoraria.Ticks, 0, CargaHorariaMenorQueMsgErro);
+        Validacoes.ValidarTamanho(Nome, 100, NomeLengthMsgErro);
     }
 
     //MENSAGENS VALIDACAO
     public const string NomeVazioMsgErro = "O campo Nome do curso não pode estar vazio.";
-    public const string CargaHorariaMenorQueMsgErro = "O campo Carga Horária do curso não pode ser menor que 0.";
+    public const string NomeLengthMsgErro = "O campo Nome do curso não pode ter mais que 100 caracteres.";    
 }

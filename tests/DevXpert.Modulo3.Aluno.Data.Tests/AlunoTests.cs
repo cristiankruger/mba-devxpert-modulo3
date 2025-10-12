@@ -1,8 +1,8 @@
-﻿using DevXpert.Modulo3.Aluno.Data.Tests._Fixture;
+﻿using DevXpert.Modulo3.Aluno.Domain.Tests._Fixture;
 using DevXpert.Modulo3.Core.DomainObjects;
 using Shouldly;
 
-namespace DevXpert.Modulo3.Aluno.Data.Tests;
+namespace DevXpert.Modulo3.Aluno.Domain.Tests;
 
 [Collection(nameof(AlunoCollection))]
 [Trait("Teste Unidade", "AlunoDomain Aluno")]
@@ -15,9 +15,9 @@ public class AlunoTests(AlunoTestsFixture alunoTestsFixture)
     {
         var result = _alunosFixture.GerarAlunoValido();
 
-        result.ShouldBeOfType<Domain.Aluno>();
-        result.ShouldNotBeAssignableTo<Entity>();
-        result.ShouldNotBeAssignableTo<IAggregateRoot>();
+        result.ShouldBeOfType<Aluno>();
+        result.ShouldBeAssignableTo<Entity>();
+        result.ShouldBeAssignableTo<IAggregateRoot>();
     }
 
     [Fact]
@@ -31,19 +31,19 @@ public class AlunoTests(AlunoTestsFixture alunoTestsFixture)
             _alunosFixture.GerarFakeAlunoInvalido("", email, cpf, data)
         );
 
-        Assert.Equal(Domain.Aluno.NomeVazioMsgErro, ex.Message);
+        Assert.Equal(Aluno.NomeVazioMsgErro, ex.Message);
 
         ex = Assert.Throws<DomainException>(() =>
             _alunosFixture.GerarFakeAlunoInvalido("Jose 123 @", email, cpf, data)
         );
 
-         Assert.Equal(Domain.Aluno.NomeRegexMsgErro, ex.Message);
+         Assert.Equal(Aluno.NomeRegexMsgErro, ex.Message);
 
         ex = Assert.Throws<DomainException>(() =>
             _alunosFixture.GerarFakeAlunoInvalido("z e", email, cpf, data)
         );
 
-         Assert.Equal(Domain.Aluno.NomeLenghtMsgErro, ex.Message);
+         Assert.Equal(Aluno.NomeLenghtMsgErro, ex.Message);
     }
 
     [Fact]
@@ -57,19 +57,19 @@ public class AlunoTests(AlunoTestsFixture alunoTestsFixture)
             _alunosFixture.GerarFakeAlunoInvalido(nome, "", cpf, data)
         );
 
-         Assert.Equal(Domain.Aluno.EmailVazioMsgErro, ex.Message);
+         Assert.Equal(Aluno.EmailVazioMsgErro, ex.Message);
 
         ex = Assert.Throws<DomainException>(() =>
             _alunosFixture.GerarFakeAlunoInvalido(nome, "123456", cpf, data)
         );
 
-         Assert.Equal(Domain.Aluno.EmailRegexMsgErro, ex.Message);
+         Assert.Equal(Aluno.EmailRegexMsgErro, ex.Message);
 
         ex = Assert.Throws<DomainException>(() =>
             _alunosFixture.GerarFakeAlunoInvalido(nome, "jo#com.br", cpf, data)
         );
 
-         Assert.Equal(Domain.Aluno.EmailRegexMsgErro, ex.Message);
+         Assert.Equal(Aluno.EmailRegexMsgErro, ex.Message);
     }
 
     [Fact]
@@ -83,19 +83,19 @@ public class AlunoTests(AlunoTestsFixture alunoTestsFixture)
             _alunosFixture.GerarFakeAlunoInvalido(nome, email, "", data)
         );
 
-         Assert.Equal(Domain.Aluno.CpfVazioMsgErro, ex.Message);
+         Assert.Equal(Aluno.CpfVazioMsgErro, ex.Message);
 
         ex = Assert.Throws<DomainException>(() =>
             _alunosFixture.GerarFakeAlunoInvalido(nome, nome, "1234", data)
         );
 
-         Assert.Equal(Domain.Aluno.CpfLenghtMsgErro, ex.Message);
+         Assert.Equal(Aluno.CpfLenghtMsgErro, ex.Message);
 
         ex = Assert.Throws<DomainException>(() =>
-            _alunosFixture.GerarFakeAlunoInvalido(nome, nome, "A1@", data)
+            _alunosFixture.GerarFakeAlunoInvalido(nome, nome, "12345678A1@", data)
         );
 
-         Assert.Equal(Domain.Aluno.CpfRegexMsgErro, ex.Message);
+         Assert.Equal(Aluno.CpfRegexMsgErro, ex.Message);
     }
 
     [Fact]
@@ -109,6 +109,6 @@ public class AlunoTests(AlunoTestsFixture alunoTestsFixture)
             _alunosFixture.GerarFakeAlunoInvalido(nome, email, cpf, DateTime.Now.AddYears(-10))
         );
 
-         Assert.Equal(Domain.Aluno.DataNascimentoMsgErro, ex.Message);        
+         Assert.Equal(Aluno.DataNascimentoMsgErro, ex.Message);        
     }
 }

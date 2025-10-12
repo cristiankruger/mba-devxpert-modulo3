@@ -1,4 +1,6 @@
-﻿using DevXpert.Modulo3.API.Data;
+﻿using Asp.Versioning;
+using DevXpert.Modulo3.API.Data;
+using DevXpert.Modulo3.Conteudo.Application.Mapper;
 using Microsoft.AspNetCore.Identity;
 using System.Diagnostics.CodeAnalysis;
 
@@ -22,6 +24,27 @@ public static class ApiConfig
                {
                    options.SuppressModelStateInvalidFilter = true;
                });
+
+        return builder;
+    }
+
+    public static WebApplicationBuilder ApiVersioningConfig(this WebApplicationBuilder builder)
+    {
+        builder.Services
+              .AddApiVersioning(options =>
+              {
+                  options.ReportApiVersions = true;
+                  options.AssumeDefaultVersionWhenUnspecified = true;
+                  options.DefaultApiVersion = new ApiVersion(1, 0);
+                  options.ApiVersionReader = ApiVersionReader.Combine(new UrlSegmentApiVersionReader(),
+                                                                      new HeaderApiVersionReader("x-api-version"),
+                                                                      new MediaTypeApiVersionReader("x-api-version"));
+              })
+              .AddApiExplorer(options =>
+              {
+                  options.GroupNameFormat = "'v'VVV";
+                  options.SubstituteApiVersionInUrl = true;
+              });
 
         return builder;
     }
@@ -54,6 +77,16 @@ public static class ApiConfig
         return builder;
     }
 
+    public static WebApplicationBuilder AutomapperConfig(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddAutoMapper(cfg =>
+        {
+            cfg.AddProfile<DomainToViewModelMappingProfile>();
+            cfg.AddProfile<ViewModelToDomainMappingProfile>();
+        });
+
+        return builder;
+    }
 
     #endregion
 
@@ -76,7 +109,7 @@ public static class ApiConfig
         else
         {
             app.UseCors("Default");
-            app.UseDeveloperExceptionPage();           
+            app.UseDeveloperExceptionPage();
         }
 
         app.UseGlobalizationConfig()

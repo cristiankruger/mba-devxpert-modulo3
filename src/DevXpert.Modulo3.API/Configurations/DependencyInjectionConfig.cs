@@ -11,6 +11,7 @@ using DevXpert.Modulo3.Conteudo.Domain;
 using DevXpert.Modulo3.Financeiro.Domain;
 using DevXpert.Modulo3.Financeiro.Data.Repository;
 using DevXpert.Modulo3.API.Configurations.App;
+using DevXpert.Modulo3.Conteudo.Application.Services;
 
 namespace DevXpert.Modulo3.API.Configurations;
 
@@ -27,6 +28,7 @@ public static class DependencyInjectionConfig
         builder.Services.AddScoped<IAppIdentityUser, AppIdentityUser>();
 
         //CURSO
+        builder.Services.AddScoped<ICursoAppService, CursoAppService>();
         builder.Services.AddScoped<ICursoRepository, CursoRepository>();
 
         //ALUNO

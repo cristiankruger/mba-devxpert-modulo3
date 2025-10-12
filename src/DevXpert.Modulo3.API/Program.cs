@@ -1,12 +1,15 @@
 using DevXpert.Modulo3.API.Configurations;
+using DevXpert.Modulo3.API.Configurations.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.AddApiBehaviorConfig()
-       .AddDatabase()
+builder.AddDatabase()
        .AddSettingsConfiguration()
-       .AddCorsConfig()
+       .AutomapperConfig()
        .AddJWTConfiguration()
+       .AddApiBehaviorConfig()
+       .ApiVersioningConfig()
+       .AddCorsConfig()
        .AddSwaggerConfig()
        .AddIdentityConfig()
        .ResolveDependecies();

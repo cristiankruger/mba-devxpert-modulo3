@@ -1,7 +1,7 @@
 ﻿using Bogus;
 using Bogus.Extensions.Brazil;
 
-namespace DevXpert.Modulo3.Aluno.Data.Tests._Fixture;
+namespace DevXpert.Modulo3.Aluno.Domain.Tests._Fixture;
 
 [CollectionDefinition(nameof(AlunoCollection))]
 public class AlunoCollection : ICollectionFixture<AlunoTestsFixture>
@@ -9,29 +9,29 @@ public class AlunoCollection : ICollectionFixture<AlunoTestsFixture>
 
 public class AlunoTestsFixture : IDisposable
 {
-    public Domain.Aluno GerarAlunoValido()
+    public Aluno GerarAlunoValido()
     {
         return GerarFakeAlunoValido(1).FirstOrDefault();
     }
 
-    private static IEnumerable<Domain.Aluno> GerarFakeAlunoValido(int quantidade)
+    private static IEnumerable<Aluno> GerarFakeAlunoValido(int quantidade)
     {
-        var modulo = new Faker<Domain.Aluno>("pt_BR")
+        var alunos = new Faker<Aluno>("pt_BR")
                                 .CustomInstantiator(f =>
-                                        new Domain.Aluno($"{f.Person.FirstName} {f.Person.LastName}",
-                                                        f.Person.Email,
-                                                        f.Person.Cpf(false),
-                                                        f.Person.DateOfBirth));
+                                        new Aluno($"{f.Person.FirstName} {f.Person.LastName}",
+                                                  f.Person.Email,
+                                                  f.Person.Cpf(false),
+                                                  f.Person.DateOfBirth));
 
-        var generated = modulo.Generate(quantidade);
+        var generated = alunos.Generate(quantidade);
 
         return generated;
     }
 
-    public Domain.Aluno GerarFakeAlunoInvalido(string nome, string email, string cpf, DateTime dataNascimento)
+    public Aluno GerarFakeAlunoInvalido(string nome, string email, string cpf, DateTime dataNascimento)
     {
-        return new Faker<Domain.Aluno>("pt_BR")
-           .CustomInstantiator(f => new Domain.Aluno(nome, email, cpf, dataNascimento));
+        return new Faker<Aluno>("pt_BR")
+           .CustomInstantiator(f => new Aluno(nome, email, cpf, dataNascimento));
     }
 
     public string GerarNomeValido()
@@ -53,7 +53,7 @@ public class AlunoTestsFixture : IDisposable
     public DateTime GerarDataNascimentoValida()
     {
         var faker = new Faker();
-        return DateTime.Now.AddYears(faker.Random.Int(-18, -70)).AddDays(faker.Random.Int(0, -364));
+        return DateTime.Now.AddYears(-faker.Random.Int(18, 70)).AddDays(-faker.Random.Int(1, 364));
     }
 
     public void Dispose()

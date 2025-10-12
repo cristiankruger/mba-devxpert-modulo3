@@ -70,10 +70,10 @@ public static class DatabaseConfig
     {
         using var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
 
-        await scope.ServiceProvider.GetService<IdentityAppContext>().Database.MigrateAsync();
+        //await scope.ServiceProvider.GetService<IdentityAppContext>().Database.MigrateAsync();
         await scope.ServiceProvider.GetService<CursoContext>().Database.MigrateAsync();
-        await scope.ServiceProvider.GetService<AlunoContext>().Database.MigrateAsync();
-        await scope.ServiceProvider.GetService<PagamentoContext>().Database.MigrateAsync();
+        //await scope.ServiceProvider.GetService<AlunoContext>().Database.MigrateAsync();
+        //await scope.ServiceProvider.GetService<PagamentoContext>().Database.MigrateAsync();
 
         return app;
     }

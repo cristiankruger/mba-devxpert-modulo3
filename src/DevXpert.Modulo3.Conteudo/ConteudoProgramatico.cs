@@ -9,13 +9,13 @@ public class ConteudoProgramatico
     public string Instrutor { get; private set; }
     public string PublicoAlvo { get; private set; }    
     
-    public ConteudoProgramatico(string ementa, string instrutor, string publicoAlvo)
+    public ConteudoProgramatico(string instrutor, string ementa,  string publicoAlvo)
     {
-        Validacoes.ValidarSeVazio(ementa, EmentaVazioMsgErro);
-        Validacoes.ValidarMinimoMaximo(ementa, 20, 1000, EmentaLengthMsgErro);
         Validacoes.ValidarSeVazio(instrutor, InstrutorVazioMsgErro);
         Validacoes.ValidarMinimoMaximo(instrutor, 5, 100, InstrutorLengthMsgErro);
-        Validacoes.ValidarSeDiferente(instrutor, @"^[a-zà-ÿ]+(\\s?[a-zà-ÿ][-'.]?\\s?)*([a-zà-ÿ]|[jr.|I|II|III|IV]?)*$", InstrutorRegexMsgErro, RegexOptions.IgnoreCase);
+        Validacoes.ValidarSeDiferente(instrutor, @"^[a-zà-ÿ]+(?:[ '-][a-zà-ÿ]+)*$", InstrutorRegexMsgErro, RegexOptions.IgnoreCase);
+        Validacoes.ValidarSeVazio(ementa, EmentaVazioMsgErro);
+        Validacoes.ValidarMinimoMaximo(ementa, 20, 1000, EmentaLengthMsgErro);
         Validacoes.ValidarSeVazio(publicoAlvo, PublicoAlvoVazioMsgErro);
         Validacoes.ValidarMinimoMaximo(publicoAlvo, 5, 250, PublicoAlvoLengthMsgErro);
 

@@ -26,8 +26,7 @@ public class AulaMapping : IEntityTypeConfiguration<Aula>
 
         builder.Property(a => a.Duracao)
                .IsRequired()
-               .HasColumnType("bigint")
-               .HasDefaultValue(0);
+               .HasColumnType("bigint");
 
         builder.HasOne(a=>a.Curso)
                .WithMany(c => c.Aulas)

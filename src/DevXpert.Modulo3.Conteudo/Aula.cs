@@ -31,8 +31,8 @@ public class Aula : Entity
         Validacoes.ValidarSeMenorQue(Duracao.Ticks, 1, DuracaoMsgErro);
         Validacoes.ValidarSeVazio(Titulo, TituloMsgErro);
         Validacoes.ValidarMinimoMaximo(Titulo, 10, 100, TituloLengthMsgErro);
-        Validacoes.ValidarMinimoMaximo(Titulo, 10, 250, TituloLengthMsgErro);
         Validacoes.ValidarSeVazio(Link, LinkMsgErro);
+        Validacoes.ValidarMinimoMaximo(Link, 10, 250, LinkLengthMsgErro);
     }
 
     //MENSAGENS VALIDACAO
