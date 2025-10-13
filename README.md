@@ -69,9 +69,9 @@ A estrutura do projeto é organizada da seguinte forma:
 
 - API:
   - **Autenticação via ASP.NET Core Identity.**
-  - **CRUD para Categorias:** Permite ao Admin autenticado criar, editar, visualizar e excluir categorias.
-  - **CRUD para Produtos:** Permite ao Vendedor autenticado criar, editar, visualizar e excluir Produtos. Permite ao Admin autenticado (in)ativar um produto de um vendedor.
-  - **CRUD para favoritos:** Permite ao cliente autenticado adicionar ou remover um produto à sua lista de favoritos.
+  - **Módulo de Conteúdo:** Permite ao Admin autenticado manter Cursos e Aulas e liberar cursos para inscrição.
+  - **Módulo de Aluno:** Permite ao aluno autenticado se matricular em um curso e solicitar certificado ao final do curso.
+  - **Módulo de Pagamento:** Permite ao aluno autenticado realizar o pagamento da inscrição do curso no qual se matriculou.
   - **API RESTful:** Exposição de endpoints para operações CRUD via API.
   - **Documentação da API:** Documentação automática dos endpoints da API utilizando Swagger.  
 
