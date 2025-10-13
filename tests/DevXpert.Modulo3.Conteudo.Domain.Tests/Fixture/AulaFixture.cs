@@ -1,12 +1,12 @@
 ﻿using Bogus;
 
-namespace DevXpert.Modulo3.Conteudo.Domain.Tests._Fixture;
+namespace DevXpert.Modulo3.Conteudo.Domain.Tests.Fixture;
 
 [CollectionDefinition(nameof(AulaCollection))]
-public class AulaCollection : ICollectionFixture<AulaTestsFixture>
+public class AulaCollection : ICollectionFixture<AulaFixture>
 { }
 
-public class AulaTestsFixture : IDisposable
+public class AulaFixture : IDisposable
 {
     public Aula GerarAulaValido()
     {

@@ -1,12 +1,12 @@
 ﻿using Bogus;
 
-namespace DevXpert.Modulo3.Conteudo.Domain.Tests._Fixture;
+namespace DevXpert.Modulo3.Conteudo.Domain.Tests.Fixture;
 
 [CollectionDefinition(nameof(CursoCollection))]
-public class CursoCollection : ICollectionFixture<CursoTestsFixture>
+public class CursoCollection : ICollectionFixture<CursoFixture>
 { }
 
-public class CursoTestsFixture : IDisposable
+public class CursoFixture : IDisposable
 {
     public Curso GerarCursoValido()
     {
@@ -87,7 +87,7 @@ public class CursoTestsFixture : IDisposable
         if (vazio) return string.Empty;
 
         var f = new Faker("pt_BR");
-        return string.Join (" ", f.Lorem.Words(500));
+        return string.Join(" ", f.Lorem.Words(500));
     }
 
     public string GerarEmentaValida()

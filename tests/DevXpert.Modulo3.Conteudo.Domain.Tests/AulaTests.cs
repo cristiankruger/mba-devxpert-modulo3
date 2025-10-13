@@ -1,4 +1,4 @@
-﻿using DevXpert.Modulo3.Conteudo.Domain.Tests._Fixture;
+﻿using DevXpert.Modulo3.Conteudo.Domain.Tests.Fixture;
 using DevXpert.Modulo3.Core.DomainObjects;
 using Shouldly;
 
@@ -6,9 +6,9 @@ namespace DevXpert.Modulo3.Conteudo.Domain.Tests;
 
 [Collection(nameof(AulaCollection))]
 [Trait("Teste Unidade", "ConteudoDomain Aula")]
-public class AulaTests(AulaTestsFixture aulaTestsFixture)
+public class AulaTests(AulaFixture aulaFixture)
 {
-    private readonly AulaTestsFixture _aulasFixture = aulaTestsFixture;
+    private readonly AulaFixture _aulasFixture = aulaFixture;
 
     [Fact]
     public void Aula_Validar_ObjetoNaoEhEntidade()

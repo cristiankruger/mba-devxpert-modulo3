@@ -1,27 +1,26 @@
-﻿using AutoMapper;
+﻿using DevXpert.Modulo3.Conteudo.Application.Mapper;
 using DevXpert.Modulo3.Conteudo.Application.ViewModels;
 using DevXpert.Modulo3.Conteudo.Domain;
 using DevXpert.Modulo3.Core.DomainObjects;
 
 namespace DevXpert.Modulo3.Conteudo.Application.Services
 {
-    public class CursoAppService(IMapper mapper,
-                                 ICursoRepository cursoRepository) : ICursoAppService
+    public class CursoAppService(ICursoRepository cursoRepository) : ICursoAppService
     {
         //Curso
         public async Task<CursoViewModel> ObterPorId(Guid id)
-        {
-            return mapper.Map<CursoViewModel>(await cursoRepository.Obter(id));
+        {            
+            return CursoMappingProfile.MapCursoToCursoViewModel(await cursoRepository.Obter(id));
         }
 
         public async Task<IEnumerable<CursoViewModel>> ObterTodos()
         {
-            return mapper.Map<IEnumerable<CursoViewModel>>(await cursoRepository.ObterTodos());
+            return CursoMappingProfile.MapListaCursoToCursoViewModel(await cursoRepository.ObterTodos());
         }
 
         public async Task AdicionarCurso(CursoViewModel cursoViewModel)
         {
-            var curso = mapper.Map<Curso>(cursoViewModel);
+            var curso = CursoMappingProfile.MapCursoViewModelToCurso(cursoViewModel);
 
             var jaCadastrado = await cursoRepository.Buscar(c => c.Nome == curso.Nome);
 
@@ -34,7 +33,7 @@ namespace DevXpert.Modulo3.Conteudo.Application.Services
 
         public async Task AtualizarCurso(CursoViewModel cursoViewModel)
         {
-            var curso = mapper.Map<Curso>(cursoViewModel);
+            var curso = CursoMappingProfile.MapCursoViewModelToCurso(cursoViewModel);
 
             var jaCadastrado = await cursoRepository.Buscar(c => c.Nome == curso.Nome && c.Id != curso.Id);
 
@@ -47,7 +46,7 @@ namespace DevXpert.Modulo3.Conteudo.Application.Services
 
         public async Task PermitirInscricaoCurso(Guid id)
         {
-            var curso = mapper.Map<Curso>(await ObterPorId(id)) ??
+            var curso = CursoMappingProfile.MapCursoViewModelToCurso(await ObterPorId(id)) ??
                 throw new DomainException("Curso não encontrado.");
 
             if (curso.Aulas.Count == 0)
@@ -60,7 +59,7 @@ namespace DevXpert.Modulo3.Conteudo.Application.Services
 
         public async Task ProibirInscricaoCurso(Guid id)
         {
-            var curso = mapper.Map<Curso>(await ObterPorId(id)) ??
+            var curso = CursoMappingProfile.MapCursoViewModelToCurso(await ObterPorId(id)) ??
                 throw new DomainException("Curso não encontrado.");
 
             curso.ProibirInscricao();
@@ -71,12 +70,12 @@ namespace DevXpert.Modulo3.Conteudo.Application.Services
         //Aula
         public async Task<AulaViewModel> ObterAulaPorId(Guid id)
         {
-            return mapper.Map<AulaViewModel>(await cursoRepository.ObterAula(id));
+            return CursoMappingProfile.MapAulaToAulaViewModel(await cursoRepository.ObterAula(id));
         }
 
         public async Task<IEnumerable<AulaViewModel>> ObterAulas(Guid cursoId)
         {
-            return mapper.Map<IEnumerable<AulaViewModel>>(await cursoRepository.ObterAulas(cursoId));
+            return CursoMappingProfile.MapListaAulaToAulaViewModel(await cursoRepository.ObterAulas(cursoId));
         }
 
         public async Task AdicionarAula(AulaViewModel aulaViewModel)
@@ -84,7 +83,7 @@ namespace DevXpert.Modulo3.Conteudo.Application.Services
             var curso = await cursoRepository.Obter(aulaViewModel.CursoId) ??
                 throw new DomainException("Curso não encontrado.");
 
-            var aula = mapper.Map<Aula>(aulaViewModel);
+            var aula = CursoMappingProfile.MapAulaViewModelToAula(aulaViewModel);
 
             var jaCadastrado = curso.Aulas.FirstOrDefault(a => a.CursoId == aula.CursoId && a.Titulo == aula.Titulo);
 
@@ -101,7 +100,7 @@ namespace DevXpert.Modulo3.Conteudo.Application.Services
             var curso = await cursoRepository.Obter(aulaViewModel.CursoId) ??
                throw new DomainException("Curso não encontrado.");
 
-            var aula = mapper.Map<Aula>(await ObterAulaPorId(aulaViewModel.Id)) ??
+            var aula = CursoMappingProfile.MapAulaViewModelToAula(await ObterAulaPorId(aulaViewModel.Id)) ??
                 throw new DomainException("Aula não encontrada."); ;
 
             var jaCadastrado = curso.Aulas.FirstOrDefault(a => a.CursoId == aula.CursoId && a.Titulo == aula.Titulo && a.Id != aula.Id);

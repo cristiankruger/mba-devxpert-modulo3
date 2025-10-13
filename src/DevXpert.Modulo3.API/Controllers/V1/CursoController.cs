@@ -12,7 +12,7 @@ namespace DevXpert.Modulo3.API.Controllers.V1;
 [ApiVersion("1.0")]
 [Route("api/v{version:apiversion}/[controller]")]
 public class CursoController(IAppIdentityUser user,
-                             CursoAppService cursoAppService) : MainController(user)
+                             ICursoAppService cursoAppService) : MainController(user)
 {
     [HttpGet]
     public async Task<IActionResult> ObterTodos()

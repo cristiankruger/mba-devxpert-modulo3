@@ -24,8 +24,17 @@ public class CursoViewModel
     public string Ementa { get; set; }
 
     public bool PermitirMatricula { get; set; }
-    public bool Ativo { get; set; } = true;
+    public bool Ativo { get; set; }
     public TimeSpan CargaHoraria { get; set; }
     public IEnumerable<AulaViewModel> Aulas { get; set; }
+
+    public CursoViewModel()
+    {
+        Id = Guid.NewGuid();
+        PermitirMatricula = false;
+        Ativo = true;
+        CargaHoraria = TimeSpan.FromSeconds(0);
+        Aulas = [];
+    }
 
 }

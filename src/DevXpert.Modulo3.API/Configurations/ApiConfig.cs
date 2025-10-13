@@ -9,7 +9,6 @@ namespace DevXpert.Modulo3.API.Configurations;
 [ExcludeFromCodeCoverage]
 public static class ApiConfig
 {
-    #region WebApplicationBuilder
     public static WebApplicationBuilder AddApiBehaviorConfig(this WebApplicationBuilder builder)
     {
         builder.Configuration
@@ -76,21 +75,7 @@ public static class ApiConfig
 
         return builder;
     }
-
-    public static WebApplicationBuilder AutomapperConfig(this WebApplicationBuilder builder)
-    {
-        builder.Services.AddAutoMapper(cfg =>
-        {
-            cfg.AddProfile<DomainToViewModelMappingProfile>();
-            cfg.AddProfile<ViewModelToDomainMappingProfile>();
-        });
-
-        return builder;
-    }
-
-    #endregion
-
-    #region WebApplication
+    
     public static WebApplication UseApiConfiguration(this WebApplication app)
     {
         app.Use(async (context, next) =>
@@ -130,5 +115,4 @@ public static class ApiConfig
 
         return app;
     }
-    #endregion
 }

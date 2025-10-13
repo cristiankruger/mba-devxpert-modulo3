@@ -34,7 +34,7 @@ public abstract class MainController : ControllerBase
         return statusCode switch
         {
             HttpStatusCode.OK => Ok(new { success = true, data = result }),
-            HttpStatusCode.Created => CreatedAtAction("GetById", new { success = true, id = GetObjectId(result) }, result),
+            HttpStatusCode.Created => CreatedAtAction("ObterPorId", new { success = true, id = GetObjectId(result) }, result),
             HttpStatusCode.NoContent => NoContent(),
             HttpStatusCode.NotFound => NotFound(new { success = false, errors = SetErrors(result) }),
             HttpStatusCode.BadRequest => BadRequest(new { success = false, errors = SetErrors(result) }),

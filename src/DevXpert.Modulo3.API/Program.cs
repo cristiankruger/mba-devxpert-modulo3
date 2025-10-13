@@ -5,7 +5,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddDatabase()
        .AddSettingsConfiguration()
-       .AutomapperConfig()
        .AddJWTConfiguration()
        .AddApiBehaviorConfig()
        .ApiVersioningConfig()

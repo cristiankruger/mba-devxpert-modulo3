@@ -30,19 +30,19 @@ public class DadosCartaoTests(DadosCartaoTestsFixture dadosCartaoTestsFixture)
             _dadosFixture.GerarFakeDadosCartaoInvalido("", numeroCartao, cvv, data)
         );
 
-        Assert.Equal(DadosCartao.TitularVazioMsgErro, ex.Message);
+        ex.Message.ShouldBe(DadosCartao.TitularVazioMsgErro);
 
         ex = Assert.Throws<DomainException>(() =>
             _dadosFixture.GerarFakeDadosCartaoInvalido("Jose 123 @", numeroCartao, cvv, data)
         );
 
-        Assert.Equal(DadosCartao.TitularRegexMsgErro, ex.Message);
+        ex.Message.ShouldBe(DadosCartao.TitularRegexMsgErro);
 
         ex = Assert.Throws<DomainException>(() =>
             _dadosFixture.GerarFakeDadosCartaoInvalido("z e", numeroCartao, cvv, data)
         );
 
-        Assert.Equal(DadosCartao.TitularTamanhoMsgErro, ex.Message);
+        ex.Message.ShouldBe(DadosCartao.TitularTamanhoMsgErro);
     }
 
     [Fact]
@@ -56,19 +56,19 @@ public class DadosCartaoTests(DadosCartaoTestsFixture dadosCartaoTestsFixture)
             _dadosFixture.GerarFakeDadosCartaoInvalido(titular, "", cvv, data)
         );
 
-        Assert.Equal(DadosCartao.NumeroCartaoVazioMsgErro, ex.Message);
+        ex.Message.ShouldBe(DadosCartao.NumeroCartaoVazioMsgErro);
 
         ex = Assert.Throws<DomainException>(() =>
             _dadosFixture.GerarFakeDadosCartaoInvalido(titular, "123456", cvv, data)
         );
 
-        Assert.Equal(DadosCartao.NumeroCartaoTamanhoMsgErro, ex.Message);
+        ex.Message.ShouldBe(DadosCartao.NumeroCartaoTamanhoMsgErro);
 
         ex = Assert.Throws<DomainException>(() =>
             _dadosFixture.GerarFakeDadosCartaoInvalido(titular, "1234 Jo #", cvv, data)
         );
 
-        Assert.Equal(DadosCartao.NumeroCartaoRegexMsgErro, ex.Message);
+        ex.Message.ShouldBe(DadosCartao.NumeroCartaoRegexMsgErro);
     }
 
     [Fact]
@@ -82,19 +82,19 @@ public class DadosCartaoTests(DadosCartaoTestsFixture dadosCartaoTestsFixture)
             _dadosFixture.GerarFakeDadosCartaoInvalido(titular, numeroCartao, "", data)
         );
 
-        Assert.Equal(DadosCartao.CvvVazioMsgErro, ex.Message);
+        ex.Message.ShouldBe(DadosCartao.CvvVazioMsgErro);
 
         ex = Assert.Throws<DomainException>(() =>
-            _dadosFixture.GerarFakeDadosCartaoInvalido(titular, numeroCartao, "1234", data)
+            _dadosFixture.GerarFakeDadosCartaoInvalido(titular, numeroCartao, "12345", data)
         );
 
-        Assert.Equal(DadosCartao.CvvRegexMsgErro, ex.Message);
+        ex.Message.ShouldBe(DadosCartao.CvvRegexMsgErro);
 
         ex = Assert.Throws<DomainException>(() =>
             _dadosFixture.GerarFakeDadosCartaoInvalido(titular, numeroCartao, "A1@", data)
         );
 
-        Assert.Equal(DadosCartao.CvvRegexMsgErro, ex.Message);
+        ex.Message.ShouldBe(DadosCartao.CvvRegexMsgErro);
     }
 
     [Fact]
@@ -108,18 +108,18 @@ public class DadosCartaoTests(DadosCartaoTestsFixture dadosCartaoTestsFixture)
             _dadosFixture.GerarFakeDadosCartaoInvalido(titular, numeroCartao, cvv, "")
         );
 
-        Assert.Equal(DadosCartao.DataValidadeVazioMsgErro, ex.Message);
+        ex.Message.ShouldBe(DadosCartao.DataValidadeVazioMsgErro);
 
         ex = Assert.Throws<DomainException>(() =>
             _dadosFixture.GerarFakeDadosCartaoInvalido(titular, numeroCartao, cvv, "0J/2026")
         );
 
-        Assert.Equal(DadosCartao.DataValidadeRegexMsgErro, ex.Message);
+        ex.Message.ShouldBe(DadosCartao.DataValidadeRegexMsgErro);
 
         ex = Assert.Throws<DomainException>(() =>
             _dadosFixture.GerarFakeDadosCartaoInvalido(titular, numeroCartao, cvv, "07/2025")
         );
 
-        Assert.Equal(DadosCartao.DataValidadeVencidoMsgErro, ex.Message);
+        ex.Message.ShouldBe(DadosCartao.DataValidadeVencidoMsgErro);
     }
 }

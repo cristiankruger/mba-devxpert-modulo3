@@ -8,7 +8,7 @@ public class Aula : Entity
     public string Link { get; private set; }
     public string Titulo { get; private set; }
     public TimeSpan Duracao { get; private set; }
-    //TODO: Tratar no futuro o link como arquivo de upload (IFormFile)
+    //TODO: Tratar no futuro o link como arquivo de upload (IFormFile) e retirar de lá a Duração
 
     /*EF Relation*/
     public Curso Curso { get; set; }
@@ -29,8 +29,8 @@ public class Aula : Entity
     public void Validar()
     {
         Validacoes.ValidarSeIgual(CursoId, Guid.Empty, CursoIdMsgErro);
-        Validacoes.ValidarSeMenorQue(Duracao.Ticks, 1, DuracaoMsgErro);
-        Validacoes.ValidarSeMaiorQue(Duracao.Ticks, 7200, DuracaoMsgErro);
+        Validacoes.ValidarSeMenorQue((long)Duracao.TotalSeconds, 1, DuracaoMsgErro);
+        Validacoes.ValidarSeMaiorQue((long)Duracao.TotalSeconds, 7200, DuracaoMsgErro);
         Validacoes.ValidarSeVazio(Titulo, TituloMsgErro);
         Validacoes.ValidarMinimoMaximo(Titulo, 10, 100, TituloLengthMsgErro);
         Validacoes.ValidarSeVazio(Link, LinkMsgErro);
