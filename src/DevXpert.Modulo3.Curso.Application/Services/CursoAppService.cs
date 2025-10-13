@@ -51,7 +51,7 @@ namespace DevXpert.Modulo3.Conteudo.Application.Services
 
             if (curso.Aulas.Count == 0)
                 throw new DomainException("Não é possível permitir inscrição em um curso sem aulas.");
-
+           
             curso.PermitirInscricao();
             cursoRepository.Atualizar(curso);
             await cursoRepository.UnitOfWork.Commit();
