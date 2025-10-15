@@ -21,5 +21,5 @@ public class AulaViewModel
     [Range(1, 7200, ErrorMessage = "A duração da aula deve ser entre 1 segundo e 2 horas.")]
     public int DuracaoEmSegundos { get; set; }
 
-    public bool Ativo { get; set; } = true;
+    public bool Ativo { get; set; } = true;    
 }

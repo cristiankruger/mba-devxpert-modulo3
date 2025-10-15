@@ -9,8 +9,12 @@ public static class CursoMappingProfile
     public static Curso MapCursoViewModelToCurso(CursoViewModel model)
     {
         if (model is null) return null;
+        var curso = new Curso(model.Nome, new(model.Instrutor, model.Ementa, model.PublicoAlvo));
+        
+        foreach (var aula in model.Aulas)
+            curso.CadastrarAula(MapAulaViewModelToAula(aula));
 
-        return new(model.Nome, new(model.Instrutor, model.Ementa, model.PublicoAlvo));
+        return curso;
     }
 
     public static IEnumerable<Curso> MapListaCursoViewModelToCurso(IEnumerable<CursoViewModel> listaViewModel)
@@ -67,8 +71,8 @@ public static class CursoMappingProfile
     public static Aula MapAulaViewModelToAula(AulaViewModel model)
     {
         if (model is null) return null;
-
-        return new(model.CursoId, model.Titulo, model.Link, TimeSpan.FromSeconds(model.DuracaoEmSegundos));
+        
+        return new(model.Id, model.CursoId, model.Titulo, model.Link, TimeSpan.FromSeconds(model.DuracaoEmSegundos));
     }
 
     public static IEnumerable<Aula> MapListaAulaViewModelToAula(IEnumerable<AulaViewModel> listaViewModel)

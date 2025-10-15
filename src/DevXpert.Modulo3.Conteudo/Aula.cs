@@ -26,6 +26,24 @@ public class Aula : Entity
         Validar();
     }
 
+    public Aula(Guid id, Guid cursoId, string titulo, string link, TimeSpan duracao)
+    {
+        Id = id;
+        CursoId = cursoId;
+        Titulo = titulo;
+        Link = link;
+        Duracao = duracao;
+        Ativar();
+        Validar();
+    }
+
+    public void AlterarTitulo(string titulo)
+    {
+        Validacoes.ValidarSeVazio(titulo, TituloMsgErro);
+        Validacoes.ValidarMinimoMaximo(titulo, 10, 100, TituloLengthMsgErro);
+        Titulo = titulo;
+    }
+
     public void Validar()
     {
         Validacoes.ValidarSeIgual(CursoId, Guid.Empty, CursoIdMsgErro);

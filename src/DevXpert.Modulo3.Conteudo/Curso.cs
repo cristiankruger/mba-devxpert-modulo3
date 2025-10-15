@@ -18,7 +18,19 @@ public class Curso : Entity, IAggregateRoot
 
     public Curso(string nome, ConteudoProgramatico conteudoProgramatico)
     {
-        Nome = nome;        
+        Nome = nome;
+        ConteudoProgramatico = conteudoProgramatico;
+        CargaHoraria = TimeSpan.Zero;
+        _aulas = [];
+        ProibirInscricao();
+        Ativar();
+        Validar();
+    }
+
+    public Curso(Guid id, string nome, ConteudoProgramatico conteudoProgramatico)
+    {
+        Id = id;
+        Nome = nome;
         ConteudoProgramatico = conteudoProgramatico;
         CargaHoraria = TimeSpan.Zero;
         _aulas = [];
@@ -60,5 +72,5 @@ public class Curso : Entity, IAggregateRoot
 
     //MENSAGENS VALIDACAO
     public const string NomeVazioMsgErro = "O campo Nome do curso não pode estar vazio.";
-    public const string NomeLengthMsgErro = "O campo Nome do curso não pode ter mais que 100 caracteres.";    
+    public const string NomeLengthMsgErro = "O campo Nome do curso não pode ter mais que 100 caracteres.";
 }

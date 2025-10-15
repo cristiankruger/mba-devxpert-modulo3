@@ -9,7 +9,7 @@ namespace DevXpert.Modulo3.Conteudo.Application.Services
     {
         //Curso
         public async Task<CursoViewModel> ObterPorId(Guid id)
-        {            
+        {
             return CursoMappingProfile.MapCursoToCursoViewModel(await cursoRepository.Obter(id));
         }
 
@@ -51,7 +51,7 @@ namespace DevXpert.Modulo3.Conteudo.Application.Services
 
             if (curso.Aulas.Count == 0)
                 throw new DomainException("Não é possível permitir inscrição em um curso sem aulas.");
-           
+
             curso.PermitirInscricao();
             cursoRepository.Atualizar(curso);
             await cursoRepository.UnitOfWork.Commit();
@@ -97,15 +97,15 @@ namespace DevXpert.Modulo3.Conteudo.Application.Services
 
         public async Task AtualizarAula(AulaViewModel aulaViewModel)
         {
-            var curso = await cursoRepository.Obter(aulaViewModel.CursoId) ??
-               throw new DomainException("Curso não encontrado.");
-
             var aula = CursoMappingProfile.MapAulaViewModelToAula(await ObterAulaPorId(aulaViewModel.Id)) ??
-                throw new DomainException("Aula não encontrada."); ;
+                throw new DomainException("Aula não encontrada.");
 
-            var jaCadastrado = curso.Aulas.FirstOrDefault(a => a.CursoId == aula.CursoId && a.Titulo == aula.Titulo && a.Id != aula.Id);
+            var curso = await cursoRepository.Obter(aulaViewModel.CursoId) ??
+                throw new DomainException("Curso não encontrado.");
 
-            if (jaCadastrado is not null)
+            var jaCadastrado = curso.Aulas.Any(a => a.Titulo == aula.Titulo && a.Id != aula.Id);
+
+            if (jaCadastrado)
                 throw new DomainException("Já existe uma aula com este título para este curso.");
 
             cursoRepository.Atualizar(aula);

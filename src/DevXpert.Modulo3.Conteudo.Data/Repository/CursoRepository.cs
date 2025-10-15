@@ -11,12 +11,18 @@ public class CursoRepository(CursoContext context) : ICursoRepository
 
     public async Task<Curso> Obter(Guid id)
     {
-        return await context.Cursos.FindAsync(id);
+        return await context.Cursos
+                            .Include(c => c.Aulas)
+                            .AsNoTracking()
+                            .FirstOrDefaultAsync(c => c.Id == id);
     }
 
     public async Task<Aula> ObterAula(Guid id)
     {
-        return await context.Aulas.FindAsync(id);
+        return await context.Aulas
+                            .Include(c => c.Curso)
+                            .AsNoTracking()
+                            .FirstOrDefaultAsync(c => c.Id == id);
     }
 
     public async Task<IEnumerable<Aula>> ObterAulas(Guid cursoId)
@@ -31,6 +37,7 @@ public class CursoRepository(CursoContext context) : ICursoRepository
     public async Task<IEnumerable<Curso>> ObterTodos()
     {
         return await context.Cursos
+                            .Include(c => c.Aulas)
                             .AsNoTracking()
                             .ToListAsync();
     }
@@ -43,10 +50,10 @@ public class CursoRepository(CursoContext context) : ICursoRepository
                             .Where(predicado)
                             .ToListAsync();
     }
-   
+
     public async Task Adicionar(Curso curso)
     {
-       await context.Cursos.AddAsync(curso);
+        await context.Cursos.AddAsync(curso);
     }
 
     public async Task Adicionar(Aula aula)
@@ -63,5 +70,5 @@ public class CursoRepository(CursoContext context) : ICursoRepository
     {
         context.Aulas.Update(aula);
     }
-   
+
 }
