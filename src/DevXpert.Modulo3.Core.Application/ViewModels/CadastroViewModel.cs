@@ -13,7 +13,7 @@ public class CadastroViewModel
     [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$%*¨'+:&/()=!?@{}\-;<>\]\[_.,^~])[A-Za-z\d#$%*¨'+:&/()=!?@{}\-;<>\]\[_.,^~]{6,}$", ErrorMessage = "O campo {0} precisa ter ao menos 1 letra maiúscula, 1 letra minúscula, 1 número e 1 caractere especial.")]
     public string Senha { get; set; }
 
-    [Compare("Password", ErrorMessage = "As senhas não conferem.")]
+    [Compare("Senha", ErrorMessage = "As senhas não conferem.")]
     public string SenhaConfirmacao { get; set; }
 
     public bool EhAluno { get; set; } = true;
