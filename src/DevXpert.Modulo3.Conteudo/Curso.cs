@@ -1,6 +1,6 @@
 ﻿using DevXpert.Modulo3.Core.DomainObjects;
 
-namespace DevXpert.Modulo3.Conteudo.Domain;
+namespace DevXpert.Modulo3.ModuloConteudo.Domain;
 
 public class Curso : Entity, IAggregateRoot
 {

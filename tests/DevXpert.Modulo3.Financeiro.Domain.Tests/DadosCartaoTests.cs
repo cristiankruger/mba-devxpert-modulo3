@@ -1,5 +1,6 @@
 ﻿using DevXpert.Modulo3.Core.DomainObjects;
 using DevXpert.Modulo3.Financeiro.Domain.Tests._Fixture;
+using DevXpert.Modulo3.ModuloFinanceiro.Domain;
 using Shouldly;
 
 namespace DevXpert.Modulo3.Financeiro.Domain.Tests;

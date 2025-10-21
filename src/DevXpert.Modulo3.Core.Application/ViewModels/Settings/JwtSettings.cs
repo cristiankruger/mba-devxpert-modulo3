@@ -1,4 +1,4 @@
-﻿namespace DevXpert.Modulo3.API.Configurations.Settings
+﻿namespace DevXpert.Modulo3.Core.Application.ViewModels.Settings
 {
     public class JwtSettings
     {

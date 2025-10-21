@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\DevXpert.Modulo3.Curso.Application\DevXpert.Modulo3.Conteudo.Application.csproj" />
+    <ProjectReference Include="..\..\src\DevXpert.Modulo3.Curso.Application\DevXpert.Modulo3.ModuloConteudo.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>

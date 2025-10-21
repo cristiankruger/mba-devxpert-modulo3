@@ -16,10 +16,9 @@
     </PackageReference>
   </ItemGroup>
 
-
   <ItemGroup>
+    <ProjectReference Include="..\DevXpert.Modulo3.Conteudo\DevXpert.Modulo3.ModuloConteudo.Domain.csproj" />
     <ProjectReference Include="..\DevXpert.Modulo3.Core\DevXpert.Modulo3.Core.csproj" />
-    <ProjectReference Include="..\DevXpert.Modulo3.Financeiro.Domain\DevXpert.Modulo3.Financeiro.Domain.csproj" />
   </ItemGroup>
 
 </Project>

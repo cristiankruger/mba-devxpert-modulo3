@@ -1,17 +1,20 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using DevXpert.Modulo3.API.Configurations.App;
+using DevXpert.Modulo3.Core.Application.Services;
+using DevXpert.Modulo3.Core.Data;
+using CoreRepository = DevXpert.Modulo3.Core.Data.Repository;
+using CoreDomain = DevXpert.Modulo3.Core.Domain;
+using DevXpert.Modulo3.ModuloAluno.Data;
+using DevXpert.Modulo3.ModuloAluno.Data.Repository;
+using DevXpert.Modulo3.ModuloAluno.Domain;
+using DevXpert.Modulo3.ModuloConteudo.Application.Services;
+using DevXpert.Modulo3.ModuloConteudo.Data;
+using DevXpert.Modulo3.ModuloConteudo.Data.Repository;
+using DevXpert.Modulo3.ModuloConteudo.Domain;
+using DevXpert.Modulo3.ModuloFinanceiro.Data;
+using DevXpert.Modulo3.ModuloFinanceiro.Data.Repository;
+using DevXpert.Modulo3.ModuloFinanceiro.Domain;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System.Diagnostics.CodeAnalysis;
-using DevXpert.Modulo3.API.Data;
-using DevXpert.Modulo3.Conteudo.Data;
-using DevXpert.Modulo3.Aluno.Data;
-using DevXpert.Modulo3.Financeiro.Data;
-using DevXpert.Modulo3.Aluno.Domain;
-using DevXpert.Modulo3.Aluno.Data.Repository;
-using DevXpert.Modulo3.Conteudo.Data.Repository;
-using DevXpert.Modulo3.Conteudo.Domain;
-using DevXpert.Modulo3.Financeiro.Domain;
-using DevXpert.Modulo3.Financeiro.Data.Repository;
-using DevXpert.Modulo3.API.Configurations.App;
-using DevXpert.Modulo3.Conteudo.Application.Services;
 
 namespace DevXpert.Modulo3.API.Configurations;
 
@@ -26,6 +29,11 @@ public static class DependencyInjectionConfig
         builder.Services.AddScoped<AlunoContext>();
         builder.Services.AddScoped<PagamentoContext>();
         builder.Services.AddScoped<IAppIdentityUser, AppIdentityUser>();
+
+        //IDENTITY
+        builder.Services.AddScoped<IAuthAppService, AuthAppService>();
+        builder.Services.AddScoped<CoreDomain.IAdminRepository, CoreRepository.AdminRepository>();
+        builder.Services.AddScoped<CoreDomain.IAlunoRepository, CoreRepository.AlunoRepository>();
 
         //CURSO
         builder.Services.AddScoped<ICursoAppService, CursoAppService>();

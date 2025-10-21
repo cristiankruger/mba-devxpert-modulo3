@@ -11,6 +11,7 @@ public abstract class MainController : ControllerBase
 {
     protected Guid UserId { get; set; }
     protected string UserName { get; set; }
+    protected string UserRole { get; set; }
 
     protected MainController(IAppIdentityUser user)
     {
@@ -18,6 +19,7 @@ public abstract class MainController : ControllerBase
         {
             UserId = user.GetUserId();
             UserName = user.GetUsername();
+            UserRole = user.GetUserRole();
         }
     }
 

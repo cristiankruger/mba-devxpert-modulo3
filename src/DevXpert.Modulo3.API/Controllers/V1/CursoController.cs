@@ -1,8 +1,7 @@
 ﻿using Asp.Versioning;
 using DevXpert.Modulo3.API.Configurations.App;
-using DevXpert.Modulo3.Conteudo.Application.Services;
-using DevXpert.Modulo3.Conteudo.Application.ViewModels;
-using Microsoft.AspNetCore.Authorization;
+using DevXpert.Modulo3.ModuloConteudo.Application.Services;
+using DevXpert.Modulo3.ModuloConteudo.Application.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 

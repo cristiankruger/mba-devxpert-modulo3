@@ -1,6 +1,6 @@
 ﻿using DevXpert.Modulo3.Core.DomainObjects;
 
-namespace DevXpert.Modulo3.Aluno.Domain;
+namespace DevXpert.Modulo3.ModuloAluno.Domain;
 
 public class Certificado : Entity
 {

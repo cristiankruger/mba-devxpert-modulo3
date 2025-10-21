@@ -1,6 +1,6 @@
-﻿using DevXpert.Modulo3.Conteudo.Application.ViewModels;
+﻿using DevXpert.Modulo3.ModuloConteudo.Application.ViewModels;
 
-namespace DevXpert.Modulo3.Conteudo.Application.Services
+namespace DevXpert.Modulo3.ModuloConteudo.Application.Services
 {
     public interface ICursoAppService
     {

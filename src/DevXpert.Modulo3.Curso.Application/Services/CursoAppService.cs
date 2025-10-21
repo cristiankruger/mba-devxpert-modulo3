@@ -1,9 +1,9 @@
-﻿using DevXpert.Modulo3.Conteudo.Application.Mapper;
-using DevXpert.Modulo3.Conteudo.Application.ViewModels;
-using DevXpert.Modulo3.Conteudo.Domain;
+﻿using DevXpert.Modulo3.ModuloConteudo.Application.ViewModels;
+using DevXpert.Modulo3.ModuloConteudo.Domain;
 using DevXpert.Modulo3.Core.DomainObjects;
+using DevXpert.Modulo3.ModuloConteudo.Application.Mapper;
 
-namespace DevXpert.Modulo3.Conteudo.Application.Services
+namespace DevXpert.Modulo3.ModuloConteudo.Application.Services
 {
     public class CursoAppService(ICursoRepository cursoRepository) : ICursoAppService
     {

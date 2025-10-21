@@ -1,7 +1,7 @@
-﻿using DevXpert.Modulo3.Conteudo.Application.Services;
+﻿using DevXpert.Modulo3.ModuloConteudo.Application.Services;
 using Moq.AutoMock;
 
-namespace DevXpert.Modulo3.Conteudo.Application.Tests.Fixture;
+namespace DevXpert.Modulo3.ModuloConteudo.Application.Tests.Fixture;
 
 
 [CollectionDefinition(nameof(CursoCollection))]

@@ -1,7 +1,7 @@
 ﻿using DevXpert.Modulo3.Core.DomainObjects;
 using DevXpert.Modulo3.Core.Messages;
 
-namespace DevXpert.Modulo3.Aluno.Domain;
+namespace DevXpert.Modulo3.ModuloAluno.Domain;
 
 public class Matricula : Entity
 {

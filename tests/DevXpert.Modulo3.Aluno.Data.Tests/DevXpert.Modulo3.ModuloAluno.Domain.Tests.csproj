@@ -8,18 +8,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Bogus" Version="35.6.4" />
     <PackageReference Include="coverlet.collector" Version="6.0.2" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
-    <PackageReference Include="Moq.AutoMock" Version="3.5.0" />
-    <PackageReference Include="Shouldly" Version="4.3.0" />
     <PackageReference Include="xunit" Version="2.9.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+    <PackageReference Include="Bogus" Version="35.6.3" />
+    <PackageReference Include="Moq" Version="4.20.72" />
+    <PackageReference Include="Moq.AutoMock" Version="3.5.0" />
+    <PackageReference Include="Shouldly" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\DevXpert.Modulo3.Conteudo\DevXpert.Modulo3.Conteudo.Domain.csproj" />
-    <ProjectReference Include="..\..\src\DevXpert.Modulo3.Curso.Application\DevXpert.Modulo3.Conteudo.Application.csproj" />
+    <ProjectReference Include="..\..\src\DevXpert.Modulo3.Aluno.Domain\DevXpert.Modulo3.ModuloAluno.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

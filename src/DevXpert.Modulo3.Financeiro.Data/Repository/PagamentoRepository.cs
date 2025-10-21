@@ -1,7 +1,7 @@
 ﻿using DevXpert.Modulo3.Core.Data;
-using DevXpert.Modulo3.Financeiro.Domain;
+using DevXpert.Modulo3.ModuloFinanceiro.Domain;
 
-namespace DevXpert.Modulo3.Financeiro.Data.Repository;
+namespace DevXpert.Modulo3.ModuloFinanceiro.Data.Repository;
 
 public class PagamentoRepository(PagamentoContext context) : IPagamentoRepository
 {

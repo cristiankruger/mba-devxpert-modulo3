@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using DevXpert.Modulo3.ModuloFinanceiro.Domain;
 
 namespace DevXpert.Modulo3.Financeiro.Domain.Tests._Fixture;
 

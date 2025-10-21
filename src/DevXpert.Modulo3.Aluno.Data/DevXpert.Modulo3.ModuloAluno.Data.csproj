@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DevXpert.Modulo3.Aluno.Domain\DevXpert.Modulo3.Aluno.Domain.csproj" />
+    <ProjectReference Include="..\DevXpert.Modulo3.Aluno.Domain\DevXpert.Modulo3.ModuloAluno.Domain.csproj" />
     <ProjectReference Include="..\DevXpert.Modulo3.Core\DevXpert.Modulo3.Core.csproj" />
   </ItemGroup>
 

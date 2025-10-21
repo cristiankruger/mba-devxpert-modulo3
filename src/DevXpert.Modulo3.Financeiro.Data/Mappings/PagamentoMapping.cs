@@ -1,8 +1,8 @@
-﻿using DevXpert.Modulo3.Financeiro.Domain;
+﻿using DevXpert.Modulo3.ModuloFinanceiro.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DevXpert.Modulo3.Financeiro.Data.Mappings;
+namespace DevXpert.Modulo3.ModuloFinanceiro.Data.Mappings;
 
 public class PagamentoMapping : IEntityTypeConfiguration<Pagamento>
 {

@@ -1,9 +1,9 @@
-﻿using DevXpert.Modulo3.Conteudo.Domain;
+﻿using DevXpert.Modulo3.ModuloConteudo.Domain;
 using DevXpert.Modulo3.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace DevXpert.Modulo3.Conteudo.Data.Repository;
+namespace DevXpert.Modulo3.ModuloConteudo.Data.Repository;
 
 public class CursoRepository(CursoContext context) : ICursoRepository
 {

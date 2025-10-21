@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace DevXpert.Modulo3.Conteudo.Domain.Events;
+namespace DevXpert.Modulo3.ModuloConteudo.Domain.Events;
 
 public class CursoEventHandler(ICursoRepository repository) : INotificationHandler<LiberarInscricaoCursoEvent>
 {

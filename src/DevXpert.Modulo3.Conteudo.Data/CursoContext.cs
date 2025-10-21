@@ -1,10 +1,10 @@
-﻿using DevXpert.Modulo3.Conteudo.Domain;
+﻿using DevXpert.Modulo3.ModuloConteudo.Domain;
 using DevXpert.Modulo3.Core.Data;
 using DevXpert.Modulo3.Core.Messages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace DevXpert.Modulo3.Conteudo.Data;
+namespace DevXpert.Modulo3.ModuloConteudo.Data;
 
 public class CursoContext(DbContextOptions<CursoContext> options) : DbContext(options), IUnitOfWork
 {

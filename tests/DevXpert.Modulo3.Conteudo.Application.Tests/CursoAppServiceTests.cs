@@ -1,15 +1,14 @@
-﻿using DevXpert.Modulo3.Conteudo.Application.Mapper;
-using DevXpert.Modulo3.Conteudo.Application.Services;
-using DevXpert.Modulo3.Conteudo.Application.Tests.Fixture;
-using DevXpert.Modulo3.Conteudo.Application.ViewModels;
-using DevXpert.Modulo3.Conteudo.Domain;
+﻿using DevXpert.Modulo3.ModuloConteudo.Application.Mapper;
+using DevXpert.Modulo3.ModuloConteudo.Application.Services;
+using DevXpert.Modulo3.ModuloConteudo.Application.ViewModels;
+using DevXpert.Modulo3.ModuloConteudo.Domain;
 using DevXpert.Modulo3.Core.DomainObjects;
 using Moq;
 using Shouldly;
-using System;
 using System.Linq.Expressions;
+using DevXpert.Modulo3.ModuloConteudo.Application.Tests.Fixture;
 
-namespace DevXpert.Modulo3.Conteudo.Application.Tests;
+namespace DevXpert.Modulo3.ModuloConteudo.Application.Tests;
 
 [Collection(nameof(CursoCollection))]
 [Trait("Teste Unidade", "Services CursoAppService")]

@@ -1,4 +1,4 @@
-﻿using DevXpert.Modulo3.API.Configurations.Settings;
+﻿using DevXpert.Modulo3.Core.Application.ViewModels.Settings;
 using System.Diagnostics.CodeAnalysis;
 
 namespace DevXpert.Modulo3.API.Configurations;

@@ -1,14 +1,14 @@
-﻿using DevXpert.Modulo3.Aluno.Domain;
+﻿using DevXpert.Modulo3.ModuloAluno.Domain;
 using DevXpert.Modulo3.Core.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace DevXpert.Modulo3.Aluno.Data.Repository
+namespace DevXpert.Modulo3.ModuloAluno.Data.Repository
 {
     public class AlunoRepository(AlunoContext context) : IAlunoRepository
     {
         public IUnitOfWork UnitOfWork => context;
 
-        public async Task<Domain.Aluno> Obter(Guid id)
+        public async Task<Aluno> Obter(Guid id)
         {
             return await context.Alunos.FindAsync(id);
         }
@@ -34,7 +34,7 @@ namespace DevXpert.Modulo3.Aluno.Data.Repository
         }
 
 
-        public async Task Adicionar(Domain.Aluno aluno)
+        public async Task Adicionar(Aluno aluno)
         {
             await context.Alunos.AddAsync(aluno);
         }

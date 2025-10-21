@@ -1,6 +1,5 @@
 ﻿using Asp.Versioning;
-using DevXpert.Modulo3.API.Data;
-using DevXpert.Modulo3.Conteudo.Application.Mapper;
+using DevXpert.Modulo3.Core.Data;
 using Microsoft.AspNetCore.Identity;
 using System.Diagnostics.CodeAnalysis;
 

@@ -1,7 +1,7 @@
-﻿using DevXpert.Modulo3.Aluno.Data;
-using DevXpert.Modulo3.API.Data;
-using DevXpert.Modulo3.Conteudo.Data;
-using DevXpert.Modulo3.Financeiro.Data;
+﻿using DevXpert.Modulo3.Core.Data;
+using DevXpert.Modulo3.ModuloFinanceiro.Data;
+using DevXpert.Modulo3.ModuloAluno.Data;
+using DevXpert.Modulo3.ModuloConteudo.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.CodeAnalysis;
 
@@ -70,7 +70,7 @@ public static class DatabaseConfig
     {
         using var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
 
-        //await scope.ServiceProvider.GetService<IdentityAppContext>().Database.MigrateAsync();
+        await scope.ServiceProvider.GetService<IdentityAppContext>().Database.MigrateAsync();
         await scope.ServiceProvider.GetService<CursoContext>().Database.MigrateAsync();
         //await scope.ServiceProvider.GetService<AlunoContext>().Database.MigrateAsync();
         //await scope.ServiceProvider.GetService<PagamentoContext>().Database.MigrateAsync();

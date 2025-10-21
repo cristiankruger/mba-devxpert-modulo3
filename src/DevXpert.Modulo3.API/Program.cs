@@ -21,3 +21,5 @@ app.UseApiConfiguration()
    .MigrateDatabase().Wait();
 
 app.Run();
+
+public partial class Program { }

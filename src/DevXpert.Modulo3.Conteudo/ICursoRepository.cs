@@ -1,7 +1,7 @@
 ﻿using DevXpert.Modulo3.Core.Data;
 using System.Linq.Expressions;
 
-namespace DevXpert.Modulo3.Conteudo.Domain;
+namespace DevXpert.Modulo3.ModuloConteudo.Domain;
 
 public interface ICursoRepository : IRepository<Curso>
 {

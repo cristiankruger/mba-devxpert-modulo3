@@ -10,6 +10,7 @@
     <PackageReference Include="microsoft.entityframeworkcore" Version="9.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.9">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -17,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DevXpert.Modulo3.Conteudo\DevXpert.Modulo3.Conteudo.Domain.csproj" />
+    <ProjectReference Include="..\DevXpert.Modulo3.Core.Domain\DevXpert.Modulo3.Core.Domain.csproj" />
     <ProjectReference Include="..\DevXpert.Modulo3.Core\DevXpert.Modulo3.Core.csproj" />
   </ItemGroup>
 
