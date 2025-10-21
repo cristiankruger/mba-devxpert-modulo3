@@ -2,6 +2,10 @@
 using DevXpert.Modulo3.API.Configurations.App;
 using DevXpert.Modulo3.Core.Application.Services;
 using DevXpert.Modulo3.Core.Application.ViewModels;
+using DevXpert.Modulo3.Core.Mediator;
+using DevXpert.Modulo3.Core.Messages.CommomMessages.Notifications;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -9,8 +13,11 @@ namespace DevXpert.Modulo3.API.Controllers.V1;
 
 [ApiVersion("1.0")]
 [Route("api/v{version:apiversion}/[controller]")]
+[AllowAnonymous]
 public class AuthController(IAuthAppService authAppService,
-                            IAppIdentityUser user) : MainController(user)
+                            IAppIdentityUser user,
+                            IMediatrHandler mediatrHandler,
+                            INotificationHandler<DomainNotification> notifications) : MainController(user, mediatrHandler, notifications)
 {
     [HttpPost]
     public async Task<IActionResult> Autenticar([FromBody] LoginViewModel login)
@@ -23,7 +30,7 @@ public class AuthController(IAuthAppService authAppService,
             return CustomResponse(HttpStatusCode.OK, result.Token);
 
         foreach (var error in result.Erros)
-            NotificarErro(error);
+            NotificarErro("Erro", error);
 
         return CustomResponse(HttpStatusCode.BadRequest);
     }
@@ -39,7 +46,7 @@ public class AuthController(IAuthAppService authAppService,
             return CustomResponse(HttpStatusCode.OK, result.Token);
 
         foreach (var error in result.Erros)
-            NotificarErro(error);
+            NotificarErro("Erro", error);
 
         return CustomResponse(HttpStatusCode.BadRequest);
     }

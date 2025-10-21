@@ -3,11 +3,12 @@ using System;
 using DevXpert.Modulo3.ModuloConteudo.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace DevXpert.Modulo3.Conteudo.Data.Migrations
+namespace DevXpert.Modulo3.ModuloConteudo.Data.Migrations
 {
     [DbContext(typeof(CursoContext))]
     partial class CursoContextModelSnapshot : ModelSnapshot
@@ -17,21 +18,24 @@ namespace DevXpert.Modulo3.Conteudo.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .UseCollation("SQL_Latin1_General_CP1_CI_AI")
-                .HasAnnotation("ProductVersion", "9.0.9");
+                .HasAnnotation("ProductVersion", "9.0.9")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            modelBuilder.Entity("DevXpert.Modulo3.Conteudo.Domain.Aula", b =>
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("DevXpert.Modulo3.ModuloConteudo.Domain.Aula", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
 
                     b.Property<Guid>("CursoId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<TimeSpan>("Duracao")
+                    b.Property<long>("Duracao")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Link")
@@ -48,22 +52,23 @@ namespace DevXpert.Modulo3.Conteudo.Data.Migrations
 
                     b.HasIndex("Titulo", "CursoId")
                         .IsUnique()
-                        .HasDatabaseName("UQ_TITULO_CURSO_AULAS")
-                        .HasAnnotation("SqlServer:FillFactor", 80);
+                        .HasDatabaseName("UQ_TITULO_CURSO_AULAS");
+
+                    SqlServerIndexBuilderExtensions.HasFillFactor(b.HasIndex("Titulo", "CursoId"), 80);
 
                     b.ToTable("Aulas", (string)null);
                 });
 
-            modelBuilder.Entity("DevXpert.Modulo3.Conteudo.Domain.Curso", b =>
+            modelBuilder.Entity("DevXpert.Modulo3.ModuloConteudo.Domain.Curso", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
 
-                    b.Property<TimeSpan>("CargaHoraria")
+                    b.Property<long>("CargaHoraria")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Nome")
@@ -77,15 +82,16 @@ namespace DevXpert.Modulo3.Conteudo.Data.Migrations
 
                     b.HasIndex("Nome")
                         .IsUnique()
-                        .HasDatabaseName("UQ_NOME_CURSOS")
-                        .HasAnnotation("SqlServer:FillFactor", 80);
+                        .HasDatabaseName("UQ_NOME_CURSOS");
+
+                    SqlServerIndexBuilderExtensions.HasFillFactor(b.HasIndex("Nome"), 80);
 
                     b.ToTable("Cursos", (string)null);
                 });
 
-            modelBuilder.Entity("DevXpert.Modulo3.Conteudo.Domain.Aula", b =>
+            modelBuilder.Entity("DevXpert.Modulo3.ModuloConteudo.Domain.Aula", b =>
                 {
-                    b.HasOne("DevXpert.Modulo3.Conteudo.Domain.Curso", "Curso")
+                    b.HasOne("DevXpert.Modulo3.ModuloConteudo.Domain.Curso", "Curso")
                         .WithMany("Aulas")
                         .HasForeignKey("CursoId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -94,12 +100,12 @@ namespace DevXpert.Modulo3.Conteudo.Data.Migrations
                     b.Navigation("Curso");
                 });
 
-            modelBuilder.Entity("DevXpert.Modulo3.Conteudo.Domain.Curso", b =>
+            modelBuilder.Entity("DevXpert.Modulo3.ModuloConteudo.Domain.Curso", b =>
                 {
-                    b.OwnsOne("DevXpert.Modulo3.Conteudo.Domain.ConteudoProgramatico", "ConteudoProgramatico", b1 =>
+                    b.OwnsOne("DevXpert.Modulo3.ModuloConteudo.Domain.ConteudoProgramatico", "ConteudoProgramatico", b1 =>
                         {
                             b1.Property<Guid>("CursoId")
-                                .HasColumnType("TEXT");
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("Ementa")
                                 .IsRequired()
@@ -127,7 +133,7 @@ namespace DevXpert.Modulo3.Conteudo.Data.Migrations
                     b.Navigation("ConteudoProgramatico");
                 });
 
-            modelBuilder.Entity("DevXpert.Modulo3.Conteudo.Domain.Curso", b =>
+            modelBuilder.Entity("DevXpert.Modulo3.ModuloConteudo.Domain.Curso", b =>
                 {
                     b.Navigation("Aulas");
                 });

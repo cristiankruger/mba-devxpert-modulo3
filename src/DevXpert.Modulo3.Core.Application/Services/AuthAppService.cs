@@ -2,6 +2,7 @@
 using DevXpert.Modulo3.Core.Application.ViewModels;
 using DevXpert.Modulo3.Core.Application.ViewModels.Settings;
 using DevXpert.Modulo3.Core.Domain;
+using DevXpert.Modulo3.Core.Mediator;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;

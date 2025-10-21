@@ -1,17 +1,24 @@
 ﻿using Asp.Versioning;
 using DevXpert.Modulo3.API.Configurations.App;
+using DevXpert.Modulo3.Core.Mediator;
+using DevXpert.Modulo3.Core.Messages.CommomMessages.Notifications;
 using DevXpert.Modulo3.ModuloConteudo.Application.Services;
 using DevXpert.Modulo3.ModuloConteudo.Application.ViewModels;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace DevXpert.Modulo3.API.Controllers.V1;
 
-//[Authorize(Roles = "Admin")]
+[Authorize(Roles = "Admin")]
 [ApiVersion("1.0")]
 [Route("api/v{version:apiversion}/[controller]")]
-public class CursoController(IAppIdentityUser user,
-                             ICursoAppService cursoAppService) : MainController(user)
+public class CursoController(ICursoAppService cursoAppService,
+                             IAppIdentityUser user,
+                             IMediatrHandler mediatrHandler,
+                             INotificationHandler<DomainNotification> notifications)
+    : MainController(user, mediatrHandler, notifications)
 {
     [HttpGet]
     public async Task<IActionResult> ObterTodos()
@@ -47,14 +54,14 @@ public class CursoController(IAppIdentityUser user,
     {
         if (id != cursoViewModel.Id)
         {
-            NotificarErro("O id informado não é o mesmo que foi passado na query");
+            NotificarErro("Erro", "O id informado não é o mesmo que foi passado na query");
             return CustomResponse(HttpStatusCode.BadRequest);
         }
 
         if (!ModelState.IsValid) return CustomResponse(ModelState);
-        
+
         await cursoAppService.AtualizarCurso(cursoViewModel);
-        
+
         return CustomResponse(HttpStatusCode.NoContent);
     }
 
@@ -106,7 +113,7 @@ public class CursoController(IAppIdentityUser user,
     {
         if (id != aulaViewModel.Id)
         {
-            NotificarErro("O id informado não é o mesmo que foi passado na query");
+            NotificarErro("Erro", "O id informado não é o mesmo que foi passado na query");
             return CustomResponse(HttpStatusCode.BadRequest);
         }
 

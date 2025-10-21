@@ -1,8 +1,9 @@
 ﻿using DevXpert.Modulo3.Core.Data;
-using DevXpert.Modulo3.ModuloFinanceiro.Data;
 using DevXpert.Modulo3.ModuloAluno.Data;
 using DevXpert.Modulo3.ModuloConteudo.Data;
+using DevXpert.Modulo3.ModuloFinanceiro.Data;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace DevXpert.Modulo3.API.Configurations;
@@ -18,22 +19,22 @@ public static class DatabaseConfig
         if (env.IsDevelopment())
         {
             builder.Services
-                   .AddDbContext<IdentityAppContext>(options => options.UseSqlite(configuration.GetConnectionString("IdentitySqliteConnectionLite"),
+                   .AddDbContext<IdentityAppContext>(options => options.UseSqlite(configuration.GetConnectionString("IdentitySqliteConnection"),
                                                                                   opt => opt.CommandTimeout(45)
                                                                                             .UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery)));
 
             builder.Services
-                   .AddDbContext<CursoContext>(options => options.UseSqlite(configuration.GetConnectionString("CursoSqliteConnectionLite"),
+                   .AddDbContext<CursoContext>(options => options.UseSqlite(configuration.GetConnectionString("CursoSqliteConnection"),
                                                                             opt => opt.CommandTimeout(45)
                                                                                       .UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery)));
 
             builder.Services
-                   .AddDbContext<AlunoContext>(options => options.UseSqlite(configuration.GetConnectionString("AlunoSqliteConnectionLite"),
+                   .AddDbContext<AlunoContext>(options => options.UseSqlite(configuration.GetConnectionString("AlunoSqliteConnection"),
                                                                             opt => opt.CommandTimeout(45)
                                                                                       .UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery)));
 
             builder.Services
-                   .AddDbContext<PagamentoContext>(options => options.UseSqlite(configuration.GetConnectionString("PagamentoSqliteConnectionLite"),
+                   .AddDbContext<PagamentoContext>(options => options.UseSqlite(configuration.GetConnectionString("PagamentoSqliteConnection"),
                                                                                 opt => opt.CommandTimeout(45)
                                                                                           .UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery)));
 
@@ -77,4 +78,5 @@ public static class DatabaseConfig
 
         return app;
     }
+    
 }

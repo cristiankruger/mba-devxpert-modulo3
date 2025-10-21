@@ -11,6 +11,7 @@ builder.AddDatabase()
        .AddCorsConfig()
        .AddSwaggerConfig()
        .AddIdentityConfig()
+       .ConfigureMediatR()
        .ResolveDependecies();
 
 var app = builder.Build();

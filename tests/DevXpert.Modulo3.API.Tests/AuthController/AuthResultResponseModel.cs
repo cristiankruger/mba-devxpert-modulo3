@@ -2,7 +2,7 @@
 
 namespace DevXpert.Modulo3.API.Tests.AuthController;
 
-public class LoginResponseModel : BaseResponseModel
+public class AuthResultResponseModel : BaseResponseModel
 {
     public string Data { get; set; }
 }
