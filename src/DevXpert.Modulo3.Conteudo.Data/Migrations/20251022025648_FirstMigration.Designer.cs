@@ -3,7 +3,6 @@ using System;
 using DevXpert.Modulo3.ModuloConteudo.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
@@ -12,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DevXpert.Modulo3.ModuloConteudo.Data.Migrations
 {
     [DbContext(typeof(CursoContext))]
-    [Migration("20251021171109_FirstMigration")]
+    [Migration("20251022025648_FirstMigration")]
     partial class FirstMigration
     {
         /// <inheritdoc />
@@ -21,24 +20,21 @@ namespace DevXpert.Modulo3.ModuloConteudo.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .UseCollation("SQL_Latin1_General_CP1_CI_AI")
-                .HasAnnotation("ProductVersion", "9.0.9")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
-
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+                .HasAnnotation("ProductVersion", "9.0.10");
 
             modelBuilder.Entity("DevXpert.Modulo3.ModuloConteudo.Domain.Aula", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
 
                     b.Property<Guid>("CursoId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
-                    b.Property<long>("Duracao")
+                    b.Property<TimeSpan>("Duracao")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Link")
@@ -55,9 +51,8 @@ namespace DevXpert.Modulo3.ModuloConteudo.Data.Migrations
 
                     b.HasIndex("Titulo", "CursoId")
                         .IsUnique()
-                        .HasDatabaseName("UQ_TITULO_CURSO_AULAS");
-
-                    SqlServerIndexBuilderExtensions.HasFillFactor(b.HasIndex("Titulo", "CursoId"), 80);
+                        .HasDatabaseName("UQ_TITULO_CURSO_AULAS")
+                        .HasAnnotation("SqlServer:FillFactor", 80);
 
                     b.ToTable("Aulas", (string)null);
                 });
@@ -66,12 +61,12 @@ namespace DevXpert.Modulo3.ModuloConteudo.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
 
-                    b.Property<long>("CargaHoraria")
+                    b.Property<TimeSpan>("CargaHoraria")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Nome")
@@ -85,9 +80,8 @@ namespace DevXpert.Modulo3.ModuloConteudo.Data.Migrations
 
                     b.HasIndex("Nome")
                         .IsUnique()
-                        .HasDatabaseName("UQ_NOME_CURSOS");
-
-                    SqlServerIndexBuilderExtensions.HasFillFactor(b.HasIndex("Nome"), 80);
+                        .HasDatabaseName("UQ_NOME_CURSOS")
+                        .HasAnnotation("SqlServer:FillFactor", 80);
 
                     b.ToTable("Cursos", (string)null);
                 });
@@ -108,7 +102,7 @@ namespace DevXpert.Modulo3.ModuloConteudo.Data.Migrations
                     b.OwnsOne("DevXpert.Modulo3.ModuloConteudo.Domain.ConteudoProgramatico", "ConteudoProgramatico", b1 =>
                         {
                             b1.Property<Guid>("CursoId")
-                                .HasColumnType("uniqueidentifier");
+                                .HasColumnType("TEXT");
 
                             b1.Property<string>("Ementa")
                                 .IsRequired()

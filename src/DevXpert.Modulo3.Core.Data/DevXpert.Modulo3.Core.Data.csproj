@@ -22,4 +22,10 @@
     <ProjectReference Include="..\DevXpert.Modulo3.Core\DevXpert.Modulo3.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="IdentityTest.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

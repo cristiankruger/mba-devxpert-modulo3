@@ -21,4 +21,10 @@
     <ProjectReference Include="..\DevXpert.Modulo3.Core\DevXpert.Modulo3.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="CursoTest.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

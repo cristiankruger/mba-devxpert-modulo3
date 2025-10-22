@@ -16,7 +16,7 @@ public static class DatabaseConfig
         var env = builder.Environment;
         var configuration = builder.Configuration;
 
-        if (env.IsDevelopment())
+        if (env.IsDevelopment() || env.EnvironmentName.Equals("Testing"))
         {
             builder.Services
                    .AddDbContext<IdentityAppContext>(options => options.UseSqlite(configuration.GetConnectionString("IdentitySqliteConnection"),

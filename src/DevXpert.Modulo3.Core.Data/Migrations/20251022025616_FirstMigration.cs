@@ -17,7 +17,7 @@ namespace DevXpert.Modulo3.Core.Data.Migrations
                 name: "Admins",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Ativo = table.Column<bool>(type: "bit", nullable: false),
                     Email = table.Column<string>(type: "varchar(100)", nullable: false),
                     Nome = table.Column<string>(type: "varchar(100)", nullable: false)
@@ -31,7 +31,7 @@ namespace DevXpert.Modulo3.Core.Data.Migrations
                 name: "Alunos",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Ativo = table.Column<bool>(type: "bit", nullable: false),
                     Email = table.Column<string>(type: "varchar(100)", nullable: false),
                     Nome = table.Column<string>(type: "varchar(100)", nullable: false)
@@ -64,16 +64,16 @@ namespace DevXpert.Modulo3.Core.Data.Migrations
                     NormalizedUserName = table.Column<string>(type: "varchar(100)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "varchar(100)", maxLength: 256, nullable: true),
                     NormalizedEmail = table.Column<string>(type: "varchar(100)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    EmailConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
                     PasswordHash = table.Column<string>(type: "varchar(100)", nullable: true),
                     SecurityStamp = table.Column<string>(type: "varchar(100)", nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "varchar(100)", nullable: true),
                     PhoneNumber = table.Column<string>(type: "varchar(100)", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                    PhoneNumberConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -84,8 +84,8 @@ namespace DevXpert.Modulo3.Core.Data.Migrations
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     RoleId = table.Column<string>(type: "varchar(100)", nullable: false),
                     ClaimType = table.Column<string>(type: "varchar(100)", nullable: true),
                     ClaimValue = table.Column<string>(type: "varchar(100)", nullable: true)
@@ -105,8 +105,8 @@ namespace DevXpert.Modulo3.Core.Data.Migrations
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<string>(type: "varchar(100)", nullable: false),
                     ClaimType = table.Column<string>(type: "varchar(100)", nullable: true),
                     ClaimValue = table.Column<string>(type: "varchar(100)", nullable: true)
@@ -227,15 +227,13 @@ namespace DevXpert.Modulo3.Core.Data.Migrations
                 name: "UQ_EMAIL_ADMIN",
                 table: "Admins",
                 column: "Email",
-                unique: true)
-                .Annotation("SqlServer:FillFactor", 80);
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "UQ_EMAIL_ALUNO",
                 table: "Alunos",
                 column: "Email",
-                unique: true)
-                .Annotation("SqlServer:FillFactor", 80);
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -246,8 +244,7 @@ namespace DevXpert.Modulo3.Core.Data.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -273,8 +270,7 @@ namespace DevXpert.Modulo3.Core.Data.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
+                unique: true);
         }
 
         /// <inheritdoc />
