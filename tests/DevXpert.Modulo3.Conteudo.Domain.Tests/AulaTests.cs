@@ -1,8 +1,8 @@
-﻿using DevXpert.Modulo3.Conteudo.Domain.Tests.Fixture;
-using DevXpert.Modulo3.Core.DomainObjects;
+﻿using DevXpert.Modulo3.Core.DomainObjects;
+using DevXpert.Modulo3.ModuloConteudo.Domain.Tests.Fixture;
 using Shouldly;
 
-namespace DevXpert.Modulo3.Conteudo.Domain.Tests;
+namespace DevXpert.Modulo3.ModuloConteudo.Domain.Tests;
 
 [Collection(nameof(AulaCollection))]
 [Trait("Teste Unidade", "ConteudoDomain Aula")]

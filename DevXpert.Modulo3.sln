@@ -17,11 +17,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ModuloFinanceiro", "ModuloF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.Core", "src\DevXpert.Modulo3.Core\DevXpert.Modulo3.Core.csproj", "{925C9C40-CA4B-422B-8F27-60B2F8CFCA93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.Conteudo.Domain", "src\DevXpert.Modulo3.Conteudo\DevXpert.Modulo3.Conteudo.Domain.csproj", "{A527DEAC-471C-46F7-AAD2-283082B853A1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.ModuloConteudo.Domain", "src\DevXpert.Modulo3.Conteudo\DevXpert.Modulo3.ModuloConteudo.Domain.csproj", "{A527DEAC-471C-46F7-AAD2-283082B853A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.Aluno.Domain", "src\DevXpert.Modulo3.Aluno.Domain\DevXpert.Modulo3.Aluno.Domain.csproj", "{598377C1-64FE-4C0A-86F8-AF43A4A512AE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.ModuloAluno.Domain", "src\DevXpert.Modulo3.Aluno.Domain\DevXpert.Modulo3.ModuloAluno.Domain.csproj", "{598377C1-64FE-4C0A-86F8-AF43A4A512AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.Financeiro.Domain", "src\DevXpert.Modulo3.Financeiro.Domain\DevXpert.Modulo3.Financeiro.Domain.csproj", "{B8B99578-BE29-4820-9A71-75B298F627F9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.ModuloFinanceiro.Domain", "src\DevXpert.Modulo3.Financeiro.Domain\DevXpert.Modulo3.ModuloFinanceiro.Domain.csproj", "{B8B99578-BE29-4820-9A71-75B298F627F9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{DFAACF30-8233-4A35-8BE5-FA3CCD6C9FC6}"
 EndProject
@@ -29,33 +29,39 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B14126DF
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C9B8E2C5-8522-474C-BE7A-F3A958132828}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.Aluno.Data", "src\DevXpert.Modulo3.Aluno.Data\DevXpert.Modulo3.Aluno.Data.csproj", "{A8867F05-DA76-4DD2-9DAF-D7BA69E40B1E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.ModuloAluno.Data", "src\DevXpert.Modulo3.Aluno.Data\DevXpert.Modulo3.ModuloAluno.Data.csproj", "{A8867F05-DA76-4DD2-9DAF-D7BA69E40B1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.Conteudo.Data", "src\DevXpert.Modulo3.Conteudo.Data\DevXpert.Modulo3.Conteudo.Data.csproj", "{8C4E3279-2A4F-4ED1-AD17-D35253E85209}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.ModuloConteudo.Data", "src\DevXpert.Modulo3.Conteudo.Data\DevXpert.Modulo3.ModuloConteudo.Data.csproj", "{8C4E3279-2A4F-4ED1-AD17-D35253E85209}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.Financeiro.Data", "src\DevXpert.Modulo3.Financeiro.Data\DevXpert.Modulo3.Financeiro.Data.csproj", "{CEDA38E7-AAAA-46A1-9864-56BC14A1B70C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.ModuloFinanceiro.Data", "src\DevXpert.Modulo3.Financeiro.Data\DevXpert.Modulo3.ModuloFinanceiro.Data.csproj", "{CEDA38E7-AAAA-46A1-9864-56BC14A1B70C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.Financeiro.Domain.Tests", "tests\DevXpert.Modulo3.Financeiro.Domain.Tests\DevXpert.Modulo3.Financeiro.Domain.Tests.csproj", "{841990A9-E1E7-DFEC-54AC-2017F056C6E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.Aluno.Application", "src\DevXpert.Modulo3.Aluno.Application\DevXpert.Modulo3.Aluno.Application.csproj", "{774A0610-5207-4AE6-8EB7-8A0636AC81A2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.ModuloAluno.Application", "src\DevXpert.Modulo3.Aluno.Application\DevXpert.Modulo3.ModuloAluno.Application.csproj", "{774A0610-5207-4AE6-8EB7-8A0636AC81A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.Conteudo.Application", "src\DevXpert.Modulo3.Curso.Application\DevXpert.Modulo3.Conteudo.Application.csproj", "{619CC313-002A-4B38-B938-65FA278A2A91}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.ModuloConteudo.Application", "src\DevXpert.Modulo3.Curso.Application\DevXpert.Modulo3.ModuloConteudo.Application.csproj", "{619CC313-002A-4B38-B938-65FA278A2A91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.Financeiro.Application", "src\DevXpert.Modulo3.Financeiro.Application\DevXpert.Modulo3.Financeiro.Application.csproj", "{BF2B0021-56F4-4C32-977A-290EE7CA57F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.ModuloFinanceiro.Application", "src\DevXpert.Modulo3.Financeiro.Application\DevXpert.Modulo3.ModuloFinanceiro.Application.csproj", "{BF2B0021-56F4-4C32-977A-290EE7CA57F0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.API", "src\DevXpert.Modulo3.API\DevXpert.Modulo3.API.csproj", "{F06DF890-D798-48D9-A4E4-AE81007F2CE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.Aluno.Domain.Tests", "tests\DevXpert.Modulo3.Aluno.Data.Tests\DevXpert.Modulo3.Aluno.Domain.Tests.csproj", "{78EDA68D-8EE9-4091-A7FD-10B5BE7FC820}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.ModuloAluno.Domain.Tests", "tests\DevXpert.Modulo3.Aluno.Data.Tests\DevXpert.Modulo3.ModuloAluno.Domain.Tests.csproj", "{78EDA68D-8EE9-4091-A7FD-10B5BE7FC820}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.Conteudo.Application.Tests", "tests\DevXpert.Modulo3.Conteudo.Application.Tests\DevXpert.Modulo3.Conteudo.Application.Tests.csproj", "{EB7579AE-C8DC-8C82-9B9A-BB85F319CFCF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.ModuloConteudo.Application.Tests", "tests\DevXpert.Modulo3.Conteudo.Application.Tests\DevXpert.Modulo3.ModuloConteudo.Application.Tests.csproj", "{EB7579AE-C8DC-8C82-9B9A-BB85F319CFCF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.Conteudo.Domain.Tests", "tests\DevXpert.Modulo3.Conteudo.Domain.Tests\DevXpert.Modulo3.Conteudo.Domain.Tests.csproj", "{740182A3-5822-4E18-8FE5-46B67A549C2C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.ModuloConteudo.Domain.Tests", "tests\DevXpert.Modulo3.Conteudo.Domain.Tests\DevXpert.Modulo3.ModuloConteudo.Domain.Tests.csproj", "{740182A3-5822-4E18-8FE5-46B67A549C2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.Aluno.Application.Tests", "tests\DevXpert.Modulo3.Aluno.Application.Tests\DevXpert.Modulo3.Aluno.Application.Tests.csproj", "{C4F386D6-6CA5-4381-9AAF-EC9B8390F851}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.ModuloAluno.Application.Tests", "tests\DevXpert.Modulo3.Aluno.Application.Tests\DevXpert.Modulo3.ModuloAluno.Application.Tests.csproj", "{C4F386D6-6CA5-4381-9AAF-EC9B8390F851}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9730C622-EA74-402B-8C78-EA15ADFBB42B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.API.Tests", "tests\DevXpert.Modulo3.API.Tests\DevXpert.Modulo3.API.Tests.csproj", "{C10B87B5-4EBA-4985-B74B-914EEE7D0BF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.Core.Domain", "src\DevXpert.Modulo3.Core.Domain\DevXpert.Modulo3.Core.Domain.csproj", "{93DF4429-DFB7-425C-8F30-1A2267CFFCC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.Core.Data", "src\DevXpert.Modulo3.Core.Data\DevXpert.Modulo3.Core.Data.csproj", "{1D89E5BC-B0B7-43FC-A75E-CED389641251}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.Core.Application", "src\DevXpert.Modulo3.Core.Application\DevXpert.Modulo3.Core.Application.csproj", "{BCAF7B91-0C92-41A9-AD61-772AB6713500}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -131,6 +137,18 @@ Global
 		{C10B87B5-4EBA-4985-B74B-914EEE7D0BF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C10B87B5-4EBA-4985-B74B-914EEE7D0BF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C10B87B5-4EBA-4985-B74B-914EEE7D0BF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93DF4429-DFB7-425C-8F30-1A2267CFFCC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93DF4429-DFB7-425C-8F30-1A2267CFFCC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93DF4429-DFB7-425C-8F30-1A2267CFFCC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93DF4429-DFB7-425C-8F30-1A2267CFFCC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D89E5BC-B0B7-43FC-A75E-CED389641251}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D89E5BC-B0B7-43FC-A75E-CED389641251}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D89E5BC-B0B7-43FC-A75E-CED389641251}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D89E5BC-B0B7-43FC-A75E-CED389641251}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCAF7B91-0C92-41A9-AD61-772AB6713500}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCAF7B91-0C92-41A9-AD61-772AB6713500}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCAF7B91-0C92-41A9-AD61-772AB6713500}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCAF7B91-0C92-41A9-AD61-772AB6713500}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -161,6 +179,9 @@ Global
 		{C4F386D6-6CA5-4381-9AAF-EC9B8390F851} = {B14126DF-FD5C-432C-BB73-E3791929B349}
 		{9730C622-EA74-402B-8C78-EA15ADFBB42B} = {9080055C-0EF9-4426-B298-3DC05B4760EB}
 		{C10B87B5-4EBA-4985-B74B-914EEE7D0BF6} = {9730C622-EA74-402B-8C78-EA15ADFBB42B}
+		{93DF4429-DFB7-425C-8F30-1A2267CFFCC7} = {00620840-B4E9-49B3-8B27-B35DCB749CF0}
+		{1D89E5BC-B0B7-43FC-A75E-CED389641251} = {00620840-B4E9-49B3-8B27-B35DCB749CF0}
+		{BCAF7B91-0C92-41A9-AD61-772AB6713500} = {00620840-B4E9-49B3-8B27-B35DCB749CF0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A5196E23-7640-4FDD-862F-5BBA42963359}

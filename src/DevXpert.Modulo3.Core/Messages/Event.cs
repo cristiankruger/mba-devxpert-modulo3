@@ -4,10 +4,10 @@ namespace DevXpert.Modulo3.Core.Messages;
 
 public abstract class Event : Message, INotification
 {
-    public DateTime TimeStamp { get; private set; }
+    public DateTime Timestamp { get; private set; }
 
     protected Event()
     {
-        TimeStamp = DateTime.Now;
+        Timestamp = DateTime.Now;
     }
 }

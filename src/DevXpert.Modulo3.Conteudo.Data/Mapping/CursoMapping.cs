@@ -1,8 +1,8 @@
-﻿using DevXpert.Modulo3.Conteudo.Domain;
+﻿using DevXpert.Modulo3.ModuloConteudo.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DevXpert.Modulo3.Conteudo.Data.Mapping;
+namespace DevXpert.Modulo3.ModuloConteudo.Data.Mapping;
 
 public class CursoMapping : IEntityTypeConfiguration<Curso>
 {

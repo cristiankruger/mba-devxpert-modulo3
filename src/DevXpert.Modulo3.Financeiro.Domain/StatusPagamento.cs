@@ -1,4 +1,4 @@
-﻿namespace DevXpert.Modulo3.Financeiro.Domain
+﻿namespace DevXpert.Modulo3.ModuloFinanceiro.Domain
 {
     public enum StatusPagamento
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DevXpert.Modulo3.Conteudo.Application.ViewModels;
+namespace DevXpert.Modulo3.ModuloConteudo.Application.ViewModels;
 
 public class AulaViewModel
 {

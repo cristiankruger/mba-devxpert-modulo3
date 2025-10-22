@@ -1,12 +1,13 @@
 ﻿using DevXpert.Modulo3.Core.Data;
+using DevXpert.Modulo3.ModuloFinanceiro.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace DevXpert.Modulo3.Financeiro.Data;
+namespace DevXpert.Modulo3.ModuloFinanceiro.Data;
 
 public class PagamentoContext(DbContextOptions<PagamentoContext> options) : DbContext(options), IUnitOfWork
 {
-    public DbSet<Domain.Pagamento> Pagamentos { get; set; }
+    public DbSet<Pagamento> Pagamentos { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

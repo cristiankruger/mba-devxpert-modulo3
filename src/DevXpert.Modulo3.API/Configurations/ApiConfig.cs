@@ -1,8 +1,10 @@
 ﻿using Asp.Versioning;
-using DevXpert.Modulo3.API.Data;
-using DevXpert.Modulo3.Conteudo.Application.Mapper;
+using DevXpert.Modulo3.Core.Data;
+using DevXpert.Modulo3.Core.Mediator;
 using Microsoft.AspNetCore.Identity;
 using System.Diagnostics.CodeAnalysis;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DevXpert.Modulo3.API.Configurations;
 
@@ -65,6 +67,17 @@ public static class ApiConfig
         return builder;
     }
 
+    public static WebApplicationBuilder ConfigureMediatR(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddMediatR(cfg =>
+        {
+            cfg.LicenseKey = "eyJhbGciOiJSUzI1NiIsImtpZCI6Ikx1Y2t5UGVubnlTb2Z0d2FyZUxpY2Vuc2VLZXkvYmJiMTNhY2I1OTkwNGQ4OWI0Y2IxYzg1ZjA4OGNjZjkiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2x1Y2t5cGVubnlzb2Z0d2FyZS5jb20iLCJhdWQiOiJMdWNreVBlbm55U29mdHdhcmUiLCJleHAiOiIxNzkyNTQwODAwIiwiaWF0IjoiMTc2MTA3MTEzMCIsImFjY291bnRfaWQiOiIwMTlhMDgwNDNlZTU3MWY1OTQ4YWFjN2QwY2E3NzdjNyIsImN1c3RvbWVyX2lkIjoiY3RtXzAxazg0MDlzc2FxdGhuajRrczVzczY3NWNhIiwic3ViX2lkIjoiLSIsImVkaXRpb24iOiIwIiwidHlwZSI6IjIifQ.KhYbobZgzNT11u6sBtiJGRVAV35SaZjb5u2RA_OzDehnEMj5x611Z0Fyd02QPEY5DP4cSADKd6jr2hfIqwz99o8fOjlESg8vkPI_CUzr4qUnUhgztlTZAOryZMQerne3FY5K894xblmbNtl1ithrm5D2hg4ZQ-w5Az34In1NPGKOe_BQGfa2MUyEo3atqyhkgQwZNir9iuu-qPftJWzZ3qbpEYEzzyjsznXeq7gypc3vL1hI7uJ4gtno3xKzRBnweQM-vMnu_xzH5Zl-BwamXmdcUgSzZDnkLqiRaMuPmejGA8V44ooWHhQwHfFlxXxgs_JLS5VaCtXVYKV8J6n_9Q";
+            cfg.RegisterServicesFromAssembly(typeof(MediatrHandler).Assembly);
+        });
+
+        return builder;
+    }
+
     public static WebApplicationBuilder AddIdentityConfig(this WebApplicationBuilder builder)
     {
         builder.Services
@@ -75,7 +88,7 @@ public static class ApiConfig
 
         return builder;
     }
-    
+
     public static WebApplication UseApiConfiguration(this WebApplication app)
     {
         app.Use(async (context, next) =>
@@ -84,7 +97,6 @@ public static class ApiConfig
             await next();
         });
 
-        var staticFileOptions = new StaticFileOptions();
 
         if (!app.Environment.IsDevelopment())
         {
@@ -101,7 +113,7 @@ public static class ApiConfig
            .UseHttpsRedirection()
            .UseMiddleware<ExceptionMiddleware>()
            .UseMiddleware<SecurityMiddleware>(app.Environment)
-           .UseStaticFiles(staticFileOptions)
+           .UseStaticFiles()
            .UseRouting()
            .UseAuthentication()
            .UseAuthorization();

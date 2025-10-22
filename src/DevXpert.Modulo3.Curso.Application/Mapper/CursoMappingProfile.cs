@@ -1,7 +1,7 @@
-﻿using DevXpert.Modulo3.Conteudo.Application.ViewModels;
-using DevXpert.Modulo3.Conteudo.Domain;
+﻿using DevXpert.Modulo3.ModuloConteudo.Application.ViewModels;
+using DevXpert.Modulo3.ModuloConteudo.Domain;
 
-namespace DevXpert.Modulo3.Conteudo.Application.Mapper;
+namespace DevXpert.Modulo3.ModuloConteudo.Application.Mapper;
 
 public static class CursoMappingProfile
 {

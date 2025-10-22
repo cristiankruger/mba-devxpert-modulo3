@@ -1,23 +1,36 @@
 ﻿using DevXpert.Modulo3.API.Configurations.App;
+using DevXpert.Modulo3.API.Configurations.Extensions;
+using DevXpert.Modulo3.Core.Mediator;
+using DevXpert.Modulo3.Core.Messages.CommomMessages.Notifications;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System.Net;
 
 namespace DevXpert.Modulo3.API.Controllers;
 
 [ApiController]
+[AllowSynchronousIO]
 public abstract class MainController : ControllerBase
 {
+    private readonly IMediatrHandler _mediatorHandler;
+    private readonly DomainNotificationHandler _notifications;
     protected Guid UserId { get; set; }
     protected string UserName { get; set; }
+    protected string UserRole { get; set; }
 
-    protected MainController(IAppIdentityUser user)
+    protected MainController(IAppIdentityUser user,
+                             IMediatrHandler mediatorHandler,
+                             INotificationHandler<DomainNotification> notifications)
     {
+        _mediatorHandler = mediatorHandler;
+        _notifications = (DomainNotificationHandler)notifications;
+
         if (user.IsAuthenticated())
         {
             UserId = user.GetUserId();
             UserName = user.GetUsername();
+            UserRole = user.GetUserRole();
         }
     }
 
@@ -26,20 +39,15 @@ public abstract class MainController : ControllerBase
         if (!modelState.IsValid)
             NotificarInvalidModelStateError(modelState);
 
-        return CustomResponse(HttpStatusCode.BadRequest);
+        return CustomResponse();
     }
 
-    protected ActionResult CustomResponse(HttpStatusCode statusCode, object result = null)
+    protected ActionResult CustomResponse(object result = null)
     {
-        return statusCode switch
-        {
-            HttpStatusCode.OK => Ok(new { success = true, data = result }),
-            HttpStatusCode.Created => CreatedAtAction("ObterPorId", new { success = true, id = GetObjectId(result) }, result),
-            HttpStatusCode.NoContent => NoContent(),
-            HttpStatusCode.NotFound => NotFound(new { success = false, errors = SetErrors(result) }),
-            HttpStatusCode.BadRequest => BadRequest(new { success = false, errors = SetErrors(result) }),
-            _ => throw new NotImplementedException($"Status code {statusCode} não implementado."),
-        };
+        if (!_notifications.TemNotificacao())
+            return Ok(new { success = true, data = result });
+
+        return BadRequest(new { success = false, errors = _notifications.ObterNotificacoes().Select(n => n.Value) });        
     }
 
     protected void NotificarInvalidModelStateError(ModelStateDictionary modelState)
@@ -50,7 +58,7 @@ public abstract class MainController : ControllerBase
         {
             var errorMsg = erro.Exception is null ? erro.ErrorMessage : erro.Exception.Message;
 
-            NotificarErro(errorMsg);
+            NotificarErro("Erro", errorMsg);
         }
     }
 
@@ -62,9 +70,9 @@ public abstract class MainController : ControllerBase
         NotificarInvalidModelStateError(ModelState);
     }
 
-    protected void NotificarErro(string errorMessage)
+    protected void NotificarErro(string codigo, string mensagem)
     {
-        //notificador.Handle(new Notificacao(errorMessage));
+        _mediatorHandler.PublicarNotificacao(new DomainNotification(codigo, mensagem));
     }
 
     private Guid GetObjectId(object result)
@@ -73,9 +81,8 @@ public abstract class MainController : ControllerBase
         return (Guid)d.Id;
     }
 
-    private object SetErrors(object result)
+    private object NotificarErros(object result)
     {
-        throw new NotImplementedException();
-        //return notificador.TemNotificacao() ? notificador.ObterNotificacoes().Select(n => n.Mensagem) : result;
+        return _notifications.TemNotificacao() ? _notifications.ObterNotificacoes().Select(n => n.Value) : result;
     }
 }

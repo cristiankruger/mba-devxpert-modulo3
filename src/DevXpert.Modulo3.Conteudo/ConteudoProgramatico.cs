@@ -1,7 +1,7 @@
 ﻿using DevXpert.Modulo3.Core.DomainObjects;
 using System.Text.RegularExpressions;
 
-namespace DevXpert.Modulo3.Conteudo.Domain;
+namespace DevXpert.Modulo3.ModuloConteudo.Domain;
 
 public class ConteudoProgramatico
 {

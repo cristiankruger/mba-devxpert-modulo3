@@ -1,7 +1,7 @@
 ﻿using DevXpert.Modulo3.Core.DomainObjects;
 using System.Text.RegularExpressions;
 
-namespace DevXpert.Modulo3.Aluno.Domain;
+namespace DevXpert.Modulo3.ModuloAluno.Domain;
 
 public class Aluno : Entity, IAggregateRoot
 {

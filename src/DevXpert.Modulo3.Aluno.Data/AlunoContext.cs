@@ -1,14 +1,15 @@
 ﻿using DevXpert.Modulo3.Core.Data;
+using DevXpert.Modulo3.ModuloAluno.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace DevXpert.Modulo3.Aluno.Data;
+namespace DevXpert.Modulo3.ModuloAluno.Data;
 
 public class AlunoContext(DbContextOptions<AlunoContext> options) : DbContext(options), IUnitOfWork
 {
-    public DbSet<Domain.Aluno> Alunos { get; set; }
-    public DbSet<Domain.Matricula> Matriculas { get; set; }
-    public DbSet<Domain.Certificado> Certificados { get; set; }
+    public DbSet<Aluno> Alunos { get; set; }
+    public DbSet<Matricula> Matriculas { get; set; }
+    public DbSet<Certificado> Certificados { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -7,30 +7,34 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="13.0.0" />
+    <PackageReference Include="YamlDotNet" Version="16.3.0" />
     <PackageReference Include="Asp.Versioning.Mvc" Version="8.1.0" />
     <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.9" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.9">
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="9.0.10" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6" />
+    <PackageReference Include="microsoft.entityframeworkcore" Version="9.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.10">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-    <PackageReference Include="microsoft.entityframeworkcore" Version="9.0.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.9">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.10">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="YamlDotNet" Version="16.3.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DevXpert.Modulo3.Aluno.Data\DevXpert.Modulo3.Aluno.Data.csproj" />
-    <ProjectReference Include="..\DevXpert.Modulo3.Conteudo.Data\DevXpert.Modulo3.Conteudo.Data.csproj" />
-    <ProjectReference Include="..\DevXpert.Modulo3.Curso.Application\DevXpert.Modulo3.Conteudo.Application.csproj" />
-    <ProjectReference Include="..\DevXpert.Modulo3.Financeiro.Data\DevXpert.Modulo3.Financeiro.Data.csproj" />
+    <ProjectReference Include="..\DevXpert.Modulo3.Core.Data\DevXpert.Modulo3.Core.Data.csproj" />
+    <ProjectReference Include="..\DevXpert.Modulo3.Aluno.Data\DevXpert.Modulo3.ModuloAluno.Data.csproj" />
+    <ProjectReference Include="..\DevXpert.Modulo3.Conteudo.Data\DevXpert.Modulo3.ModuloConteudo.Data.csproj" />
+    <ProjectReference Include="..\DevXpert.Modulo3.Core.Application\DevXpert.Modulo3.Core.Application.csproj" />
+    <ProjectReference Include="..\DevXpert.Modulo3.Curso.Application\DevXpert.Modulo3.ModuloConteudo.Application.csproj" />
+    <ProjectReference Include="..\DevXpert.Modulo3.Financeiro.Data\DevXpert.Modulo3.ModuloFinanceiro.Data.csproj" />
   </ItemGroup>
 
 </Project>

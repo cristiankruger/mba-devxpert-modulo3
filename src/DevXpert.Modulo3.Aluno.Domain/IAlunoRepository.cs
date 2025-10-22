@@ -1,6 +1,6 @@
 ﻿using DevXpert.Modulo3.Core.Data;
 
-namespace DevXpert.Modulo3.Aluno.Domain;
+namespace DevXpert.Modulo3.ModuloAluno.Domain;
 
 public interface IAlunoRepository : IRepository<Aluno>
 {

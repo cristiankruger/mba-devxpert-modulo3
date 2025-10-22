@@ -1,6 +1,6 @@
 ﻿using DevXpert.Modulo3.Core.DomainObjects;
 
-namespace DevXpert.Modulo3.Financeiro.Domain;
+namespace DevXpert.Modulo3.ModuloFinanceiro.Domain;
 
 public class Pagamento : Entity, IAggregateRoot
 {

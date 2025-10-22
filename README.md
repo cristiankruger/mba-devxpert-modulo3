@@ -50,6 +50,10 @@ A estrutura do projeto é organizada da seguinte forma:
 |   |-- DevXpert.Modulo3.Aluno.Application           → Service do contexto de Aluno
 |   |-- DevXpert.Modulo3.Aluno.Data                  → Acesso à dados do contexto de Aluno
 |   |-- DevXpert.Modulo3.Aluno.Domain                → Domínio do Bounded Context de Aluno
+|   |-- DevXpert.Modulo3.Core                        → Core compartilhado
+|   |-- DevXpert.Modulo3.Core.Application            → Camada de serviço devido ao uso do Asp.Net Identity
+|   |-- DevXpert.Modulo3.Core.Data                   → Acesso à dados do contexto do Identity
+|   |-- DevXpert.Modulo3.Core.Domain                 → Domínio do Bounded Context de Admin e Aluno (Asp.Net Identity)
 |   |-- DevXpert.Modulo3.Curso.Application           → Service do contexto de Curso
 |   |-- DevXpert.Modulo3.Curso.Data                  → Acesso à dados do contexto de Curso
 |   |-- DevXpert.Modulo3.Curso.Domain                → Domínio do Bounded Context de Curso

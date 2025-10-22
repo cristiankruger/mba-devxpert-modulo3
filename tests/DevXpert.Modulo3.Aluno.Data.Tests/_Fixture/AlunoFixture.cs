@@ -1,7 +1,7 @@
 ﻿using Bogus;
 using Bogus.Extensions.Brazil;
 
-namespace DevXpert.Modulo3.Aluno.Domain.Tests._Fixture;
+namespace DevXpert.Modulo3.ModuloAluno.Domain.Tests._Fixture;
 
 [CollectionDefinition(nameof(AlunoCollection))]
 public class AlunoCollection : ICollectionFixture<AlunoTestsFixture>

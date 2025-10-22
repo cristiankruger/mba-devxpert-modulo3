@@ -11,6 +11,7 @@ builder.AddDatabase()
        .AddCorsConfig()
        .AddSwaggerConfig()
        .AddIdentityConfig()
+       .ConfigureMediatR()
        .ResolveDependecies();
 
 var app = builder.Build();
@@ -21,3 +22,5 @@ app.UseApiConfiguration()
    .MigrateDatabase().Wait();
 
 app.Run();
+
+public partial class Program { }

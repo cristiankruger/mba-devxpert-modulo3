@@ -1,6 +1,7 @@
 ﻿using Bogus;
+using DevXpert.Modulo3.ModuloConteudo.Domain;
 
-namespace DevXpert.Modulo3.Conteudo.Domain.Tests.Fixture;
+namespace DevXpert.Modulo3.ModuloConteudo.Domain.Tests.Fixture;
 
 [CollectionDefinition(nameof(CursoCollection))]
 public class CursoCollection : ICollectionFixture<CursoFixture>

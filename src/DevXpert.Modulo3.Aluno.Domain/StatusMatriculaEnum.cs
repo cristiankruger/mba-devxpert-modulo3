@@ -1,4 +1,4 @@
-﻿namespace DevXpert.Modulo3.Aluno.Domain
+﻿namespace DevXpert.Modulo3.ModuloAluno.Domain
 {
     public enum StatusMatriculaEnum
     {
