@@ -1,15 +1,16 @@
 ﻿using DevXpert.Modulo3.API.Configurations.App;
+using DevXpert.Modulo3.API.Configurations.Extensions;
 using DevXpert.Modulo3.Core.Mediator;
 using DevXpert.Modulo3.Core.Messages.CommomMessages.Notifications;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System.Net;
 
 namespace DevXpert.Modulo3.API.Controllers;
 
 [ApiController]
+[AllowSynchronousIO]
 public abstract class MainController : ControllerBase
 {
     private readonly IMediatrHandler _mediatorHandler;
@@ -38,20 +39,15 @@ public abstract class MainController : ControllerBase
         if (!modelState.IsValid)
             NotificarInvalidModelStateError(modelState);
 
-        return CustomResponse(HttpStatusCode.BadRequest);
+        return CustomResponse();
     }
 
-    protected ActionResult CustomResponse(HttpStatusCode statusCode, object result = null)
+    protected ActionResult CustomResponse(object result = null)
     {
-        return statusCode switch
-        {
-            HttpStatusCode.OK => Ok(new { success = true, data = result }),
-            HttpStatusCode.Created => CreatedAtAction("ObterPorId", new { success = true, id = GetObjectId(result) }, result),
-            HttpStatusCode.NoContent => NoContent(),
-            HttpStatusCode.NotFound => NotFound(new { success = false, errors = NotificarErros(result) }),
-            HttpStatusCode.BadRequest => BadRequest(new { success = false, errors = NotificarErros(result) }),
-            _ => throw new NotImplementedException($"Status code {statusCode} não implementado."),
-        };
+        if (!_notifications.TemNotificacao())
+            return Ok(new { success = true, data = result });
+
+        return BadRequest(new { success = false, errors = _notifications.ObterNotificacoes().Select(n => n.Value) });        
     }
 
     protected void NotificarInvalidModelStateError(ModelStateDictionary modelState)
@@ -62,7 +58,7 @@ public abstract class MainController : ControllerBase
         {
             var errorMsg = erro.Exception is null ? erro.ErrorMessage : erro.Exception.Message;
 
-            NotificarErro("Erro",errorMsg);
+            NotificarErro("Erro", errorMsg);
         }
     }
 

@@ -7,6 +7,9 @@ using Moq;
 using Shouldly;
 using System.Linq.Expressions;
 using DevXpert.Modulo3.ModuloConteudo.Application.Tests.Fixture;
+using DevXpert.Modulo3.Core.Mediator;
+using DevXpert.Modulo3.Core.Messages.CommomMessages.Notifications;
+using MediatR;
 
 namespace DevXpert.Modulo3.ModuloConteudo.Application.Tests;
 
@@ -55,7 +58,7 @@ public class CursoAppServiceTests
         var result = await _cursoService.ObterTodos();
 
         result.Count().ShouldBe(lista.Count);
-        
+
         result.ShouldBeAssignableTo<IEnumerable<CursoViewModel>>();
 
         _cursoFixture.Mocker.GetMock<ICursoRepository>()
@@ -73,14 +76,13 @@ public class CursoAppServiceTests
                      .Setup(r => r.Buscar(It.IsAny<Expression<Func<Curso, bool>>>()))
                      .ReturnsAsync([curso]);
 
-        var ex = await Assert.ThrowsAsync<DomainException>(async () =>
-           await _cursoService.AdicionarCurso(model)
-        );
-
-        ex.Message.ShouldBe("Já existe um curso com este nome cadastrado.");
+        await _cursoService.AdicionarCurso(model);
 
         _cursoFixture.Mocker.GetMock<ICursoRepository>()
             .Verify(r => r.Buscar(It.IsAny<Expression<Func<Curso, bool>>>()), Times.Once);
+
+        _cursoFixture.Mocker.GetMock<IMediatrHandler>()
+            .Verify(m => m.PublicarNotificacao(It.Is<DomainNotification>(n => n.Value == "Já existe um curso com este nome cadastrado.")), Times.Once);
 
         _cursoFixture.Mocker.GetMock<ICursoRepository>()
             .Verify(r => r.Adicionar(It.IsAny<Curso>()), Times.Never);
@@ -117,61 +119,6 @@ public class CursoAppServiceTests
             .Verify(r => r.UnitOfWork.Commit(), Times.Once);
     }
 
-    [Fact(DisplayName = "CursoAppService Atualizar NaoDeveAtualizarCursoJaCadastrado")]
-    public async Task CursoAppService_Atualizar_NaoDeveAtualizarCursoJaCadastrado()
-    {
-        var curso = new Curso("Mock Nome", new("Mock Instrutor", "Mock Ementa de 20 caracteres", "Mock Publico Alvo"));
-        var model = CursoMappingProfile.MapCursoToCursoViewModel(curso);
-
-        _cursoFixture.Mocker
-                     .GetMock<ICursoRepository>()
-                     .Setup(r => r.Buscar(It.IsAny<Expression<Func<Curso, bool>>>()))
-                     .ReturnsAsync([curso]);
-
-        var ex = await Assert.ThrowsAsync<DomainException>(async () =>
-                await _cursoService.AtualizarCurso(model)
-        );
-
-        ex.Message.ShouldBe("Já existe um curso com este nome cadastrado.");
-
-        _cursoFixture.Mocker.GetMock<ICursoRepository>()
-            .Verify(r => r.Buscar(It.IsAny<Expression<Func<Curso, bool>>>()), Times.Once);
-
-        _cursoFixture.Mocker.GetMock<ICursoRepository>()
-            .Verify(r => r.Atualizar(It.IsAny<Curso>()), Times.Never);
-
-        _cursoFixture.Mocker.GetMock<ICursoRepository>()
-            .Verify(r => r.UnitOfWork.Commit(), Times.Never);
-    }
-
-    [Fact(DisplayName = "CursoAppService Atualizar DeveAtualizarCurso")]
-    public async Task CursoAppService_Atualizar_DeveAtualizarCurso()
-    {
-        var curso = new Curso("Mock Nome", new("Mock Instrutor", "Mock Ementa de 20 caracteres", "Mock Publico Alvo"));
-        var model = CursoMappingProfile.MapCursoToCursoViewModel(curso);
-
-        _cursoFixture.Mocker
-                     .GetMock<ICursoRepository>()
-                     .Setup(r => r.Buscar(It.IsAny<Expression<Func<Curso, bool>>>()))
-                     .ReturnsAsync([]);
-
-        _cursoFixture.Mocker
-                     .GetMock<ICursoRepository>()
-                     .Setup(r => r.UnitOfWork.Commit())
-                     .ReturnsAsync(true);
-
-        await _cursoService.AtualizarCurso(model);
-
-        _cursoFixture.Mocker.GetMock<ICursoRepository>()
-            .Verify(r => r.Buscar(It.IsAny<Expression<Func<Curso, bool>>>()), Times.Once);
-
-        _cursoFixture.Mocker.GetMock<ICursoRepository>()
-            .Verify(r => r.Atualizar(It.IsAny<Curso>()), Times.Once);
-
-        _cursoFixture.Mocker.GetMock<ICursoRepository>()
-            .Verify(r => r.UnitOfWork.Commit(), Times.Once);
-    }
-
     [Fact(DisplayName = "CursoAppService PermitirInscricaoCurso NaoDevePermitirInscricaoCursoNaoEncontrado")]
     public async Task CursoAppService_PermitirInscricaoCurso_NaoDevePermitirInscricaoCursoNaoEncontrado()
     {
@@ -182,14 +129,13 @@ public class CursoAppServiceTests
                      .Setup(r => r.Obter(It.IsAny<Guid>()))
                      .ReturnsAsync((Curso)null);
 
-        var ex = await Assert.ThrowsAsync<DomainException>(async () =>
-            await _cursoService.PermitirInscricaoCurso(curso.Id)
-       );
-
-        ex.Message.ShouldBe("Curso não encontrado.");
+        await _cursoService.PermitirInscricaoCurso(curso.Id);
 
         _cursoFixture.Mocker.GetMock<ICursoRepository>()
             .Verify(r => r.Obter(It.IsAny<Guid>()), Times.Once);
+
+        _cursoFixture.Mocker.GetMock<IMediatrHandler>()
+            .Verify(m => m.PublicarNotificacao(It.Is<DomainNotification>(n => n.Value == "Curso não encontrado.")), Times.Once);
 
         _cursoFixture.Mocker.GetMock<ICursoRepository>()
             .Verify(r => r.Atualizar(It.IsAny<Curso>()), Times.Never);
@@ -208,14 +154,13 @@ public class CursoAppServiceTests
                      .Setup(r => r.Obter(It.IsAny<Guid>()))
                      .ReturnsAsync(curso);
 
-        var ex = await Assert.ThrowsAsync<DomainException>(async () =>
-            await _cursoService.PermitirInscricaoCurso(curso.Id)
-       );
-
-        ex.Message.ShouldBe("Não é possível permitir inscrição em um curso sem aulas.");
+        await _cursoService.PermitirInscricaoCurso(curso.Id);
 
         _cursoFixture.Mocker.GetMock<ICursoRepository>()
             .Verify(r => r.Obter(It.IsAny<Guid>()), Times.Once);
+
+        _cursoFixture.Mocker.GetMock<IMediatrHandler>()
+           .Verify(m => m.PublicarNotificacao(It.Is<DomainNotification>(n => n.Value == "Não é possível permitir inscrição em um curso sem aulas.")), Times.Once);
 
         _cursoFixture.Mocker.GetMock<ICursoRepository>()
             .Verify(r => r.Atualizar(It.IsAny<Curso>()), Times.Never);
@@ -253,59 +198,6 @@ public class CursoAppServiceTests
             .Verify(r => r.UnitOfWork.Commit(), Times.Once);
     }
 
-    [Fact(DisplayName = "CursoAppService ProibirInscricaoCurso NaoDeveProibirInscricaoCursoNaoEncontrado")]
-    public async Task CursoAppService_ProibirInscricaoCurso_NaoDeveProibirInscricaoCursoNaoEncontrado()
-    {
-        var curso = new Curso("Mock Nome", new("Mock Instrutor", "Mock Ementa de 20 caracteres", "Mock Publico Alvo"));
-
-        _cursoFixture.Mocker
-                     .GetMock<ICursoRepository>()
-                     .Setup(r => r.Obter(It.IsAny<Guid>()))
-                     .ReturnsAsync((Curso)null);
-
-        var ex = await Assert.ThrowsAsync<DomainException>(async () =>
-            await _cursoService.ProibirInscricaoCurso(curso.Id)
-        );
-
-        ex.Message.ShouldBe("Curso não encontrado.");
-
-        _cursoFixture.Mocker.GetMock<ICursoRepository>()
-            .Verify(r => r.Obter(It.IsAny<Guid>()), Times.Once);
-
-        _cursoFixture.Mocker.GetMock<ICursoRepository>()
-            .Verify(r => r.Atualizar(It.IsAny<Curso>()), Times.Never);
-
-        _cursoFixture.Mocker.GetMock<ICursoRepository>()
-            .Verify(r => r.UnitOfWork.Commit(), Times.Never);
-    }
-
-    [Fact(DisplayName = "CursoAppService ProibirInscricaoCurso DeveProibirInscricaoCurso")]
-    public async Task CursoAppService_ProibirInscricaoCurso_DeveProibirInscricaoCurso()
-    {
-        var curso = new Curso("Mock Nome", new("Mock Instrutor", "Mock Ementa de 20 caracteres", "Mock Publico Alvo"));
-
-        _cursoFixture.Mocker
-                     .GetMock<ICursoRepository>()
-                     .Setup(r => r.Obter(It.IsAny<Guid>()))
-                     .ReturnsAsync(curso);
-
-        _cursoFixture.Mocker
-                    .GetMock<ICursoRepository>()
-                    .Setup(r => r.UnitOfWork.Commit())
-                    .ReturnsAsync(true);
-
-        await _cursoService.ProibirInscricaoCurso(curso.Id);
-
-        _cursoFixture.Mocker.GetMock<ICursoRepository>()
-            .Verify(r => r.Obter(It.IsAny<Guid>()), Times.Once);
-
-        _cursoFixture.Mocker.GetMock<ICursoRepository>()
-            .Verify(r => r.Atualizar(It.IsAny<Curso>()), Times.Once);
-
-        _cursoFixture.Mocker.GetMock<ICursoRepository>()
-            .Verify(r => r.UnitOfWork.Commit(), Times.Once);
-    }
-
     [Fact(DisplayName = "CursoAppService ObterAulaPorId DeveRetornarAula")]
     public async Task CursoAppService_ObterAulaPorId_DeveRetornarAula()
     {
@@ -329,7 +221,7 @@ public class CursoAppServiceTests
     public async Task CursoAppService_ObterAulas_DeveRetornarAulas()
     {
         var lista = new List<Aula>() { new(Guid.NewGuid(), "Mock Titulo da Aula", "https://youtube.com/meulink", TimeSpan.FromMinutes(30)) };
-        
+
         _cursoFixture.Mocker
                      .GetMock<ICursoRepository>()
                      .Setup(r => r.ObterAulas(lista[0].CursoId))
@@ -356,11 +248,10 @@ public class CursoAppServiceTests
                      .Setup(r => r.Obter(aula.CursoId))
                      .ReturnsAsync((Curso)null);
 
-        var ex = await Assert.ThrowsAsync<DomainException>(async () =>
-            await _cursoService.AdicionarAula(model)
-        );
+        await _cursoService.AdicionarAula(model);
 
-        ex.Message.ShouldBe("Curso não encontrado.");
+        _cursoFixture.Mocker.GetMock<IMediatrHandler>()
+            .Verify(m => m.PublicarNotificacao(It.Is<DomainNotification>(n => n.Value == "Curso não encontrado.")), Times.Once);
 
         _cursoFixture.Mocker.GetMock<ICursoRepository>()
             .Verify(r => r.Obter(It.IsAny<Guid>()), Times.Once);
@@ -396,111 +287,6 @@ public class CursoAppServiceTests
 
         _cursoFixture.Mocker.GetMock<ICursoRepository>()
             .Verify(r => r.Adicionar(It.IsAny<Aula>()), Times.Once);
-
-        _cursoFixture.Mocker.GetMock<ICursoRepository>()
-            .Verify(r => r.UnitOfWork.Commit(), Times.Once);
-    }
-
-    [Fact(DisplayName = "CursoAppService AtualizarAula NaoDeveAtualizarAulaNaoEncontrada")]
-    public async Task CursoAppService_AtualizarAula_NaoDeveAtualizarAulaNaoEncontrada()
-    {
-        var aula = new Aula(Guid.NewGuid(), "Mock Titulo da Aula", "https://youtube.com/meulink", TimeSpan.FromMinutes(30));
-        var model = CursoMappingProfile.MapAulaToAulaViewModel(aula);
-
-        _cursoFixture.Mocker
-                     .GetMock<ICursoRepository>()
-                     .Setup(r => r.ObterAula(aula.Id))
-                     .ReturnsAsync((Aula)null);
-
-        var ex = await Assert.ThrowsAsync<DomainException>(async () =>
-            await _cursoService.AtualizarAula(model)
-        );
-
-        ex.Message.ShouldBe("Aula não encontrada.");
-
-        _cursoFixture.Mocker.GetMock<ICursoRepository>()
-            .Verify(r => r.ObterAula(It.IsAny<Guid>()), Times.Once);
-
-        _cursoFixture.Mocker.GetMock<ICursoRepository>()
-            .Verify(r => r.Obter(It.IsAny<Guid>()), Times.Never);
-
-        _cursoFixture.Mocker.GetMock<ICursoRepository>()
-            .Verify(r => r.Adicionar(It.IsAny<Aula>()), Times.Never);
-
-        _cursoFixture.Mocker.GetMock<ICursoRepository>()
-            .Verify(r => r.UnitOfWork.Commit(), Times.Never);
-    }
-
-    [Fact(DisplayName = "CursoAppService AtualizarAula NaoDeveAtualizarAulaCursoNaoEncontrado")]
-    public async Task CursoAppService_AtualizarAula_NaoDeveAtualizarAulaCursoNaoEncontrado()
-    {
-        var curso = new Curso("Mock Nome", new("Mock Instrutor", "Mock Ementa de 20 caracteres", "Mock Publico Alvo"));
-        var aula = new Aula(curso.Id, "Mock Titulo da Aula", "https://youtube.com/meulink", TimeSpan.FromMinutes(30));
-        var model = CursoMappingProfile.MapAulaToAulaViewModel(aula);
-
-        _cursoFixture.Mocker
-                     .GetMock<ICursoRepository>()
-                     .Setup(r => r.ObterAula(aula.Id))
-                     .ReturnsAsync(aula);
-
-        _cursoFixture.Mocker
-                     .GetMock<ICursoRepository>()
-                     .Setup(r => r.Obter(aula.CursoId))
-                     .ReturnsAsync((Curso)null);
-
-        var ex = await Assert.ThrowsAsync<DomainException>(async () =>
-            await _cursoService.AtualizarAula(model)
-        );
-
-        ex.Message.ShouldBe("Curso não encontrado.");
-
-        _cursoFixture.Mocker.GetMock<ICursoRepository>()
-            .Verify(r => r.ObterAula(It.IsAny<Guid>()), Times.Once);
-
-        _cursoFixture.Mocker.GetMock<ICursoRepository>()
-            .Verify(r => r.Obter(It.IsAny<Guid>()), Times.Once);
-
-        _cursoFixture.Mocker.GetMock<ICursoRepository>()
-            .Verify(r => r.Adicionar(It.IsAny<Aula>()), Times.Never);
-
-        _cursoFixture.Mocker.GetMock<ICursoRepository>()
-            .Verify(r => r.UnitOfWork.Commit(), Times.Never);
-    }
-
-    [Fact(DisplayName = "CursoAppService AtualizarAula DeveAtualizarAula")]
-    public async Task CursoAppService_AtualizarAula_DeveAtualizarAula()
-    {
-        var curso = new Curso("Mock Nome", new("Mock Instrutor", "Mock Ementa de 20 caracteres", "Mock Publico Alvo"));
-        var aula = new Aula(curso.Id, "Mock Titulo da Aula", "https://youtube.com/meulink", TimeSpan.FromMinutes(30));
-        var model = CursoMappingProfile.MapAulaToAulaViewModel(aula);
-        curso.CadastrarAula(aula);
-        aula.AlterarTitulo("Mock Novo Titulo da Aula");
-
-        _cursoFixture.Mocker
-                     .GetMock<ICursoRepository>()
-                     .Setup(r => r.ObterAula(aula.Id))
-                     .ReturnsAsync(aula);
-
-        _cursoFixture.Mocker
-                     .GetMock<ICursoRepository>()
-                     .Setup(r => r.Obter(aula.CursoId))
-                     .ReturnsAsync(curso);
-
-        _cursoFixture.Mocker
-                     .GetMock<ICursoRepository>()
-                     .Setup(r => r.UnitOfWork.Commit())
-                     .ReturnsAsync(true);
-
-        await _cursoService.AtualizarAula(model);
-
-        _cursoFixture.Mocker.GetMock<ICursoRepository>()
-            .Verify(r => r.ObterAula(It.IsAny<Guid>()), Times.Once);
-
-        _cursoFixture.Mocker.GetMock<ICursoRepository>()
-            .Verify(r => r.Obter(It.IsAny<Guid>()), Times.Once);
-
-        _cursoFixture.Mocker.GetMock<ICursoRepository>()
-            .Verify(r => r.Atualizar(It.IsAny<Aula>()), Times.Once);
 
         _cursoFixture.Mocker.GetMock<ICursoRepository>()
             .Verify(r => r.UnitOfWork.Commit(), Times.Once);

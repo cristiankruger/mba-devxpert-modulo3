@@ -1,11 +1,13 @@
 ﻿using DevXpert.Modulo3.ModuloConteudo.Application.ViewModels;
 using DevXpert.Modulo3.ModuloConteudo.Domain;
-using DevXpert.Modulo3.Core.DomainObjects;
 using DevXpert.Modulo3.ModuloConteudo.Application.Mapper;
+using DevXpert.Modulo3.Core.Mediator;
+using DevXpert.Modulo3.Core.Messages.CommomMessages.Notifications;
 
 namespace DevXpert.Modulo3.ModuloConteudo.Application.Services
 {
-    public class CursoAppService(ICursoRepository cursoRepository) : ICursoAppService
+    public class CursoAppService(ICursoRepository cursoRepository,
+                                 IMediatrHandler mediatorHandler) : ICursoAppService
     {
         //Curso
         public async Task<CursoViewModel> ObterPorId(Guid id)
@@ -25,47 +27,36 @@ namespace DevXpert.Modulo3.ModuloConteudo.Application.Services
             var jaCadastrado = await cursoRepository.Buscar(c => c.Nome == curso.Nome);
 
             if (jaCadastrado.Any())
-                throw new DomainException("Já existe um curso com este nome cadastrado.");
+            {
+                await mediatorHandler.PublicarNotificacao(new DomainNotification("Curso", "Já existe um curso com este nome cadastrado."));
+                return;
+            }
 
             await cursoRepository.Adicionar(curso);
             await cursoRepository.UnitOfWork.Commit();
         }
 
-        public async Task AtualizarCurso(CursoViewModel cursoViewModel)
-        {
-            var curso = CursoMappingProfile.MapCursoViewModelToCurso(cursoViewModel);
-
-            var jaCadastrado = await cursoRepository.Buscar(c => c.Nome == curso.Nome && c.Id != curso.Id);
-
-            if (jaCadastrado.Any())
-                throw new DomainException("Já existe um curso com este nome cadastrado.");
-
-            cursoRepository.Atualizar(curso);
-            await cursoRepository.UnitOfWork.Commit();
-        }
-
         public async Task PermitirInscricaoCurso(Guid id)
         {
-            var curso = CursoMappingProfile.MapCursoViewModelToCurso(await ObterPorId(id)) ??
-                throw new DomainException("Curso não encontrado.");
+            var curso = CursoMappingProfile.MapCursoViewModelToCurso(await ObterPorId(id));
+
+            if (curso is null)
+            {
+                await mediatorHandler.PublicarNotificacao(new DomainNotification("Curso", "Curso não encontrado."));
+                return;
+            }
 
             if (curso.Aulas.Count == 0)
-                throw new DomainException("Não é possível permitir inscrição em um curso sem aulas.");
+            {
+                await mediatorHandler.PublicarNotificacao(new DomainNotification("Curso", "Não é possível permitir inscrição em um curso sem aulas."));
+                return;
+            }
 
             curso.PermitirInscricao();
             cursoRepository.Atualizar(curso);
             await cursoRepository.UnitOfWork.Commit();
         }
 
-        public async Task ProibirInscricaoCurso(Guid id)
-        {
-            var curso = CursoMappingProfile.MapCursoViewModelToCurso(await ObterPorId(id)) ??
-                throw new DomainException("Curso não encontrado.");
-
-            curso.ProibirInscricao();
-            cursoRepository.Atualizar(curso);
-            await cursoRepository.UnitOfWork.Commit();
-        }
 
         //Aula
         public async Task<AulaViewModel> ObterAulaPorId(Guid id)
@@ -80,35 +71,26 @@ namespace DevXpert.Modulo3.ModuloConteudo.Application.Services
 
         public async Task AdicionarAula(AulaViewModel aulaViewModel)
         {
-            var curso = await cursoRepository.Obter(aulaViewModel.CursoId) ??
-                throw new DomainException("Curso não encontrado.");
+            var curso = await cursoRepository.Obter(aulaViewModel.CursoId);
+
+            if (curso is null)
+            {
+                await mediatorHandler.PublicarNotificacao(new DomainNotification("Curso", "Curso não encontrado."));
+                return;
+            }
 
             var aula = CursoMappingProfile.MapAulaViewModelToAula(aulaViewModel);
 
             var jaCadastrado = curso.Aulas.FirstOrDefault(a => a.CursoId == aula.CursoId && a.Titulo == aula.Titulo);
 
             if (jaCadastrado is not null)
-                throw new DomainException("Já existe uma aula com este título para este curso.");
+            {
+                await mediatorHandler.PublicarNotificacao(new DomainNotification("Curso", "Já existe uma aula com este título para este curso."));
+                return;
+            }
 
             curso.CadastrarAula(aula);
             await cursoRepository.Adicionar(aula);
-            await cursoRepository.UnitOfWork.Commit();
-        }
-
-        public async Task AtualizarAula(AulaViewModel aulaViewModel)
-        {
-            var aula = CursoMappingProfile.MapAulaViewModelToAula(await ObterAulaPorId(aulaViewModel.Id)) ??
-                throw new DomainException("Aula não encontrada.");
-
-            var curso = await cursoRepository.Obter(aulaViewModel.CursoId) ??
-                throw new DomainException("Curso não encontrado.");
-
-            var jaCadastrado = curso.Aulas.Any(a => a.Titulo == aula.Titulo && a.Id != aula.Id);
-
-            if (jaCadastrado)
-                throw new DomainException("Já existe uma aula com este título para este curso.");
-
-            cursoRepository.Atualizar(aula);
             await cursoRepository.UnitOfWork.Commit();
         }
 

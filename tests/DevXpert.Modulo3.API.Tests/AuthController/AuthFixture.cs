@@ -1,4 +1,5 @@
-﻿using DevXpert.Modulo3.API.Tests.Config;
+﻿using DevXpert.Modulo3.API.Tests.AuthController.ResponseModel;
+using DevXpert.Modulo3.API.Tests.Config;
 using DevXpert.Modulo3.Core.Application.ViewModels;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -23,14 +24,7 @@ public class AuthFixture : IntegrationTest
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             PropertyNameCaseInsensitive = true
         };
-    }
-
-    public async Task<AuthResultResponseModel> Auth(string email, string senha)
-    {
-        await base.Authenticate(email, senha);
-
-        return Usuario;
-    }
+    }   
 
     public async Task<HttpResponseMessage> PostAutenticarResponse(LoginViewModel user)
     {

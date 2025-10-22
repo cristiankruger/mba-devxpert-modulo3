@@ -1,6 +1,6 @@
 ﻿using DevXpert.Modulo3.API.Tests.Config;
 
-namespace DevXpert.Modulo3.API.Tests.AuthController;
+namespace DevXpert.Modulo3.API.Tests.AuthController.ResponseModel;
 
 public class AuthResultResponseModel : BaseResponseModel
 {

@@ -7,11 +7,10 @@ using DevXpert.Modulo3.ModuloConteudo.Application.ViewModels;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 
 namespace DevXpert.Modulo3.API.Controllers.V1;
 
-[Authorize(Roles = "Admin")]
+[Authorize(AuthenticationSchemes = "Bearer")]
 [ApiVersion("1.0")]
 [Route("api/v{version:apiversion}/[controller]")]
 public class CursoController(ICursoAppService cursoAppService,
@@ -21,62 +20,40 @@ public class CursoController(ICursoAppService cursoAppService,
     : MainController(user, mediatrHandler, notifications)
 {
     [HttpGet]
+    [Authorize(Roles = "Admin,Aluno")]
     public async Task<IActionResult> ObterTodos()
     {
         var cursos = await cursoAppService.ObterTodos();
 
-        return CustomResponse(HttpStatusCode.OK, cursos);
+        return CustomResponse(cursos);
     }
 
     [HttpGet("{id:guid}")]
+    [Authorize(Roles = "Admin,Aluno")]
     public async Task<IActionResult> ObterPorId(Guid id)
     {
         var curso = await cursoAppService.ObterPorId(id);
 
-        if (curso is null)
-            return CustomResponse(HttpStatusCode.NotFound);
-
-        return CustomResponse(HttpStatusCode.OK, curso);
+        return CustomResponse(curso);
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> AdicionarCurso(CursoViewModel cursoViewModel)
     {
         if (!ModelState.IsValid) return CustomResponse(ModelState);
 
         await cursoAppService.AdicionarCurso(cursoViewModel);
 
-        return CustomResponse(HttpStatusCode.Created, cursoViewModel);
+        return CustomResponse(cursoViewModel);
     }
-
-    [HttpPut("{id:guid}")]
-    public async Task<IActionResult> AtualizarCurso(Guid id, CursoViewModel cursoViewModel)
-    {
-        if (id != cursoViewModel.Id)
-        {
-            NotificarErro("Erro", "O id informado não é o mesmo que foi passado na query");
-            return CustomResponse(HttpStatusCode.BadRequest);
-        }
-
-        if (!ModelState.IsValid) return CustomResponse(ModelState);
-
-        await cursoAppService.AtualizarCurso(cursoViewModel);
-
-        return CustomResponse(HttpStatusCode.NoContent);
-    }
-
+   
     [HttpPost("permitir-inscricao/{id:guid}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> PermitirInscricaoCurso(Guid id)
     {
         await cursoAppService.PermitirInscricaoCurso(id);
-        return CustomResponse(HttpStatusCode.NoContent);
-    }
-
-    [HttpPost("proibir-inscricao/{id:guid}")]
-    public async Task<IActionResult> ProibirInscricaoCurso(Guid id)
-    {
-        await cursoAppService.ProibirInscricaoCurso(id);
-        return CustomResponse(HttpStatusCode.NoContent);
+        return CustomResponse();
     }
 
     [HttpGet("aulas/{cursoId:guid}")]
@@ -84,7 +61,7 @@ public class CursoController(ICursoAppService cursoAppService,
     {
         var aulas = await cursoAppService.ObterAulas(cursoId);
 
-        return CustomResponse(HttpStatusCode.OK, aulas);
+        return CustomResponse(aulas);
     }
 
     [HttpGet("aulas/id/{id:guid}")]
@@ -92,35 +69,17 @@ public class CursoController(ICursoAppService cursoAppService,
     {
         var aula = await cursoAppService.ObterAulaPorId(id);
 
-        if (aula is null)
-            return CustomResponse(HttpStatusCode.NotFound);
-
-        return CustomResponse(HttpStatusCode.OK, aula);
+        return CustomResponse(aula);
     }
 
     [HttpPost("aula")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> AdicionarAula(AulaViewModel aulaViewModel)
     {
         if (!ModelState.IsValid) return CustomResponse(ModelState);
 
         await cursoAppService.AdicionarAula(aulaViewModel);
 
-        return CustomResponse(HttpStatusCode.Created, aulaViewModel);
-    }
-
-    [HttpPut("aula/{id:guid}")]
-    public async Task<IActionResult> AtualizarAula(Guid id, AulaViewModel aulaViewModel)
-    {
-        if (id != aulaViewModel.Id)
-        {
-            NotificarErro("Erro", "O id informado não é o mesmo que foi passado na query");
-            return CustomResponse(HttpStatusCode.BadRequest);
-        }
-
-        if (!ModelState.IsValid) return CustomResponse(ModelState);
-
-        await cursoAppService.AdicionarAula(aulaViewModel);
-
-        return CustomResponse(HttpStatusCode.NoContent);
-    }
+        return CustomResponse(aulaViewModel);
+    }   
 }

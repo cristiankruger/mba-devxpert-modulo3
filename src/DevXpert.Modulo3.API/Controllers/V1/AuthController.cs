@@ -27,12 +27,12 @@ public class AuthController(IAuthAppService authAppService,
         var result = await authAppService.Autenticar(login);
 
         if (result.Sucesso)
-            return CustomResponse(HttpStatusCode.OK, result.Token);
+            return CustomResponse(result.Token);
 
         foreach (var error in result.Erros)
             NotificarErro("Erro", error);
 
-        return CustomResponse(HttpStatusCode.BadRequest);
+        return CustomResponse();
     }
 
     [HttpPost("cadastrar")]
@@ -43,12 +43,12 @@ public class AuthController(IAuthAppService authAppService,
         var result = await authAppService.Cadastrar(cadastro);
 
         if (result.Sucesso)
-            return CustomResponse(HttpStatusCode.OK, result.Token);
+            return CustomResponse(result.Token);
 
         foreach (var error in result.Erros)
             NotificarErro("Erro", error);
 
-        return CustomResponse(HttpStatusCode.BadRequest);
+        return CustomResponse();
     }
 
 }

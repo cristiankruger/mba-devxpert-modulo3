@@ -97,7 +97,6 @@ public static class ApiConfig
             await next();
         });
 
-        var staticFileOptions = new StaticFileOptions();
 
         if (!app.Environment.IsDevelopment())
         {
@@ -114,7 +113,7 @@ public static class ApiConfig
            .UseHttpsRedirection()
            .UseMiddleware<ExceptionMiddleware>()
            .UseMiddleware<SecurityMiddleware>(app.Environment)
-           .UseStaticFiles(staticFileOptions)
+           .UseStaticFiles()
            .UseRouting()
            .UseAuthentication()
            .UseAuthorization();

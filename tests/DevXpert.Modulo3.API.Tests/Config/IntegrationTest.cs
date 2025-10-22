@@ -1,4 +1,4 @@
-﻿using DevXpert.Modulo3.API.Tests.AuthController;
+﻿using DevXpert.Modulo3.API.Tests.AuthController.ResponseModel;
 using DevXpert.Modulo3.Core.Application.ViewModels;
 using DevXpert.Modulo3.Core.Data;
 using DevXpert.Modulo3.ModuloConteudo.Data;
