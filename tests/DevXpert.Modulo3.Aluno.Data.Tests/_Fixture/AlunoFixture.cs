@@ -19,19 +19,17 @@ public class AlunoTestsFixture : IDisposable
         var alunos = new Faker<Aluno>("pt_BR")
                                 .CustomInstantiator(f =>
                                         new Aluno($"{f.Person.FirstName} {f.Person.LastName}",
-                                                  f.Person.Email,
-                                                  f.Person.Cpf(false),
-                                                  f.Person.DateOfBirth));
+                                                  f.Person.Email));
 
         var generated = alunos.Generate(quantidade);
 
         return generated;
     }
 
-    public Aluno GerarFakeAlunoInvalido(string nome, string email, string cpf, DateTime dataNascimento)
+    public Aluno GerarFakeAlunoInvalido(string nome, string email)
     {
         return new Faker<Aluno>("pt_BR")
-           .CustomInstantiator(f => new Aluno(nome, email, cpf, dataNascimento));
+           .CustomInstantiator(f => new Aluno(nome, email));
     }
 
     public string GerarNomeValido()
@@ -43,18 +41,7 @@ public class AlunoTestsFixture : IDisposable
     public string GerarEmailValido()
     {
         return new Faker().Person.Email;
-    }
-
-    public string GerarCpfValido()
-    {
-        return new Faker().Person.Cpf(false);
-    }
-
-    public DateTime GerarDataNascimentoValida()
-    {
-        var faker = new Faker();
-        return DateTime.Now.AddYears(-faker.Random.Int(18, 70)).AddDays(-faker.Random.Int(1, 364));
-    }
+    }  
 
     public void Dispose()
     {

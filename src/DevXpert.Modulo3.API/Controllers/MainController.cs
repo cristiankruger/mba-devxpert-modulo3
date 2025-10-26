@@ -3,6 +3,7 @@ using DevXpert.Modulo3.API.Configurations.Extensions;
 using DevXpert.Modulo3.Core.Mediator;
 using DevXpert.Modulo3.Core.Messages.CommomMessages.Notifications;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -11,6 +12,7 @@ namespace DevXpert.Modulo3.API.Controllers;
 
 [ApiController]
 [AllowSynchronousIO]
+[Authorize(AuthenticationSchemes = "Bearer")]
 public abstract class MainController : ControllerBase
 {
     private readonly IMediatrHandler _mediatorHandler;

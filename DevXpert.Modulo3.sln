@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.ModuloCont
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.ModuloAluno.Domain", "src\DevXpert.Modulo3.Aluno.Domain\DevXpert.Modulo3.ModuloAluno.Domain.csproj", "{598377C1-64FE-4C0A-86F8-AF43A4A512AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.ModuloFinanceiro.Domain", "src\DevXpert.Modulo3.Financeiro.Domain\DevXpert.Modulo3.ModuloFinanceiro.Domain.csproj", "{B8B99578-BE29-4820-9A71-75B298F627F9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.ModuloFinanceiro.Business", "src\DevXpert.Modulo3.Financeiro.Domain\DevXpert.Modulo3.ModuloFinanceiro.Business.csproj", "{B8B99578-BE29-4820-9A71-75B298F627F9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{DFAACF30-8233-4A35-8BE5-FA3CCD6C9FC6}"
 EndProject
@@ -41,7 +41,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.ModuloAlun
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.ModuloConteudo.Application", "src\DevXpert.Modulo3.Curso.Application\DevXpert.Modulo3.ModuloConteudo.Application.csproj", "{619CC313-002A-4B38-B938-65FA278A2A91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.ModuloFinanceiro.Application", "src\DevXpert.Modulo3.Financeiro.Application\DevXpert.Modulo3.ModuloFinanceiro.Application.csproj", "{BF2B0021-56F4-4C32-977A-290EE7CA57F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.ModuloFinanceiro.AntiCorruption", "src\DevXpert.Modulo3.Financeiro.Application\DevXpert.Modulo3.ModuloFinanceiro.AntiCorruption.csproj", "{BF2B0021-56F4-4C32-977A-290EE7CA57F0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevXpert.Modulo3.API", "src\DevXpert.Modulo3.API\DevXpert.Modulo3.API.csproj", "{F06DF890-D798-48D9-A4E4-AE81007F2CE1}"
 EndProject

@@ -2,9 +2,10 @@
 {
     public enum StatusMatriculaEnum
     {
-        PreMatricula = 1,
+        PendentePagamento = 1,
         Matriculado = 2,
         Trancado = 3,
-        Concluido = 4
+        Cancelado = 4,
+        Concluido = 5
     }
 }

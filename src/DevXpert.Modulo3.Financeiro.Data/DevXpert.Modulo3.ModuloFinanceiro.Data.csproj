@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DevXpert.Modulo3.Core\DevXpert.Modulo3.Core.csproj" />
-    <ProjectReference Include="..\DevXpert.Modulo3.Financeiro.Domain\DevXpert.Modulo3.ModuloFinanceiro.Domain.csproj" />
+    <ProjectReference Include="..\DevXpert.Modulo3.Financeiro.Domain\DevXpert.Modulo3.ModuloFinanceiro.Business.csproj" />
   </ItemGroup>
 
 </Project>

@@ -5,8 +5,6 @@ namespace DevXpert.Modulo3.ModuloConteudo.Domain;
 public class Curso : Entity, IAggregateRoot
 {
     public string Nome { get; private set; }
-    public bool PermitirMatricula { get; private set; }
-    public TimeSpan CargaHoraria { get; private set; }
     public ConteudoProgramatico ConteudoProgramatico { get; private set; }
     private readonly List<Aula> _aulas;
     public IReadOnlyCollection<Aula> Aulas => _aulas;
@@ -20,9 +18,7 @@ public class Curso : Entity, IAggregateRoot
     {
         Nome = nome;
         ConteudoProgramatico = conteudoProgramatico;
-        CargaHoraria = TimeSpan.Zero;
         _aulas = [];
-        ProibirInscricao();
         Ativar();
         Validar();
     }
@@ -32,16 +28,10 @@ public class Curso : Entity, IAggregateRoot
         Id = id;
         Nome = nome;
         ConteudoProgramatico = conteudoProgramatico;
-        CargaHoraria = TimeSpan.Zero;
         _aulas = [];
-        ProibirInscricao();
         Ativar();
         Validar();
     }
-
-    public void PermitirInscricao() => PermitirMatricula = true;
-
-    public void ProibirInscricao() => PermitirMatricula = false;
 
     public void DesativarCurso() => Desativar();
 
@@ -61,7 +51,6 @@ public class Curso : Entity, IAggregateRoot
     public void CadastrarAula(Aula aula)
     {
         _aulas.Add(aula);
-        CargaHoraria += aula.Duracao;
     }
 
     public void Validar()

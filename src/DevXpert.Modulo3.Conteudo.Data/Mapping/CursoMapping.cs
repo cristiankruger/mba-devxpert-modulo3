@@ -14,21 +14,13 @@ public class CursoMapping : IEntityTypeConfiguration<Curso>
 
         builder.Property(c => c.Nome)
                .IsRequired()
-               .HasColumnType("varchar(100)");
-
-        builder.Property(c => c.CargaHoraria)
-               .IsRequired()
-               .HasColumnType("bigint");
+               .HasColumnType("varchar(100)");       
 
         builder.Property(c => c.Ativo)
                .IsRequired()
                .HasColumnType("bit");
 
-        builder.Property(c => c.PermitirMatricula)
-               .IsRequired()
-               .HasColumnType("bit");
-
-        builder.OwnsOne(c => c.ConteudoProgramatico, cp =>
+       builder.OwnsOne(c => c.ConteudoProgramatico, cp =>
         {
             cp.Property(c => c.Instrutor)
               .IsRequired()

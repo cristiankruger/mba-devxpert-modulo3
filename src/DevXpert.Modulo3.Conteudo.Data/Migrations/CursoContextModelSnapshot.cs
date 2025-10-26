@@ -3,6 +3,7 @@ using System;
 using DevXpert.Modulo3.ModuloConteudo.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -17,28 +18,28 @@ namespace DevXpert.Modulo3.ModuloConteudo.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .UseCollation("SQL_Latin1_General_CP1_CI_AI")
-                .HasAnnotation("ProductVersion", "9.0.10");
+                .HasAnnotation("ProductVersion", "9.0.10")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("DevXpert.Modulo3.ModuloConteudo.Domain.Aula", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
 
-                    b.Property<Guid>("CursoId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<TimeSpan>("Duracao")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Link")
+                    b.Property<string>("Conteudo")
                         .IsRequired()
-                        .HasColumnType("varchar(250)");
+                        .HasColumnType("varchar(100)");
 
-                    b.Property<string>("Titulo")
+                    b.Property<Guid>("CursoId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Material")
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 
@@ -46,10 +47,11 @@ namespace DevXpert.Modulo3.ModuloConteudo.Data.Migrations
 
                     b.HasIndex("CursoId");
 
-                    b.HasIndex("Titulo", "CursoId")
+                    b.HasIndex("Conteudo", "CursoId")
                         .IsUnique()
-                        .HasDatabaseName("UQ_TITULO_CURSO_AULAS")
-                        .HasAnnotation("SqlServer:FillFactor", 80);
+                        .HasDatabaseName("UQ_CONTEUDO_CURSO_AULAS");
+
+                    SqlServerIndexBuilderExtensions.HasFillFactor(b.HasIndex("Conteudo", "CursoId"), 80);
 
                     b.ToTable("Aulas", (string)null);
                 });
@@ -58,27 +60,22 @@ namespace DevXpert.Modulo3.ModuloConteudo.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
-
-                    b.Property<TimeSpan>("CargaHoraria")
-                        .HasColumnType("bigint");
 
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("varchar(100)");
 
-                    b.Property<bool>("PermitirMatricula")
-                        .HasColumnType("bit");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Nome")
                         .IsUnique()
-                        .HasDatabaseName("UQ_NOME_CURSOS")
-                        .HasAnnotation("SqlServer:FillFactor", 80);
+                        .HasDatabaseName("UQ_NOME_CURSOS");
+
+                    SqlServerIndexBuilderExtensions.HasFillFactor(b.HasIndex("Nome"), 80);
 
                     b.ToTable("Cursos", (string)null);
                 });
@@ -99,7 +96,7 @@ namespace DevXpert.Modulo3.ModuloConteudo.Data.Migrations
                     b.OwnsOne("DevXpert.Modulo3.ModuloConteudo.Domain.ConteudoProgramatico", "ConteudoProgramatico", b1 =>
                         {
                             b1.Property<Guid>("CursoId")
-                                .HasColumnType("TEXT");
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("Ementa")
                                 .IsRequired()

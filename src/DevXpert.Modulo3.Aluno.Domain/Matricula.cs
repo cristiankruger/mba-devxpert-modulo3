@@ -1,11 +1,11 @@
 ﻿using DevXpert.Modulo3.Core.DomainObjects;
-using DevXpert.Modulo3.Core.Messages;
 
 namespace DevXpert.Modulo3.ModuloAluno.Domain;
 
 public class Matricula : Entity
 {
     public string CursoNome { get; private set; }
+    public decimal Valor { get; private set; }
     public Guid CursoId { get; private set; }
     public Guid AlunoId { get; private set; }
     public DateTime DataCadastro { get; private set; }
@@ -13,30 +13,26 @@ public class Matricula : Entity
     public StatusMatriculaEnum Status { get; private set; }
 
     /*EF Relation*/
-    protected Aluno Aluno { get; set; }
-    protected Certificado Certificado { get; set; }
+    public Aluno Aluno { get; set; }
+    public Certificado Certificado { get; set; }
     /*EF Relation*/
 
     protected Matricula() { }
 
-    public Matricula(string cursoNome, Guid cursoId, Guid alunoId)
+    public Matricula(string cursoNome, decimal valor, Guid cursoId, Guid alunoId)
     {
         CursoNome = cursoNome;
+        Valor = valor;
         CursoId = cursoId;
         AlunoId = alunoId;
         DataCadastro = DateTime.Now;
-        Status = StatusMatriculaEnum.PreMatricula;
+        Status = StatusMatriculaEnum.PendentePagamento;
         Validar();
     }
 
     public void Matricular()
     {
         Status = StatusMatriculaEnum.Matriculado;
-    }
-
-    public void Trancar()
-    {
-        Status = StatusMatriculaEnum.Trancado;
     }
 
     public void Concluir()

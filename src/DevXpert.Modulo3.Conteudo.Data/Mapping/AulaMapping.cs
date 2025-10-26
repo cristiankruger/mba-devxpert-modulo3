@@ -12,7 +12,7 @@ public class AulaMapping : IEntityTypeConfiguration<Aula>
 
         builder.HasKey(a => a.Id);
 
-        builder.Property(a => a.Titulo)
+        builder.Property(a => a.Conteudo)
                .IsRequired()
                .HasColumnType("varchar(100)");
         
@@ -20,21 +20,17 @@ public class AulaMapping : IEntityTypeConfiguration<Aula>
                .IsRequired()
                .HasColumnType("bit");
 
-        builder.Property(a => a.Link)
+        builder.Property(a => a.Material)
                .IsRequired()
-               .HasColumnType("varchar(250)");
-
-        builder.Property(a => a.Duracao)
-               .IsRequired()
-               .HasColumnType("bigint");
+               .HasColumnType("varchar(100)");
 
         builder.HasOne(a=>a.Curso)
                .WithMany(c => c.Aulas)
                .HasForeignKey(a => a.CursoId);
 
-        builder.HasIndex(a => new { a.Titulo, a.CursoId })
+        builder.HasIndex(a => new { a.Conteudo, a.CursoId })
                .IsUnique()
-               .HasDatabaseName("UQ_TITULO_CURSO_AULAS")
+               .HasDatabaseName("UQ_CONTEUDO_CURSO_AULAS")
                .HasFillFactor(80);        
     }
 }

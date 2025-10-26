@@ -1,5 +1,7 @@
 ﻿using DevXpert.Modulo3.Core.Data;
-using DevXpert.Modulo3.ModuloFinanceiro.Domain;
+using DevXpert.Modulo3.ModuloFinanceiro.Business.Interfaces;
+using DevXpert.Modulo3.ModuloFinanceiro.Business.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DevXpert.Modulo3.ModuloFinanceiro.Data.Repository;
 
@@ -7,16 +9,18 @@ public class PagamentoRepository(PagamentoContext context) : IPagamentoRepositor
 {
     public IUnitOfWork UnitOfWork => context;
 
-    public Task<bool> RealizarPagamento(Domain.Pagamento pagamento)
+    public void Adicionar(Pagamento pagamento)
     {
-        throw new NotImplementedException();
+        context.Pagamentos.Add(pagamento);
+    }
+
+    public void AdicionarTransacao(Transacao transacao)
+    {
+        context.Transacoes.Add(transacao);
     }
 
     public void Dispose()
     {
 
     }
-
-   
-
 }

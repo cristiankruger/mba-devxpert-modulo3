@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DevXpert.Modulo3.API.Controllers.V1;
 
-[Authorize(AuthenticationSchemes = "Bearer")]
+[Authorize]
 [ApiVersion("1.0")]
 [Route("api/v{version:apiversion}/[controller]")]
 public class CursoController(ICursoAppService cursoAppService,
@@ -34,6 +34,9 @@ public class CursoController(ICursoAppService cursoAppService,
     {
         var curso = await cursoAppService.ObterPorId(id);
 
+        if (curso is null)
+            return NotFound();
+
         return CustomResponse(curso);
     }
 
@@ -46,14 +49,6 @@ public class CursoController(ICursoAppService cursoAppService,
         await cursoAppService.AdicionarCurso(cursoViewModel);
 
         return CustomResponse(cursoViewModel);
-    }
-   
-    [HttpPost("permitir-inscricao/{id:guid}")]
-    [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> PermitirInscricaoCurso(Guid id)
-    {
-        await cursoAppService.PermitirInscricaoCurso(id);
-        return CustomResponse();
     }
 
     [HttpGet("aulas/{cursoId:guid}")]
@@ -69,6 +64,9 @@ public class CursoController(ICursoAppService cursoAppService,
     {
         var aula = await cursoAppService.ObterAulaPorId(id);
 
+        if (aula is null)
+            return NotFound();
+
         return CustomResponse(aula);
     }
 
@@ -81,5 +79,5 @@ public class CursoController(ICursoAppService cursoAppService,
         await cursoAppService.AdicionarAula(aulaViewModel);
 
         return CustomResponse(aulaViewModel);
-    }   
+    }
 }

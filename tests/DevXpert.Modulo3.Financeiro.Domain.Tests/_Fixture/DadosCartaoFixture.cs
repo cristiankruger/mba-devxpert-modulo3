@@ -1,5 +1,5 @@
 ﻿using Bogus;
-using DevXpert.Modulo3.ModuloFinanceiro.Domain;
+using DevXpert.Modulo3.ModuloFinanceiro.Business.Models;
 
 namespace DevXpert.Modulo3.Financeiro.Domain.Tests._Fixture;
 
@@ -39,7 +39,7 @@ public class DadosCartaoTestsFixture : IDisposable
         return new Faker().Finance.CreditCardNumber().Replace("-", string.Empty);
     }
 
-    public string GerarTitularValido()
+    public string GerarNomeCartaoValido()
     {
         var f = new Faker();
         return $"{f.Person.FirstName} {f.Person.LastName}";

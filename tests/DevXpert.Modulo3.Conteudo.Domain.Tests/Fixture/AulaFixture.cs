@@ -19,28 +19,28 @@ public class AulaFixture : IDisposable
         var aula = new Faker<Aula>("pt_BR")
                                 .CustomInstantiator(f =>
                                         new Aula(Guid.NewGuid(),
-                                                 string.Join(" ", f.Lorem.Words(5)),
-                                                 f.Internet.Url(),
-                                                 TimeSpan.FromSeconds(f.Random.Int(1, 7200))));
+                                                 string.Join(" ", f.Lorem.Words(3)),
+                                                 string.Join(" ", f.Lorem.Words(3))
+                                                 ));
 
         var generated = aula.Generate(quantidade);
 
         return generated;
     }
 
-    public Aula GerarFakeAulaInvalido(Guid cursoId, string titulo, string link, TimeSpan duracao)
+    public Aula GerarFakeAulaInvalido(Guid cursoId, string conteudo, string material)
     {
         return new Faker<Aula>("pt_BR")
-           .CustomInstantiator(f => new Aula(cursoId, titulo, link, duracao));
+           .CustomInstantiator(f => new Aula(cursoId, conteudo, material));
     }
 
-    public string GerarTituloValido()
+    public string GerarConteudoValido()
     {
         var f = new Faker("pt_BR");
         return string.Join(" ", f.Lorem.Words(3));
     }
 
-    public string GerarTituloInvalido(bool vazio = false)
+    public string GerarConteudoInvalido(bool vazio = false)
     {
         if (vazio) return string.Empty;
 
@@ -48,22 +48,16 @@ public class AulaFixture : IDisposable
         return string.Join(" ", f.Lorem.Words(50));
     }
 
-    public string GerarLinkValido()
+    public string GerarMaterialValido()
     {
-        return new Faker().Internet.Url();
+        return GerarConteudoValido();
     }
 
-    public string GerarLinkInvalido()
+    public string GerarMaterialInvalido()
     {
-        return string.Join(" ", new Faker().Lorem.Words(200));
+        return GerarConteudoInvalido();
     }
-
-    public TimeSpan GerarDuracaoValida()
-    {
-        var f = new Faker("pt_BR");
-        return TimeSpan.FromSeconds(f.Random.Int(1, 7200));
-    }
-
+    
     public void Dispose()
     {
 

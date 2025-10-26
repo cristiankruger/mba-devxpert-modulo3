@@ -1,5 +1,6 @@
 ﻿using DevXpert.Modulo3.Core.Data;
-using DevXpert.Modulo3.ModuloFinanceiro.Domain;
+using DevXpert.Modulo3.Core.Messages;
+using DevXpert.Modulo3.ModuloFinanceiro.Business.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -8,10 +9,13 @@ namespace DevXpert.Modulo3.ModuloFinanceiro.Data;
 public class PagamentoContext(DbContextOptions<PagamentoContext> options) : DbContext(options), IUnitOfWork
 {
     public DbSet<Pagamento> Pagamentos { get; set; }
+    public DbSet<Transacao> Transacoes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.UseCollation("SQL_Latin1_General_CP1_CI_AI");
+
+        modelBuilder.Ignore<Event>();
 
         foreach (var property in modelBuilder.Model.GetEntityTypes()
                                                    .SelectMany(e => e.GetProperties()
@@ -33,8 +37,6 @@ public class PagamentoContext(DbContextOptions<PagamentoContext> options) : DbCo
             relationship.DeleteBehavior = DeleteBehavior.NoAction;
 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(PagamentoContext).Assembly);
-
-        //SeedDatabase.Seed(modelBuilder);
 
         base.OnModelCreating(modelBuilder);
     }

@@ -6,11 +6,10 @@ public interface IAlunoRepository : IRepository<Aluno>
 {
     Task<Aluno> Obter(Guid id);
     Task<Matricula> ObterMatricula(Guid id);
+    Task<IEnumerable<Matricula>> ObterListaMatricula(Guid alunoId);
     Task<Certificado> ObterCertificado(Guid matriculaId);
-    Task<IEnumerable<Matricula>> ObterListaMatricula(Guid alunoId);    
 
-    Task Adicionar(Aluno aluno);
-    void Atualizar(Aluno aluno);
+    Task Adicionar(Aluno aluno);    
     Task Adicionar(Matricula matricula);
     Task Adicionar(Certificado certificado);
 }

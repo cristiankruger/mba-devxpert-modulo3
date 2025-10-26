@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using DevXpert.Modulo3.API.Configurations.Extensions;
+using System.ComponentModel.DataAnnotations;
 
 namespace DevXpert.Modulo3.ModuloConteudo.Application.ViewModels;
 
@@ -8,18 +9,21 @@ public class AulaViewModel
     public Guid Id { get; set; }
 
     [Required(ErrorMessage = "O Id do Curso é obrigatório.")]
+    [GuidNotEmpty("CursoId")]
     public Guid CursoId { get; set; }
+    
+    [Required(ErrorMessage = "O Conteúdo da aula é obrigatório.")]
+    [StringLength(maximumLength: 100, MinimumLength = 5, ErrorMessage = "O Conteúdo da aula deve ter entre 5 e 100 caracteres.")]
+    public string Conteudo { get; set; }
 
-    [Required(ErrorMessage = "O Link da aula é obrigatório.")]
-    [StringLength(maximumLength: 250, MinimumLength = 10, ErrorMessage = "O link da aula deve ter entre 10 e 250 caracteres.")]
-    public string Link { get; set; }
+    public string Material { get; set; }
 
-    [Required(ErrorMessage = "O Título da aula é obrigatório.")]
-    [StringLength(maximumLength: 100, MinimumLength = 10, ErrorMessage = "O título da aula deve ter entre 10 e 100 caracteres.")]
-    public string Titulo { get; set; }
+    public bool Ativo { get; set; }
+    public string Curso { get; set; }
 
-    [Range(1, 7200, ErrorMessage = "A duração da aula deve ser entre 1 segundo e 2 horas.")]
-    public int DuracaoEmSegundos { get; set; }
-
-    public bool Ativo { get; set; } = true;    
+    public AulaViewModel()
+    {
+        Id = Guid.NewGuid();
+        Ativo = true;
+    }
 }

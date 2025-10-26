@@ -1,4 +1,4 @@
-﻿using DevXpert.Modulo3.ModuloFinanceiro.Domain;
+﻿using DevXpert.Modulo3.ModuloFinanceiro.Business.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -10,17 +10,17 @@ public class PagamentoMapping : IEntityTypeConfiguration<Pagamento>
     {
         builder.ToTable("Pagamentos");
 
+        builder.Ignore(t => t.Ativo);
+
         builder.HasKey(c => c.Id);
 
-        builder.Property(c => c.StatusPagamento)
+        builder.Property(c => c.PedidoId)
                .IsRequired()
-               .HasColumnType("varchar(20)")
-               .HasDefaultValue("AguardandoPagamento")
-               .HasConversion<string>();
-
+               .HasColumnType("UNIQUEIDENTIFIER");
+                
         builder.OwnsOne(c => c.DadosCartao, dc =>
         {
-            dc.Property(c => c.Titular)
+            dc.Property(c => c.NomeCartao)
               .IsRequired()
               .HasColumnName("Titular")
               .HasColumnType("varchar(100)");
@@ -39,8 +39,6 @@ public class PagamentoMapping : IEntityTypeConfiguration<Pagamento>
               .IsRequired()
               .HasColumnName("DataValidade")
               .HasColumnType("varchar(7)");
-
-            //TODO: 
         });
     }
 }

@@ -10,7 +10,7 @@ public class AulaTests(AulaFixture aulaFixture)
 {
     private readonly AulaFixture _aulasFixture = aulaFixture;
 
-    [Fact]
+    [Fact(DisplayName = "Aula Validar ObjetoNaoEhEntidade")]
     public void Aula_Validar_ObjetoNaoEhEntidade()
     {
         var result = _aulasFixture.GerarAulaValido();
@@ -20,74 +20,52 @@ public class AulaTests(AulaFixture aulaFixture)
         result.ShouldNotBeAssignableTo<IAggregateRoot>();
     }
 
-    [Fact]
+    [Fact(DisplayName = "Aula Validar ValidacoesCursoIdDevemRetornarException")]
     public void Aula_Validar_ValidacoesCursoIdDevemRetornarException()
     {
-        var titulo = _aulasFixture.GerarTituloValido();
-        var link = _aulasFixture.GerarLinkValido();
-        var duracao = _aulasFixture.GerarDuracaoValida();
+        var conteudo = _aulasFixture.GerarConteudoValido();
+        var material = _aulasFixture.GerarMaterialValido();
 
         var ex = Assert.Throws<DomainException>(() =>
-            _aulasFixture.GerarFakeAulaInvalido(Guid.Empty, titulo, link, duracao)
+            _aulasFixture.GerarFakeAulaInvalido(Guid.Empty, conteudo, material)
         );
 
         ex.Message.ShouldBe(Aula.CursoIdMsgErro);
     }
 
-    [Fact]
-    public void Aula_Validar_ValidacoesTituloDevemRetornarException()
+    [Fact(DisplayName = "Aula Validar ValidacoesConteudoDevemRetornarException")]
+    public void Aula_Validar_ValidacoesConteudoDevemRetornarException()
     {
-        var link = _aulasFixture.GerarLinkValido();
-        var duracao = _aulasFixture.GerarDuracaoValida();
+        var conteudoInvalido = _aulasFixture.GerarConteudoInvalido();
+        var material = _aulasFixture.GerarMaterialValido();
 
         var ex = Assert.Throws<DomainException>(() =>
-            _aulasFixture.GerarFakeAulaInvalido(Guid.NewGuid(), "", link, duracao)
+            _aulasFixture.GerarFakeAulaInvalido(Guid.NewGuid(), "", material)
         );
 
-        ex.Message.ShouldBe(Aula.TituloMsgErro);
+        ex.Message.ShouldBe(Aula.ConteudoMsgErro);
 
         ex = Assert.Throws<DomainException>(() =>
-            _aulasFixture.GerarFakeAulaInvalido(Guid.NewGuid(), "A", link, duracao)
+            _aulasFixture.GerarFakeAulaInvalido(Guid.NewGuid(), conteudoInvalido, material)
         );
 
-        ex.Message.ShouldBe(Aula.TituloLengthMsgErro);
+        ex.Message.ShouldBe(Aula.ConteudoLengthMsgErro);
     }
 
-    [Fact]
-    public void Aula_Validar_ValidacoesLinkDevemRetornarException()
+    [Fact(DisplayName = "Aula Validar ValidacoesMaterialDevemRetornarException")]
+    public void Aula_Validar_ValidacoesMaterialDevemRetornarException()
     {
-        var titulo = _aulasFixture.GerarTituloValido();
-        var duracao = _aulasFixture.GerarDuracaoValida();
+        var conteudo = _aulasFixture.GerarConteudoValido();
+        var material = _aulasFixture.GerarMaterialInvalido();
 
         var ex = Assert.Throws<DomainException>(() =>
-            _aulasFixture.GerarFakeAulaInvalido(Guid.NewGuid(), titulo, "", duracao)
+            _aulasFixture.GerarFakeAulaInvalido(Guid.NewGuid(),conteudo, material)
         );
 
-        ex.Message.ShouldBe(Aula.LinkMsgErro);
 
-        ex = Assert.Throws<DomainException>(() =>
-            _aulasFixture.GerarFakeAulaInvalido(Guid.NewGuid(), titulo, _aulasFixture.GerarLinkInvalido(), duracao)
-        );
-
-        ex.Message.ShouldBe(Aula.LinkLengthMsgErro);
+        ex.Message.ShouldBe(Aula.MaterialLengthMsgErro);
     }
 
-    [Fact]
-    public void Aula_Validar_ValidacoesDuracaoDevemRetornarException()
-    {
-        var titulo = _aulasFixture.GerarTituloValido();
-        var link = _aulasFixture.GerarLinkValido();
-
-        var ex = Assert.Throws<DomainException>(() =>
-            _aulasFixture.GerarFakeAulaInvalido(Guid.NewGuid(), titulo, link, TimeSpan.FromSeconds(0))
-        );
-
-        ex.Message.ShouldBe(Aula.DuracaoMsgErro);
-
-        ex = Assert.Throws<DomainException>(() =>
-            _aulasFixture.GerarFakeAulaInvalido(Guid.NewGuid(), titulo, link, TimeSpan.FromSeconds(10000))
-        );
-
-        ex.Message.ShouldBe(Aula.DuracaoMsgErro);
-    }
+   
+   
 }

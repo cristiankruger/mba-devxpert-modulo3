@@ -1,19 +1,19 @@
 ﻿using DevXpert.Modulo3.Core.DomainObjects;
 
-namespace DevXpert.Modulo3.ModuloFinanceiro.Domain;
+namespace DevXpert.Modulo3.ModuloFinanceiro.Business.Models;
 
 public class DadosCartao
 {
-    public string Titular { get; private set; }
+    public string NomeCartao { get; private set; }
     public string NumeroCartao { get; private set; }
     public string Cvv { get; private set; }
     public string DataValidade { get; private set; }
 
     //MENSAGENS VALIDAÇÃO
-    public const string TitularVazioMsgErro = "O campo Titular do Cartão não pode estar vazio.";
-    public const string TitularRegexMsgErro = "O campo Titular do Cartão só pode conter letras e espaços.";
-    public const string TitularTamanhoMsgErro = "O campo Titular do Cartão deve ter entre 5 e 100 caracteres.";
-    public const string NumeroCartaoVazioMsgErro = "O campo Titular do Cartão não pode estar vazio.";
+    public const string NomeCartaoVazioMsgErro = "O campo NomeCartao do Cartão não pode estar vazio.";
+    public const string NomeCartaoRegexMsgErro = "O campo NomeCartao do Cartão só pode conter letras e espaços.";
+    public const string NomeCartaoTamanhoMsgErro = "O campo NomeCartao do Cartão deve ter entre 5 e 100 caracteres.";
+    public const string NumeroCartaoVazioMsgErro = "O campo NomeCartao do Cartão não pode estar vazio.";
     public const string NumeroCartaoRegexMsgErro = "O campo Número do Cartão só pode conter dígitos.";
     public const string NumeroCartaoTamanhoMsgErro = "O campo Número do Cartão deve ter entre 12 e 20 dígitos.";
     public const string CvvVazioMsgErro = "O campo CVV do Cartão não pode estar vazio.";
@@ -22,11 +22,11 @@ public class DadosCartao
     public const string DataValidadeRegexMsgErro = "O campo Data de Validade deve estar no formato MM/AAAA.";
     public const string DataValidadeVencidoMsgErro = "O campo Data de Validade deve ser superior à data atual.";
     
-    public DadosCartao(string titular, string numeroCartao, string cvv, string dataValidade)
+    public DadosCartao(string nomeCartao, string numeroCartao, string cvv, string dataValidade)
     {
-        Validacoes.ValidarSeVazio(titular, TitularVazioMsgErro);
-        Validacoes.ValidarSeDiferente(titular, @"^[A-Za-z\s]+$", TitularRegexMsgErro);
-        Validacoes.ValidarTamanho(titular, 5, 100, TitularTamanhoMsgErro);
+        Validacoes.ValidarSeVazio(nomeCartao, NomeCartaoVazioMsgErro);
+        Validacoes.ValidarSeDiferente(nomeCartao, @"^[A-Za-z\s]+$", NomeCartaoRegexMsgErro);
+        Validacoes.ValidarTamanho(nomeCartao, 5, 100, NomeCartaoTamanhoMsgErro);
         Validacoes.ValidarSeVazio(numeroCartao, NumeroCartaoVazioMsgErro);
         Validacoes.ValidarSeDiferente(numeroCartao, @"^\d+$", NumeroCartaoRegexMsgErro);
         Validacoes.ValidarMinimoMaximo(numeroCartao, 12, 20, NumeroCartaoTamanhoMsgErro);
@@ -37,14 +37,14 @@ public class DadosCartao
         Validacoes.ValidarSeMenorQue(dataValidade, '/', DataValidadeVencidoMsgErro);
 
         NumeroCartao = numeroCartao;
-        Titular = titular;
+        NomeCartao = nomeCartao;
         DataValidade = dataValidade;
         Cvv = cvv;
     }
 
     public string CartaoFormatado()
     {
-        return $"Cartão: **** **** **** {NumeroCartao.Substring(NumeroCartao.Length - 4, 4)}; Titular: {Titular}; Valido até: {DataValidade}";
+        return $"Cartão: **** **** **** {NumeroCartao.Substring(NumeroCartao.Length - 4, 4)}; Titular: {NomeCartao}; Valido até: {DataValidade}";
     }
 
     public override string ToString()

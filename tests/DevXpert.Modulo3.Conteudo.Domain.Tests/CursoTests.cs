@@ -10,7 +10,7 @@ public class CursoTests(CursoFixture cursoFixture)
 {
     private readonly CursoFixture _cursosFixture = cursoFixture;
 
-    [Fact]
+    [Fact(DisplayName = "Curso Validar ObjetoNaoEhEntidade")]
     public void Curso_Validar_ObjetoNaoEhEntidade()
     {
         var result = _cursosFixture.GerarCursoValido();
@@ -20,7 +20,7 @@ public class CursoTests(CursoFixture cursoFixture)
         result.ShouldBeAssignableTo<IAggregateRoot>();
     }
 
-    [Fact]
+    [Fact(DisplayName = "Curso Validar ValidacoesNomeDevemRetornarException")]
     public void Curso_Validar_ValidacoesNomeDevemRetornarException()
     {
         var ementa = _cursosFixture.GerarEmentaValida();
@@ -40,7 +40,7 @@ public class CursoTests(CursoFixture cursoFixture)
         ex.Message.ShouldBe(Curso.NomeLengthMsgErro);
     }
 
-    [Fact]
+    [Fact(DisplayName = "Curso Validar MetodoAtivarDeveAtivar")]
     public void Curso_Validar_MetodoAtivarDeveAtivar()
     {
         var curso = _cursosFixture.GerarCursoValido();
@@ -50,7 +50,7 @@ public class CursoTests(CursoFixture cursoFixture)
         curso.Ativo.ShouldBeTrue();
     }
 
-    [Fact]
+    [Fact(DisplayName = "Curso Validar MetodoDesativarDeveDesativar")]
     public void Curso_Validar_MetodoDesativarDeveDesativar()
     {
         var curso = _cursosFixture.GerarCursoValido();
@@ -58,30 +58,10 @@ public class CursoTests(CursoFixture cursoFixture)
         curso.DesativarCurso();
 
         curso.Ativo.ShouldBeFalse();
-    }
+    }    
 
-    [Fact]
-    public void Curso_Validar_MetodoPermitirInscricaoDevePermitirMatricula()
-    {
-        var curso = _cursosFixture.GerarCursoValido();
-
-        curso.PermitirInscricao();
-
-        curso.PermitirMatricula.ShouldBeTrue();
-    }
-
-    [Fact]
-    public void Curso_Validar_MetodoProibirInscricaoNaoDevePermitirMatricula()
-    {
-        var curso = _cursosFixture.GerarCursoValido();
-
-        curso.ProibirInscricao();
-
-        curso.PermitirMatricula.ShouldBeFalse();
-    }
-
-    [Fact]
-    public void Curso_Validar_MetodoCadastrarAulaDeveIncluirAulaNaLista()
+    [Fact(DisplayName = "Curso Validar MetodoCadastrarAulaDeveIncluirAula")]
+    public void Curso_Validar_MetodoCadastrarAulaDeveIncluirAula()
     {
         var curso = _cursosFixture.GerarCursoValido();
         var aula = _cursosFixture.GerarAulaValido(curso.Id);
@@ -89,7 +69,6 @@ public class CursoTests(CursoFixture cursoFixture)
         curso.CadastrarAula(aula);
 
         curso.Aulas.ShouldContain(aula);    
-        curso.CargaHoraria.ShouldBe(aula.Duracao);
     }
 }
 

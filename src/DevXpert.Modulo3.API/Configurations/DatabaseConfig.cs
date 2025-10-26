@@ -3,7 +3,6 @@ using DevXpert.Modulo3.ModuloAluno.Data;
 using DevXpert.Modulo3.ModuloConteudo.Data;
 using DevXpert.Modulo3.ModuloFinanceiro.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace DevXpert.Modulo3.API.Configurations;
@@ -16,30 +15,30 @@ public static class DatabaseConfig
         var env = builder.Environment;
         var configuration = builder.Configuration;
 
-        if (env.IsDevelopment())
-        {
-            builder.Services
-                   .AddDbContext<IdentityAppContext>(options => options.UseSqlite(configuration.GetConnectionString("IdentitySqliteConnection"),
-                                                                                  opt => opt.CommandTimeout(45)
-                                                                                            .UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery)));
+        //if (env.IsDevelopment())
+        //{
+        //    builder.Services
+        //           .AddDbContext<IdentityAppContext>(options => options.UseSqlite(configuration.GetConnectionString("IdentitySqliteConnection"),
+        //                                                                          opt => opt.CommandTimeout(45)
+        //                                                                                    .UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery)));
 
-            builder.Services
-                   .AddDbContext<CursoContext>(options => options.UseSqlite(configuration.GetConnectionString("CursoSqliteConnection"),
-                                                                            opt => opt.CommandTimeout(45)
-                                                                                      .UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery)));
+        //    builder.Services
+        //           .AddDbContext<CursoContext>(options => options.UseSqlite(configuration.GetConnectionString("CursoSqliteConnection"),
+        //                                                                    opt => opt.CommandTimeout(45)
+        //                                                                              .UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery)));
 
-            builder.Services
-                   .AddDbContext<AlunoContext>(options => options.UseSqlite(configuration.GetConnectionString("AlunoSqliteConnection"),
-                                                                            opt => opt.CommandTimeout(45)
-                                                                                      .UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery)));
+        //    builder.Services
+        //           .AddDbContext<AlunoContext>(options => options.UseSqlite(configuration.GetConnectionString("AlunoSqliteConnection"),
+        //                                                                    opt => opt.CommandTimeout(45)
+        //                                                                              .UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery)));
 
-            builder.Services
-                   .AddDbContext<PagamentoContext>(options => options.UseSqlite(configuration.GetConnectionString("PagamentoSqliteConnection"),
-                                                                                opt => opt.CommandTimeout(45)
-                                                                                          .UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery)));
+        //    builder.Services
+        //           .AddDbContext<PagamentoContext>(options => options.UseSqlite(configuration.GetConnectionString("PagamentoSqliteConnection"),
+        //                                                                        opt => opt.CommandTimeout(45)
+        //                                                                                  .UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery)));
 
-            return builder;
-        }
+        //    return builder;
+        //}
 
         builder.Services
                .AddDbContext<IdentityAppContext>(options => options.UseSqlServer(configuration.GetConnectionString("IdentityConnection"),
@@ -74,7 +73,7 @@ public static class DatabaseConfig
         await scope.ServiceProvider.GetService<IdentityAppContext>().Database.MigrateAsync();
         await scope.ServiceProvider.GetService<CursoContext>().Database.MigrateAsync();
         //await scope.ServiceProvider.GetService<AlunoContext>().Database.MigrateAsync();
-        //await scope.ServiceProvider.GetService<PagamentoContext>().Database.MigrateAsync();
+        await scope.ServiceProvider.GetService<PagamentoContext>().Database.MigrateAsync();
 
         return app;
     }

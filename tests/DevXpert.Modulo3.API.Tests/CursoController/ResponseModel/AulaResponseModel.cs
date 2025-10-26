@@ -3,8 +3,8 @@ using DevXpert.Modulo3.ModuloConteudo.Application.ViewModels;
 
 namespace DevXpert.Modulo3.API.Tests.CursoController.ResponseModel
 {
-    public class CursoObterPorIdResponseModel : BaseResponseModel
+    public class AulaResponseModel : BaseResponseModel
     {
-        public CursoViewModel Data { get; set; }
+        public AulaViewModel Data { get; set; }
     }
 }

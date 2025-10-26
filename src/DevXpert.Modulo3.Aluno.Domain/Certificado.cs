@@ -5,10 +5,12 @@ namespace DevXpert.Modulo3.ModuloAluno.Domain;
 public class Certificado : Entity
 {
     public Guid MatriculaId { get; private set; }
+    
     public DateTime DataEmissao{ get; private set; }
 
     /*EF Relation*/
     public Matricula Matricula{ get; set; }
+    /*EF Relation*/
 
     protected Certificado() { }
 

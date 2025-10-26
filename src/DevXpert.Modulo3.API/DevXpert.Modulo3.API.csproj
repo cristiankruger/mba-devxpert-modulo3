@@ -34,6 +34,7 @@
     <ProjectReference Include="..\DevXpert.Modulo3.Conteudo.Data\DevXpert.Modulo3.ModuloConteudo.Data.csproj" />
     <ProjectReference Include="..\DevXpert.Modulo3.Core.Application\DevXpert.Modulo3.Core.Application.csproj" />
     <ProjectReference Include="..\DevXpert.Modulo3.Curso.Application\DevXpert.Modulo3.ModuloConteudo.Application.csproj" />
+    <ProjectReference Include="..\DevXpert.Modulo3.Financeiro.Application\DevXpert.Modulo3.ModuloFinanceiro.AntiCorruption.csproj" />
     <ProjectReference Include="..\DevXpert.Modulo3.Financeiro.Data\DevXpert.Modulo3.ModuloFinanceiro.Data.csproj" />
   </ItemGroup>
 

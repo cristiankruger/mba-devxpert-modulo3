@@ -108,6 +108,14 @@ public class Validacoes
             throw new DomainException(mensagem);
     }
 
+    public static void ValidarSeMaiorQue(string valor, long maximo, string mensagem, bool optional = false)
+    {
+        if (optional && string.IsNullOrEmpty(valor)) return;
+
+        if (valor.Length > maximo)
+            throw new DomainException(mensagem);
+    }
+
     public static void ValidarSeMenorQue(double valor, double minimo, string mensagem)
     {
         if (valor < minimo)

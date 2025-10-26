@@ -5,61 +5,46 @@ namespace DevXpert.Modulo3.ModuloConteudo.Domain;
 public class Aula : Entity
 {
     public Guid CursoId { get; private set; }
-    public string Link { get; private set; }
-    public string Titulo { get; private set; }
-    public TimeSpan Duracao { get; private set; }
-    //TODO: Tratar no futuro o link como arquivo de upload (IFormFile) e retirar de lá a Duração
-
+    public string Conteudo { get; private set; }
+    public string Material { get; private set; }
+   
     /*EF Relation*/
     public Curso Curso { get; set; }
     /*EF Relation*/
 
     protected Aula() { }
 
-    public Aula(Guid cursoId, string titulo, string link, TimeSpan duracao)
+    public Aula(Guid cursoId, string conteudo, string material)
     {
         CursoId = cursoId;
-        Titulo = titulo;
-        Link =link;
-        Duracao = duracao;
+        Conteudo = conteudo;
+        Material = material;
+        Ativar();
+        Validar();
+    }
+    
+    public Aula(Guid id, Guid cursoId, string conteudo, string material)
+    {
+        Id = id;    
+        CursoId = cursoId;
+        Conteudo = conteudo;
+        Material = material;
         Ativar();
         Validar();
     }
 
-    public Aula(Guid id, Guid cursoId, string titulo, string link, TimeSpan duracao)
-    {
-        Id = id;
-        CursoId = cursoId;
-        Titulo = titulo;
-        Link = link;
-        Duracao = duracao;
-        Ativar();
-        Validar();
-    }
-
-    public void AlterarTitulo(string titulo)
-    {
-        Validacoes.ValidarSeVazio(titulo, TituloMsgErro);
-        Validacoes.ValidarMinimoMaximo(titulo, 10, 100, TituloLengthMsgErro);
-        Titulo = titulo;
-    }
-
+   
     public void Validar()
     {
         Validacoes.ValidarSeIgual(CursoId, Guid.Empty, CursoIdMsgErro);
-        Validacoes.ValidarSeMenorQue((long)Duracao.TotalSeconds, 1, DuracaoMsgErro);
-        Validacoes.ValidarSeMaiorQue((long)Duracao.TotalSeconds, 7200, DuracaoMsgErro);
-        Validacoes.ValidarSeVazio(Titulo, TituloMsgErro);
-        Validacoes.ValidarMinimoMaximo(Titulo, 10, 100, TituloLengthMsgErro);
-        Validacoes.ValidarSeVazio(Link, LinkMsgErro);
-        Validacoes.ValidarMinimoMaximo(Link, 10, 250, LinkLengthMsgErro);
+        Validacoes.ValidarSeVazio(Conteudo, ConteudoMsgErro);
+        Validacoes.ValidarMinimoMaximo(Conteudo, 5, 100, ConteudoLengthMsgErro);
+        Validacoes.ValidarSeMaiorQue(Material, 100, MaterialLengthMsgErro, true);
     }
 
     //MENSAGENS VALIDACAO
     public const string CursoIdMsgErro = "O campo CursoId da aula não pode estar vazio.";
-    public const string DuracaoMsgErro = "O campo Duração da aula deve ser entre 1 segundo e 2 horas.";
-    public const string TituloMsgErro = "O campo Título da aula não pode estar vazio.";
-    public const string TituloLengthMsgErro = "O campo Título da aula deve ter entre 10 e 100 caracteres.";
-    public const string LinkMsgErro = "O campo Link da aula não pode estar vazio.";
-    public const string LinkLengthMsgErro = "O campo Link da aula deve ter entre 10 e 250 caracteres.";
+    public const string ConteudoMsgErro = "O campo Título da aula não pode estar vazio.";
+    public const string ConteudoLengthMsgErro = "O campo Título da aula deve ter entre 5 e 100 caracteres.";
+    public const string MaterialLengthMsgErro = "O campo Material da aula deve ter no máximo 100 caracteres.";
 }

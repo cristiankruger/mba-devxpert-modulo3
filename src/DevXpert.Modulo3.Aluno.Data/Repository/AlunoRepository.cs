@@ -15,13 +15,18 @@ namespace DevXpert.Modulo3.ModuloAluno.Data.Repository
 
         public async Task<Matricula> ObterMatricula(Guid id)
         {
-            return await context.Matriculas.FindAsync(id);
+            return await context
+                            .Matriculas
+                            .Include(a => a.Certificado)
+                            .Include(a => a.Aluno)
+                            .FirstOrDefaultAsync(m => m.Id == id);
         }
 
         public async Task<Certificado> ObterCertificado(Guid matriculaId)
         {
             return await context.Certificados
                                 .Include(c => c.Matricula)
+                                .ThenInclude(c => c.Aluno)
                                 .FirstOrDefaultAsync(c => c.MatriculaId == matriculaId);
         }
 
@@ -47,11 +52,6 @@ namespace DevXpert.Modulo3.ModuloAluno.Data.Repository
         public async Task Adicionar(Certificado certificado)
         {
             await context.Certificados.AddAsync(certificado);
-        }
-
-        public void Atualizar(Domain.Aluno aluno)
-        {
-            context.Alunos.Update(aluno);
         }
     }
 }

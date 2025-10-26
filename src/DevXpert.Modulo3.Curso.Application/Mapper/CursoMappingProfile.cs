@@ -9,7 +9,7 @@ public static class CursoMappingProfile
     public static Curso MapCursoViewModelToCurso(CursoViewModel model)
     {
         if (model is null) return null;
-        var curso = new Curso(model.Nome, new(model.Instrutor, model.Ementa, model.PublicoAlvo));
+        var curso = new Curso(model.Id, model.Nome, new(model.Instrutor, model.Ementa, model.PublicoAlvo));
         
         foreach (var aula in model.Aulas)
             curso.CadastrarAula(MapAulaViewModelToAula(aula));
@@ -40,8 +40,6 @@ public static class CursoMappingProfile
         {
             Id = entity.Id,
             Ativo = entity.Ativo,
-            CargaHoraria = entity.CargaHoraria,
-            PermitirMatricula = entity.PermitirMatricula,
             Nome = entity.Nome,
             Ementa = entity.ConteudoProgramatico.Ementa,
             Instrutor = entity.ConteudoProgramatico.Instrutor,
@@ -72,7 +70,7 @@ public static class CursoMappingProfile
     {
         if (model is null) return null;
         
-        return new(model.Id, model.CursoId, model.Titulo, model.Link, TimeSpan.FromSeconds(model.DuracaoEmSegundos));
+        return new(model.Id, model.CursoId, model.Conteudo, model.Material);
     }
 
     public static IEnumerable<Aula> MapListaAulaViewModelToAula(IEnumerable<AulaViewModel> listaViewModel)
@@ -98,9 +96,9 @@ public static class CursoMappingProfile
         {
             Id = entity.Id,
             CursoId = entity.CursoId,
-            Titulo = entity.Titulo,
-            Link = entity.Link,
-            DuracaoEmSegundos = (int)entity.Duracao.TotalSeconds,
+            Curso = entity.Curso.Nome,
+            Conteudo = entity.Conteudo,
+            Material= entity.Material,
             Ativo = entity.Ativo
         };
 

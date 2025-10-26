@@ -1,5 +1,4 @@
 ﻿using Bogus;
-using DevXpert.Modulo3.ModuloConteudo.Domain;
 
 namespace DevXpert.Modulo3.ModuloConteudo.Domain.Tests.Fixture;
 
@@ -30,8 +29,8 @@ public class CursoFixture : IDisposable
                                 .CustomInstantiator(f =>
                                         new Aula(cursoId == Guid.Empty ? Guid.NewGuid() : cursoId,
                                                  string.Join(" ", f.Lorem.Words(5)),
-                                                 f.Internet.Url(),
-                                                 TimeSpan.FromSeconds(f.Random.Int(1, 7200))));
+                                                 string.Join(" ", f.Lorem.Words(5))
+                                                 ));
 
         var generated = aula.Generate(quantidade);
 

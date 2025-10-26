@@ -34,29 +34,7 @@ namespace DevXpert.Modulo3.ModuloConteudo.Application.Services
 
             await cursoRepository.Adicionar(curso);
             await cursoRepository.UnitOfWork.Commit();
-        }
-
-        public async Task PermitirInscricaoCurso(Guid id)
-        {
-            var curso = CursoMappingProfile.MapCursoViewModelToCurso(await ObterPorId(id));
-
-            if (curso is null)
-            {
-                await mediatorHandler.PublicarNotificacao(new DomainNotification("Curso", "Curso não encontrado."));
-                return;
-            }
-
-            if (curso.Aulas.Count == 0)
-            {
-                await mediatorHandler.PublicarNotificacao(new DomainNotification("Curso", "Não é possível permitir inscrição em um curso sem aulas."));
-                return;
-            }
-
-            curso.PermitirInscricao();
-            cursoRepository.Atualizar(curso);
-            await cursoRepository.UnitOfWork.Commit();
-        }
-
+        }      
 
         //Aula
         public async Task<AulaViewModel> ObterAulaPorId(Guid id)
@@ -81,7 +59,7 @@ namespace DevXpert.Modulo3.ModuloConteudo.Application.Services
 
             var aula = CursoMappingProfile.MapAulaViewModelToAula(aulaViewModel);
 
-            var jaCadastrado = curso.Aulas.FirstOrDefault(a => a.CursoId == aula.CursoId && a.Titulo == aula.Titulo);
+            var jaCadastrado = curso.Aulas.FirstOrDefault(a => a.CursoId == aula.CursoId && a.Conteudo == aula.Conteudo);
 
             if (jaCadastrado is not null)
             {

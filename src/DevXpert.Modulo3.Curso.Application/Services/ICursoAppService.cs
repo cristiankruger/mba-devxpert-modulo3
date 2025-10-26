@@ -7,7 +7,6 @@ namespace DevXpert.Modulo3.ModuloConteudo.Application.Services
         Task<CursoViewModel> ObterPorId(Guid id);
         Task<IEnumerable<CursoViewModel>> ObterTodos();
         Task AdicionarCurso(CursoViewModel cursoViewModel);
-        Task PermitirInscricaoCurso(Guid id);
 
         Task<IEnumerable<AulaViewModel>> ObterAulas(Guid cursoId);
         Task<AulaViewModel> ObterAulaPorId(Guid id);

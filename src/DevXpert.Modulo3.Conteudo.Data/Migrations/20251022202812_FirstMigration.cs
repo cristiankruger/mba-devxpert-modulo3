@@ -15,10 +15,10 @@ namespace DevXpert.Modulo3.ModuloConteudo.Data.Migrations
                 name: "Cursos",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Nome = table.Column<string>(type: "varchar(100)", nullable: false),
                     PermitirMatricula = table.Column<bool>(type: "bit", nullable: false),
-                    CargaHoraria = table.Column<TimeSpan>(type: "bigint", nullable: false),
+                    CargaHoraria = table.Column<long>(type: "bigint", nullable: false),
                     Ementa = table.Column<string>(type: "varchar(1000)", nullable: true),
                     Instrutor = table.Column<string>(type: "varchar(100)", nullable: true),
                     PublicoAlvo = table.Column<string>(type: "varchar(250)", nullable: true),
@@ -33,11 +33,11 @@ namespace DevXpert.Modulo3.ModuloConteudo.Data.Migrations
                 name: "Aulas",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    CursoId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CursoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Link = table.Column<string>(type: "varchar(250)", nullable: false),
                     Titulo = table.Column<string>(type: "varchar(100)", nullable: false),
-                    Duracao = table.Column<TimeSpan>(type: "bigint", nullable: false),
+                    Duracao = table.Column<long>(type: "bigint", nullable: false),
                     Ativo = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -59,13 +59,15 @@ namespace DevXpert.Modulo3.ModuloConteudo.Data.Migrations
                 name: "UQ_TITULO_CURSO_AULAS",
                 table: "Aulas",
                 columns: new[] { "Titulo", "CursoId" },
-                unique: true);
+                unique: true)
+                .Annotation("SqlServer:FillFactor", 80);
 
             migrationBuilder.CreateIndex(
                 name: "UQ_NOME_CURSOS",
                 table: "Cursos",
                 column: "Nome",
-                unique: true);
+                unique: true)
+                .Annotation("SqlServer:FillFactor", 80);
         }
 
         /// <inheritdoc />
