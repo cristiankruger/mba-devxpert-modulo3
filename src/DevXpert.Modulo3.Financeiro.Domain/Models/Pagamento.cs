@@ -4,9 +4,21 @@ namespace DevXpert.Modulo3.ModuloFinanceiro.Business.Models;
 
 public class Pagamento : Entity, IAggregateRoot
 {
-    public Guid PedidoId { get; set; }
-    public DadosCartao DadosCartao { get; set; }
-    public Transacao Transacao { get; set; }
+    public Guid PedidoId { get; private set; }
+    public DadosCartao DadosCartao { get; private set; }
 
-    public Pagamento() { }       
+    /*EF RELATION*/
+    public Transacao Transacao { get; set; }
+    /*EF RELATION*/
+
+    public Pagamento()
+    {
+
+    }
+
+    public Pagamento(Guid pedidoId, DadosCartao dadosCartao)
+    {
+        PedidoId = pedidoId;
+        DadosCartao = dadosCartao;
+    }
 }

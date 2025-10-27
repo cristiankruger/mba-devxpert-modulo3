@@ -11,27 +11,20 @@ public class PagamentoCartaoCreditoFacade(IPayPalGateway payPalGateway,
         var apiKey = configManager.GetValue("apiKey");
         var encriptionKey = configManager.GetValue("encriptionKey");
 
-        var serviceKey =  payPalGateway.GetPayPalServiceKey(apiKey, encriptionKey);
+        var serviceKey = payPalGateway.GetPayPalServiceKey(apiKey, encriptionKey);
         var cardHashKey = payPalGateway.GetCardHashKey(serviceKey, pagamento.DadosCartao.NumeroCartao);
 
         var pagamentoResult = payPalGateway.CommitTransaction(cardHashKey, pedido.Id.ToString(), pagamento.Transacao.Valor);
 
-        // TODO: O gateway de pagamentos que deve retornar o objeto transação
-        var transacao = new Transacao
-        {
-            DataTransacao = DateTime.Now,
-            StatusPagamento = StatusPagamento.AguardandoPagamento,
-            Valor = pedido.Valor,
-            PagamentoId = pagamento.Id
-        };
+        var transacao = new Transacao(pagamento.Id, pedido.Valor);
 
         if (pagamentoResult)
         {
-            transacao.StatusPagamento = StatusPagamento.Aprovado;
+            transacao.TransacaoAprovada();
             return transacao;
         }
 
-        transacao.StatusPagamento = StatusPagamento.Recusado;
+        transacao.TransacaoRecusada();
         return transacao;
     }
 }

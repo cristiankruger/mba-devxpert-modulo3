@@ -1,14 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-#nullable disable
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DevXpert.Modulo3.ModuloFinanceiro.Data.Migrations
 {
-    /// <inheritdoc />
     public partial class FirstMigration : Migration
     {
-        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
